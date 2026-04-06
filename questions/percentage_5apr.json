@@ -1,0 +1,85 @@
+{
+  "quizTitle": "Money Percentage Practice",
+  "questions": [
+    {
+      "id": "q1",
+      "question": "A toy costs £50. It is discounted by 10%. What is the new price?",
+      "options": ["£40", "£45", "£48", "£35"],
+      "correctAnswer": "£45",
+      "engine": "none",
+      "payload": {}
+    },
+    {
+      "id": "q2",
+      "question": "You have £80. You spend 25% of it. How much did you spend?",
+      "options": ["£10", "£15", "£20", "£25"],
+      "correctAnswer": "£20",
+      "engine": "none",
+      "payload": {}
+    },
+    {
+      "id": "q3",
+      "question": "A bike costs £200. Its price increases by 10%. What is the new price?",
+      "options": ["£210", "£220", "£230", "£240"],
+      "correctAnswer": "£220",
+      "engine": "none",
+      "payload": {}
+    },
+    {
+      "id": "q4",
+      "question": "You earn £60. You save 50% of it. How much do you save?",
+      "options": ["£20", "£25", "£30", "£35"],
+      "correctAnswer": "£30",
+      "engine": "none",
+      "payload": {}
+    },
+    {
+      "id": "q5",
+      "question": "A game costs £40. It has a 20% discount. How much is the discount?",
+      "options": ["£5", "£6", "£8", "£10"],
+      "correctAnswer": "£8",
+      "engine": "none",
+      "payload": {}
+    },
+    {
+      "id": "q6",
+      "question": "You have £120. You spend 10% on snacks. How much is that?",
+      "options": ["£10", "£12", "£15", "£20"],
+      "correctAnswer": "£12",
+      "engine": "none",
+      "payload": {}
+    },
+    {
+      "id": "q7",
+      "question": "A jacket costs £100. It is reduced by 30%. What is the new price?",
+      "options": ["£60", "£65", "£70", "£75"],
+      "correctAnswer": "£70",
+      "engine": "none",
+      "payload": {}
+    },
+    {
+      "id": "q8",
+      "question": "You get £90 pocket money. You spend 1/3 of it. What percentage is that?",
+      "options": ["25%", "30%", "33%", "50%"],
+      "correctAnswer": "33%",
+      "engine": "none",
+      "payload": {}
+    },
+    {
+      "id": "q9",
+      "question": "A phone costs £300. VAT adds 20%. What is the total price?",
+      "options": ["£320", "£340", "£360", "£380"],
+      "correctAnswer": "£360",
+      "engine": "none",
+      "payload": {}
+    },
+    {
+      "id": "q10",
+      "question": "You have £150. You save 20%. How much do you save?",
+      "options": ["£20", "£25", "£30", "£35"],
+      "correctAnswer": "£30",
+      "engine": "none",
+      "payload": {}
+    }
+  ]
+}

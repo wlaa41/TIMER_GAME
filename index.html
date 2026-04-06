@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUANTUM QUEST ENGINE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+</head>
+<body>
+    <div class="bg-orb bg-orb-one"></div>
+    <div class="bg-orb bg-orb-two"></div>
+    <div class="scanlines"></div>
+
+    <div id="setup-screen" class="screen active">
+        <div class="neo-card">
+            <div class="eyebrow">Quantum Training Console</div>
+            <h1 class="glitch-title">MISSION<span>CONTROL</span></h1>
+            <p class="subtitle">Initialize system data to begin transit.</p>
+            <div class="feature-strip">
+                <div class="feature-pill">Dynamic scenes</div>
+                <div class="feature-pill">Reactive HUD</div>
+                <div class="feature-pill">Timed challenge</div>
+            </div>
+            
+            <div class="form-group">
+                <label>UPLOAD DATA CORE (JSON)</label>
+                <input type="file" id="json-upload" accept=".json" class="file-input">
+                <div id="file-status">NO CORE DETECTED</div>
+            </div>
+
+            <div class="form-group">
+                <label for="time-select">MISSION TIME</label>
+                <select id="time-select" class="time-select">
+                    <option value="300">5 Minutes</option>
+                    <option value="600" selected>10 Minutes</option>
+                    <option value="900">15 Minutes</option>
+                    <option value="1200">20 Minutes</option>
+                </select>
+                <div id="time-status">SELECT HOW LONG THE MISSION SHOULD LAST</div>
+            </div>
+
+            <button id="start-btn" class="btn-main disabled" disabled>AWAITING CORE...</button>
+        </div>
+    </div>
+
+    <div id="game-screen" class="screen hidden">
+        <div class="hud-shell">
+            <div class="main-timer-container">
+                <div class="timer-box">
+                    <span class="label">Chrono Limit</span>
+                    <span id="timer-display">10:00</span>
+                    <div id="timer-state" class="timer-state">Stable</div>
+                </div>
+            </div>
+
+            <div class="hud-mini">
+                <div class="hud-item">
+                    <span class="hud-label">Score</span>
+                    <span id="score-display" class="hud-value">0/0</span>
+                </div>
+                <div class="hud-item">
+                    <span class="hud-label">Progress</span>
+                    <span id="progress-display" class="hud-value">0/0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-card">
+            <div class="card-topline">
+                <div class="eyebrow">Live Question Feed</div>
+                <div class="progress-track"><div id="progress-bar" class="progress-bar"></div></div>
+            </div>
+            <h2 id="question-text">INITIALIZING...</h2>
+            
+            <div id="media-stage" class="hidden">
+                <div id="canvas-wrapper"></div>
+            </div>
+
+            <div id="input-area"></div>
+            <div id="feedback-message" class="feedback hidden"></div>
+        </div>
+    </div>
+
+    <div id="result-screen" class="screen hidden">
+        <div class="neo-card">
+            <div class="eyebrow">Mission Debrief</div>
+            <h1 class="glitch-title">MISSION<span>COMPLETE</span></h1>
+            <div class="final-stat">
+                <span class="label">FINAL SCORE</span>
+                <span id="final-score">0</span>
+            </div>
+            <div class="button-row">
+                <button onclick="location.reload()" class="btn-main">RESTART</button>
+                <button onclick="location.reload()" class="btn-main secondary">NEW FILE</button>
+            </div>
+        </div>
+    </div>
+
+    <audio id="snd-tick" src="https://actions.google.com/sounds/v1/foley/clock_ticking.ogg"></audio>
+    <audio id="snd-correct" src="https://actions.google.com/sounds/v1/cartoon/clink_glasses.ogg"></audio>
+    <audio id="snd-fail" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"></audio>
+
+    <script src="app.js"></script>
+</body>
+</html>

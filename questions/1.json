@@ -1,0 +1,101 @@
+{
+  "quizTitle": "The Quantum Academy: Mission Earth",
+  "questions": [
+    {
+      "id": "q1",
+      "question": "Solve for x: 4x - 12 = 28",
+      "options": ["4", "8", "10", "12"],
+      "correctAnswer": "10",
+      "engine": "none",
+      "payload": {}
+    },
+    {
+      "id": "q2",
+      "question": "This cube has a side length of 4 units. What is its total surface area?",
+      "options": ["16", "64", "96", "128"],
+      "correctAnswer": "96",
+      "engine": "threejs",
+      "payload": {
+        "setup": "const geo = new THREE.BoxGeometry(2, 2, 2); const mat = new THREE.MeshStandardMaterial({color: 0x00ffcc, wireframe: true}); window.mesh = new THREE.Mesh(geo, mat); scene.add(window.mesh); camera.position.z = 4;",
+        "update": "window.mesh.rotation.y += 0.01; window.mesh.rotation.x += 0.005;"
+      }
+    },
+    {
+      "id": "q3",
+      "question": "How many boxes are currently being affected by gravity in this simulation?",
+      "options": ["3", "6", "9", "12"],
+      "correctAnswer": "6",
+      "engine": "matterjs",
+      "payload": {
+        "setup": "for(let i=0; i<6; i++) { const box = Matter.Bodies.rectangle(100 + (i*40), 0, 30, 30, { restitution: 0.5 }); Matter.World.add(world, box); }"
+      }
+    },
+    {
+      "id": "q4",
+      "question": "What is the name of the 3D shape rotating on your screen?",
+      "options": ["Sphere", "Cylinder", "Torus", "Dodecahedron"],
+      "correctAnswer": "Torus",
+      "engine": "threejs",
+      "payload": {
+        "setup": "const geo = new THREE.TorusGeometry(1.5, 0.5, 16, 100); const mat = new THREE.MeshPhongMaterial({color: 0xff007a, shininess: 100}); window.donut = new THREE.Mesh(geo, mat); scene.add(window.donut);",
+        "update": "window.donut.rotation.z += 0.03;"
+      }
+    },
+    {
+      "id": "q5",
+      "question": "A store offers a 25% discount on a $120 jacket. What is the final price?",
+      "options": ["$80", "$90", "$95", "$100"],
+      "correctAnswer": "$90",
+      "engine": "none",
+      "payload": {}
+    },
+    {
+      "id": "q6",
+      "question": "The ball in this simulation has 'high restitution' (bounciness). If it falls from 300px, will it eventually stop bouncing?",
+      "options": ["Yes, gravity always wins", "No, it is a perfect vacuum", "Only if friction is added", "Yes, but it takes 10 minutes"],
+      "correctAnswer": "Yes, gravity always wins",
+      "engine": "matterjs",
+      "payload": {
+        "setup": "const ball = Matter.Bodies.circle(200, 50, 25, { restitution: 0.9, frictionAir: 0.01 }); Matter.World.add(world, ball);"
+      }
+    },
+    {
+      "id": "q7",
+      "question": "This plane is oscillating. If its center is at y=0, and it moves up to y=2, what is the 'amplitude' of the wave?",
+      "options": ["1", "2", "4", "0"],
+      "correctAnswer": "2",
+      "engine": "threejs",
+      "payload": {
+        "setup": "const geo = new THREE.PlaneGeometry(3, 3); const mat = new THREE.MeshBasicMaterial({color: 0x6366f1, side: THREE.DoubleSide}); window.p = new THREE.Mesh(geo, mat); scene.add(window.p);",
+        "update": "window.p.position.y = Math.sin(Date.now() * 0.005) * 2;"
+      }
+    },
+    {
+      "id": "q8",
+      "question": "What is the area of a triangle with a base of 10cm and a height of 8cm?",
+      "options": ["80cm²", "40cm²", "20cm²", "18cm²"],
+      "correctAnswer": "40cm²",
+      "engine": "none",
+      "payload": {}
+    },
+    {
+      "id": "q9",
+      "question": "Observe the 3D Knot. How many loops does a 'Trefoil Knot' traditionally have?",
+      "options": ["1", "2", "3", "4"],
+      "correctAnswer": "3",
+      "engine": "threejs",
+      "payload": {
+        "setup": "const geo = new THREE.TorusKnotGeometry(1, 0.4, 100, 16); const mat = new THREE.MeshNormalMaterial(); window.knot = new THREE.Mesh(geo, mat); scene.add(window.knot);",
+        "update": "window.knot.rotation.y += 0.02;"
+      }
+    },
+    {
+      "id": "q10",
+      "question": "Final Mission: Solve for x. 5(x - 3) = 25",
+      "options": ["5", "8", "10", "15"],
+      "correctAnswer": "8",
+      "engine": "none",
+      "payload": {}
+    }
+  ]
+}
