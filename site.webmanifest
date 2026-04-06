@@ -1,0 +1,17 @@
+{
+  "name": "AI Edu Timer Game",
+  "short_name": "AI Edu Game",
+  "description": "An interactive timed quiz game with hints, simulation questions, and a futuristic classroom-friendly interface.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#07111f",
+  "theme_color": "#07111f",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
