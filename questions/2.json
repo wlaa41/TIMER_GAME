@@ -1,0 +1,83 @@
+{
+  "title": "Reader and Shapes Mixed Quiz",
+  "questions": [
+    {
+      "question": "Sam was determined to finish his homework even though he was tired. What does determined mean?",
+      "options": ["ready to give up", "sure to keep trying", "very sleepy", "easy to distract"],
+      "correctAnswer": "sure to keep trying"
+    },
+    {
+      "question": "Look at the 3D object on the screen. What is its name?",
+      "options": ["sphere", "cube", "cylinder", "cone"],
+      "correctAnswer": "cube",
+      "engine": "threejs",
+      "payload": {
+        "setup": "const geo=new THREE.BoxGeometry(1.8,1.8,1.8); const mat=new THREE.MeshStandardMaterial({color:0x4fd1ff, metalness:0.25, roughness:0.3}); const mesh=new THREE.Mesh(geo,mat); mesh.name='shape'; scene.add(mesh); const ring=new THREE.Mesh(new THREE.TorusGeometry(2.7,0.04,12,80), new THREE.MeshBasicMaterial({color:0xff5ca8})); ring.rotation.x=Math.PI/2; scene.add(ring);",
+        "update": "const m=scene.getObjectByName('shape'); if(m){m.rotation.x+=0.01; m.rotation.y+=0.015;}"
+      }
+    },
+    {
+      "question": "Mia peered through the window to see outside in the dark. What does peered mean?",
+      "options": ["looked carefully", "shouted loudly", "ran away", "fell asleep"],
+      "correctAnswer": "looked carefully"
+    },
+    {
+      "question": "A square tile was placed on the floor. How many sides does a square have?",
+      "options": ["3", "4", "5", "6"],
+      "correctAnswer": "4"
+    },
+    {
+      "question": "The puzzle was very intriguing, so Ben kept thinking about it. What does intriguing mean?",
+      "options": ["boring", "interesting", "broken", "tiny"],
+      "correctAnswer": "interesting"
+    },
+    {
+      "question": "Look at the 3D object on the screen. What is its name?",
+      "options": ["cube", "cylinder", "sphere", "pyramid"],
+      "correctAnswer": "sphere",
+      "engine": "threejs",
+      "payload": {
+        "setup": "const geo=new THREE.SphereGeometry(1.25,32,32); const mat=new THREE.MeshStandardMaterial({color:0xffc857, metalness:0.15, roughness:0.25}); const mesh=new THREE.Mesh(geo,mat); mesh.name='shape'; scene.add(mesh); const floor=new THREE.Mesh(new THREE.RingGeometry(2.1,2.7,48), new THREE.MeshBasicMaterial({color:0x73efff, side:THREE.DoubleSide})); floor.rotation.x=-Math.PI/2; floor.position.y=-1.7; scene.add(floor);",
+        "update": "const m=scene.getObjectByName('shape'); if(m){m.rotation.y+=0.018;}"
+      }
+    },
+    {
+      "question": "Jack ran recklessly across the busy road. What does recklessly mean?",
+      "options": ["carefully", "without thinking of danger", "very slowly", "with help"],
+      "correctAnswer": "without thinking of danger"
+    },
+    {
+      "question": "A slice of pizza was shaped like a triangle. How many sides does a triangle have?",
+      "options": ["2", "3", "4", "5"],
+      "correctAnswer": "3"
+    },
+    {
+      "question": "The bird hovered in the air without landing. What does hovered mean?",
+      "options": ["stayed in one place in the air", "fell quickly", "hid under a tree", "sang loudly"],
+      "correctAnswer": "stayed in one place in the air"
+    },
+    {
+      "question": "Look at the 3D object on the screen. What is its name?",
+      "options": ["cone", "cylinder", "cube", "sphere"],
+      "correctAnswer": "cylinder",
+      "engine": "threejs",
+      "payload": {
+        "setup": "const geo=new THREE.CylinderGeometry(0.9,0.9,2.1,32); const mat=new THREE.MeshStandardMaterial({color:0x7cff8f, metalness:0.18, roughness:0.35}); const mesh=new THREE.Mesh(geo,mat); mesh.name='shape'; scene.add(mesh); const top=new THREE.Mesh(new THREE.TorusGeometry(0.95,0.06,12,50), new THREE.MeshBasicMaterial({color:0xffffff})); top.position.y=1.05; top.rotation.x=Math.PI/2; scene.add(top);",
+        "update": "const m=scene.getObjectByName('shape'); if(m){m.rotation.y+=0.014;}"
+      }
+    },
+    {
+      "question": "Sarah waited in anticipation for her birthday surprise. What does anticipation mean?",
+      "options": ["happy waiting for something to happen", "wanting to go home", "feeling angry", "not caring"],
+      "correctAnswer": "happy waiting for something to happen"
+    },
+    {
+      "question": "A warning sign was shaped like a triangle. How many corners does a triangle have?",
+      "options": ["2", "3", "4", "5"],
+      "correctAnswer": "3"
+    },
+    {
+      "question": "The teacher smiled and beckoned the child to come closer. What does beckoned mean?",
+      "options": ["waved to come here", "pushed away", "laughed at", "pointed to the floor"],
+      "correctAnswer": "waved to come here"
+    }]}

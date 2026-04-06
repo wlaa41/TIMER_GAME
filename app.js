@@ -1,11 +1,13 @@
 let quizData = null;
 let currentQuestionIndex = 0;
 let correctAnswers = 0;
+let helpUsedCount = 0;
 let selectedDuration = 600;
 let timeRemaining = 600;
 let timerInterval;
 let activeSimulationCleanup = null;
 let audioContext = null;
+let helpUsedThisQuestion = false;
 
 const formatTime = (totalSeconds) => {
     const min = Math.floor(totalSeconds / 60);
@@ -16,6 +18,7 @@ const formatTime = (totalSeconds) => {
 const updateScoreDisplay = () => {
     const totalQuestions = quizData?.questions?.length || 0;
     document.getElementById('score-display').innerText = `${correctAnswers}/${totalQuestions}`;
+    document.getElementById('help-display').innerText = `${helpUsedCount}`;
 };
 
 const ensureAudioContext = () => {
@@ -87,9 +90,33 @@ const playFeedbackTone = (type) => {
     }
 };
 
-const timeSelect = document.getElementById('time-select');
-timeSelect.addEventListener('change', () => {
-    selectedDuration = parseInt(timeSelect.value, 10);
+const getSelectedDurationSeconds = () => {
+    const timeInput = document.getElementById('time-input');
+    const minutes = Math.max(1, parseInt(timeInput.value, 10) || 10);
+    timeInput.value = minutes;
+    return minutes * 60;
+};
+
+const buildHintText = (question) => {
+    if (question.hint) return question.hint;
+
+    const correct = question.correctAnswer?.toString?.() || "";
+    const options = Array.isArray(question.options) ? question.options : [];
+
+    if (options.length) {
+        const firstChar = correct.trim().charAt(0);
+        const narrowed = options.filter((option) => option !== correct).slice(0, Math.max(0, options.length - 2));
+        if (firstChar) {
+            return `Hint: the correct answer starts with "${firstChar}" and it is not ${narrowed.join(" or ")}.`;
+        }
+    }
+
+    return "Hint: look closely at the values shown and eliminate the most unrealistic options first.";
+};
+
+const timeInput = document.getElementById('time-input');
+timeInput.addEventListener('change', () => {
+    selectedDuration = getSelectedDurationSeconds();
     document.getElementById('time-status').innerText = `MISSION LENGTH SET TO ${formatTime(selectedDuration)}`;
 });
 
@@ -115,10 +142,11 @@ document.getElementById('json-upload').addEventListener('change', (e) => {
 
 // 2. START MISSION
 document.getElementById('start-btn').addEventListener('click', () => {
-    selectedDuration = parseInt(timeSelect.value, 10);
+    selectedDuration = getSelectedDurationSeconds();
     timeRemaining = selectedDuration;
     currentQuestionIndex = 0;
     correctAnswers = 0;
+    helpUsedCount = 0;
     updateScoreDisplay();
     document.getElementById('timer-display').innerText = formatTime(timeRemaining);
     document.getElementById('setup-screen').classList.add('hidden');
@@ -137,6 +165,8 @@ function loadQuestion() {
     const wrapper = document.getElementById('canvas-wrapper');
     const stage = document.getElementById('media-stage');
     const feedback = document.getElementById('feedback-message');
+    const hintBox = document.getElementById('hint-box');
+    const helpBtn = document.getElementById('help-btn');
     if (activeSimulationCleanup) {
         activeSimulationCleanup();
         activeSimulationCleanup = null;
@@ -145,6 +175,13 @@ function loadQuestion() {
     stage.classList.add('hidden');
     feedback.classList.add('hidden');
     feedback.innerText = '';
+    feedback.style.border = '';
+    hintBox.classList.add('hidden');
+    hintBox.innerText = '';
+    helpUsedThisQuestion = false;
+    helpBtn.disabled = false;
+    helpBtn.classList.remove('disabled');
+    helpBtn.innerText = 'Show Hint';
 
     if (q.engine === 'threejs') {
         stage.classList.remove('hidden');
@@ -275,6 +312,26 @@ function renderInputs(q) {
         grid.appendChild(btn);
     });
     area.appendChild(grid);
+
+    const helpBtn = document.getElementById('help-btn');
+    helpBtn.onclick = () => showHint(q);
+}
+
+function showHint(q) {
+    const hintBox = document.getElementById('hint-box');
+    const helpBtn = document.getElementById('help-btn');
+
+    if (!helpUsedThisQuestion) {
+        helpUsedThisQuestion = true;
+        helpUsedCount++;
+        updateScoreDisplay();
+    }
+
+    hintBox.innerText = buildHintText(q);
+    hintBox.classList.remove('hidden');
+    helpBtn.disabled = true;
+    helpBtn.classList.add('disabled');
+    helpBtn.innerText = 'Hint Used';
 }
 
 function checkAnswer(user, correct) {
@@ -337,4 +394,5 @@ function finishGame() {
     document.getElementById('game-screen').classList.add('hidden');
     document.getElementById('result-screen').classList.remove('hidden');
     document.getElementById('final-score').innerText = `${correctAnswers}/${quizData.questions.length}`;
+    document.getElementById('final-help').innerText = `${helpUsedCount}`;
 }

@@ -351,7 +351,7 @@ body::before {
 
 .hud-mini {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
 }
 
@@ -375,7 +375,7 @@ body::before {
 .hud-value {
     margin-top: 6px;
     font-family: var(--font-header);
-    font-size: 1.6rem;
+    font-size: 1.35rem;
     color: var(--text-main);
 }
 
@@ -437,10 +437,33 @@ body::before {
     margin-top: 22px;
 }
 
+.action-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+}
+
+.help-btn {
+    width: auto;
+    min-width: 180px;
+    margin-top: 0;
+}
+
 .input-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
+}
+
+.hint-box {
+    margin-top: 14px;
+    padding: 16px 18px;
+    border: 1px solid rgba(255, 214, 122, 0.28);
+    border-radius: 18px;
+    background: rgba(255, 214, 122, 0.08);
+    color: #ffeab6;
+    font-size: 1.05rem;
+    line-height: 1.4;
 }
 
 .feedback {
@@ -459,6 +482,18 @@ body::before {
     padding: 24px;
     border-radius: 24px;
     background: rgba(255, 255, 255, 0.05);
+}
+
+.compact-stat {
+    margin-top: 12px;
+}
+
+.compact-stat span:last-child {
+    display: block;
+    margin-top: 8px;
+    font-family: var(--font-header);
+    font-size: 2rem;
+    color: var(--accent-gold);
 }
 
 #final-score {
@@ -521,7 +556,7 @@ body::before {
     }
 
     .hud-mini {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
     }
 
     .neo-card,
@@ -555,6 +590,14 @@ body::before {
     .button-row,
     .input-grid {
         grid-template-columns: 1fr;
+    }
+
+    .action-row {
+        justify-content: stretch;
+    }
+
+    .help-btn {
+        width: 100%;
     }
 
     .feature-strip {

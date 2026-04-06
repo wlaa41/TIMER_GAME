@@ -35,13 +35,8 @@
 
             <div class="form-group">
                 <label for="time-select">MISSION TIME</label>
-                <select id="time-select" class="time-select">
-                    <option value="300">5 Minutes</option>
-                    <option value="600" selected>10 Minutes</option>
-                    <option value="900">15 Minutes</option>
-                    <option value="1200">20 Minutes</option>
-                </select>
-                <div id="time-status">SELECT HOW LONG THE MISSION SHOULD LAST</div>
+                <input type="number" id="time-input" class="time-select" min="1" step="1" value="10" placeholder="Enter minutes">
+                <div id="time-status">ENTER ANY NUMBER OF MINUTES FOR THE MISSION</div>
             </div>
 
             <button id="start-btn" class="btn-main disabled" disabled>AWAITING CORE...</button>
@@ -64,6 +59,10 @@
                     <span id="score-display" class="hud-value">0/0</span>
                 </div>
                 <div class="hud-item">
+                    <span class="hud-label">Help Used</span>
+                    <span id="help-display" class="hud-value">0</span>
+                </div>
+                <div class="hud-item">
                     <span class="hud-label">Progress</span>
                     <span id="progress-display" class="hud-value">0/0</span>
                 </div>
@@ -82,6 +81,10 @@
             </div>
 
             <div id="input-area"></div>
+            <div class="action-row">
+                <button id="help-btn" class="btn-main secondary help-btn" type="button">Show Hint</button>
+            </div>
+            <div id="hint-box" class="hint-box hidden"></div>
             <div id="feedback-message" class="feedback hidden"></div>
         </div>
     </div>
@@ -93,6 +96,10 @@
             <div class="final-stat">
                 <span class="label">FINAL SCORE</span>
                 <span id="final-score">0</span>
+            </div>
+            <div class="final-stat compact-stat">
+                <span class="label">HELP USED</span>
+                <span id="final-help">0</span>
             </div>
             <div class="button-row">
                 <button onclick="location.reload()" class="btn-main">RESTART</button>
