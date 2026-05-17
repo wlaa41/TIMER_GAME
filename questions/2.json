@@ -1,83 +1,243 @@
 {
-  "title": "Reader and Shapes Mixed Quiz",
+  "quizTitle": "Word Explorer and Shape Studio",
+  "description": "A mixed reading and geometry pack with vocabulary images, shape media, and 3D object prompts.",
   "questions": [
     {
+      "id": "q1",
+      "code": "VOC-DET",
       "question": "Sam was determined to finish his homework even though he was tired. What does determined mean?",
       "options": ["ready to give up", "sure to keep trying", "very sleepy", "easy to distract"],
-      "correctAnswer": "sure to keep trying"
+      "correctAnswer": "sure to keep trying",
+      "hint": {
+        "title": "Use the whole sentence",
+        "text": "Sam is tired, but he still wants to finish. That tells you he will keep trying."
+      },
+      "media": {
+        "type": "illustration",
+        "theme": "reading",
+        "title": "Vocabulary clue",
+        "caption": "The sentence gives a clue about not giving up.",
+        "word": "determined",
+        "callouts": ["tired", "finish", "keep trying"]
+      }
     },
     {
+      "id": "q2",
+      "code": "SHAPE-CUBE",
       "question": "Look at the 3D object on the screen. What is its name?",
       "options": ["sphere", "cube", "cylinder", "cone"],
       "correctAnswer": "cube",
-      "engine": "threejs",
-      "payload": {
-        "setup": "const geo=new THREE.BoxGeometry(1.8,1.8,1.8); const mat=new THREE.MeshStandardMaterial({color:0x4fd1ff, metalness:0.25, roughness:0.3}); const mesh=new THREE.Mesh(geo,mat); mesh.name='shape'; scene.add(mesh); const ring=new THREE.Mesh(new THREE.TorusGeometry(2.7,0.04,12,80), new THREE.MeshBasicMaterial({color:0xff5ca8})); ring.rotation.x=Math.PI/2; scene.add(ring);",
-        "update": "const m=scene.getObjectByName('shape'); if(m){m.rotation.x+=0.01; m.rotation.y+=0.015;}"
+      "hint": {
+        "title": "Flat square faces",
+        "text": "A cube has six square faces and all its edges are the same length."
+      },
+      "media": {
+        "type": "threejs",
+        "payload": {
+          "setup": "const geo = new THREE.BoxGeometry(1.8, 1.8, 1.8); const mat = new THREE.MeshStandardMaterial({ color: 0x3772ff, metalness: 0.18, roughness: 0.32 }); const mesh = new THREE.Mesh(geo, mat); mesh.name = 'shape'; scene.add(mesh); const edge = new THREE.LineSegments(new THREE.EdgesGeometry(geo), new THREE.LineBasicMaterial({ color: 0xffffff })); mesh.add(edge); camera.position.z = 4.4;",
+          "update": "const m = scene.getObjectByName('shape'); if (m) { m.rotation.x += 0.01; m.rotation.y += 0.015; }"
+        }
       }
     },
     {
+      "id": "q3",
+      "code": "VOC-PEER",
       "question": "Mia peered through the window to see outside in the dark. What does peered mean?",
       "options": ["looked carefully", "shouted loudly", "ran away", "fell asleep"],
-      "correctAnswer": "looked carefully"
+      "correctAnswer": "looked carefully",
+      "hint": {
+        "title": "Window clue",
+        "text": "If it is dark outside, Mia needs to look carefully to see."
+      },
+      "media": {
+        "type": "image",
+        "src": "assets/reading-window.svg",
+        "alt": "A child reading near a dark window with the phrase look carefully",
+        "caption": "Peered means looked carefully, often because something is hard to see."
+      }
     },
     {
+      "id": "q4",
+      "code": "SHAPE-SQUARE",
       "question": "A square tile was placed on the floor. How many sides does a square have?",
       "options": ["3", "4", "5", "6"],
-      "correctAnswer": "4"
+      "correctAnswer": "4",
+      "hint": {
+        "title": "Count the edges",
+        "text": "A square has four equal sides and four corners."
+      },
+      "media": {
+        "type": "image",
+        "src": "assets/shape-gallery.svg",
+        "alt": "A colorful gallery showing a square, circle, and triangle",
+        "caption": "The blue square has four straight sides."
+      }
     },
     {
+      "id": "q5",
+      "code": "VOC-INTR",
       "question": "The puzzle was very intriguing, so Ben kept thinking about it. What does intriguing mean?",
       "options": ["boring", "interesting", "broken", "tiny"],
-      "correctAnswer": "interesting"
+      "correctAnswer": "interesting",
+      "hint": {
+        "title": "Thinking clue",
+        "text": "If Ben keeps thinking about it, the puzzle probably caught his attention."
+      },
+      "media": {
+        "type": "illustration",
+        "theme": "reading",
+        "title": "A word worth noticing",
+        "caption": "Something intriguing makes you curious.",
+        "word": "intriguing",
+        "callouts": ["curious", "interesting", "keeps thinking"]
+      }
     },
     {
+      "id": "q6",
+      "code": "SHAPE-SPHERE",
       "question": "Look at the 3D object on the screen. What is its name?",
       "options": ["cube", "cylinder", "sphere", "pyramid"],
       "correctAnswer": "sphere",
-      "engine": "threejs",
-      "payload": {
-        "setup": "const geo=new THREE.SphereGeometry(1.25,32,32); const mat=new THREE.MeshStandardMaterial({color:0xffc857, metalness:0.15, roughness:0.25}); const mesh=new THREE.Mesh(geo,mat); mesh.name='shape'; scene.add(mesh); const floor=new THREE.Mesh(new THREE.RingGeometry(2.1,2.7,48), new THREE.MeshBasicMaterial({color:0x73efff, side:THREE.DoubleSide})); floor.rotation.x=-Math.PI/2; floor.position.y=-1.7; scene.add(floor);",
-        "update": "const m=scene.getObjectByName('shape'); if(m){m.rotation.y+=0.018;}"
+      "hint": {
+        "title": "Ball shape",
+        "text": "A sphere is round in every direction, like a ball."
+      },
+      "media": {
+        "type": "threejs",
+        "payload": {
+          "setup": "const geo = new THREE.SphereGeometry(1.28, 36, 36); const mat = new THREE.MeshStandardMaterial({ color: 0xffcf4a, metalness: 0.14, roughness: 0.3 }); const mesh = new THREE.Mesh(geo, mat); mesh.name = 'shape'; scene.add(mesh); const ring = new THREE.Mesh(new THREE.TorusGeometry(1.7, 0.035, 12, 80), new THREE.MeshBasicMaterial({ color: 0x16b8a6 })); ring.rotation.x = Math.PI / 2; scene.add(ring); camera.position.z = 4.6;",
+          "update": "const m = scene.getObjectByName('shape'); if (m) { m.rotation.y += 0.018; }"
+        }
       }
     },
     {
+      "id": "q7",
+      "code": "VOC-RECK",
       "question": "Jack ran recklessly across the busy road. What does recklessly mean?",
       "options": ["carefully", "without thinking of danger", "very slowly", "with help"],
-      "correctAnswer": "without thinking of danger"
+      "correctAnswer": "without thinking of danger",
+      "hint": {
+        "title": "Danger clue",
+        "text": "A busy road is dangerous. Recklessly means acting without thinking about that danger."
+      },
+      "media": {
+        "type": "illustration",
+        "theme": "reading",
+        "title": "Spot the risky action",
+        "caption": "The road clue points to danger.",
+        "word": "recklessly",
+        "callouts": ["busy road", "danger", "not careful"]
+      }
     },
     {
+      "id": "q8",
+      "code": "SHAPE-TRI",
       "question": "A slice of pizza was shaped like a triangle. How many sides does a triangle have?",
       "options": ["2", "3", "4", "5"],
-      "correctAnswer": "3"
+      "correctAnswer": "3",
+      "hint": {
+        "title": "Triangle clue",
+        "text": "The word tri means three. A triangle has three sides."
+      },
+      "media": {
+        "type": "illustration",
+        "theme": "triangle",
+        "title": "Triangle side count",
+        "caption": "Count each edge around the outside.",
+        "callouts": ["side 1", "side 2", "side 3"]
+      }
     },
     {
+      "id": "q9",
+      "code": "VOC-HOVER",
       "question": "The bird hovered in the air without landing. What does hovered mean?",
       "options": ["stayed in one place in the air", "fell quickly", "hid under a tree", "sang loudly"],
-      "correctAnswer": "stayed in one place in the air"
+      "correctAnswer": "stayed in one place in the air",
+      "hint": {
+        "title": "No landing",
+        "text": "The sentence says the bird was in the air and did not land."
+      },
+      "media": {
+        "type": "illustration",
+        "theme": "study",
+        "title": "Hover means stay up",
+        "caption": "Something hovering stays in one place above the ground.",
+        "callouts": ["in the air", "not landing", "one place"]
+      }
     },
     {
+      "id": "q10",
+      "code": "SHAPE-CYL",
       "question": "Look at the 3D object on the screen. What is its name?",
       "options": ["cone", "cylinder", "cube", "sphere"],
       "correctAnswer": "cylinder",
-      "engine": "threejs",
-      "payload": {
-        "setup": "const geo=new THREE.CylinderGeometry(0.9,0.9,2.1,32); const mat=new THREE.MeshStandardMaterial({color:0x7cff8f, metalness:0.18, roughness:0.35}); const mesh=new THREE.Mesh(geo,mat); mesh.name='shape'; scene.add(mesh); const top=new THREE.Mesh(new THREE.TorusGeometry(0.95,0.06,12,50), new THREE.MeshBasicMaterial({color:0xffffff})); top.position.y=1.05; top.rotation.x=Math.PI/2; scene.add(top);",
-        "update": "const m=scene.getObjectByName('shape'); if(m){m.rotation.y+=0.014;}"
+      "hint": {
+        "title": "Two circles",
+        "text": "A cylinder has a circle on the top and a circle on the bottom."
+      },
+      "media": {
+        "type": "threejs",
+        "payload": {
+          "setup": "const geo = new THREE.CylinderGeometry(0.9, 0.9, 2.1, 40); const mat = new THREE.MeshStandardMaterial({ color: 0x16b8a6, metalness: 0.16, roughness: 0.36 }); const mesh = new THREE.Mesh(geo, mat); mesh.name = 'shape'; scene.add(mesh); const top = new THREE.Mesh(new THREE.TorusGeometry(0.92, 0.045, 12, 60), new THREE.MeshBasicMaterial({ color: 0xffffff })); top.position.y = 1.05; top.rotation.x = Math.PI / 2; scene.add(top); camera.position.z = 4.8;",
+          "update": "const m = scene.getObjectByName('shape'); if (m) { m.rotation.y += 0.014; }"
+        }
       }
     },
     {
+      "id": "q11",
+      "code": "VOC-ANTI",
       "question": "Sarah waited in anticipation for her birthday surprise. What does anticipation mean?",
       "options": ["happy waiting for something to happen", "wanting to go home", "feeling angry", "not caring"],
-      "correctAnswer": "happy waiting for something to happen"
+      "correctAnswer": "happy waiting for something to happen",
+      "hint": {
+        "title": "Waiting clue",
+        "text": "A birthday surprise is exciting. Anticipation is the feeling of waiting for something to happen."
+      },
+      "media": {
+        "type": "illustration",
+        "theme": "reading",
+        "title": "Waiting for a surprise",
+        "caption": "Anticipation is excited waiting.",
+        "word": "anticipation",
+        "callouts": ["waiting", "surprise", "excited"]
+      }
     },
     {
+      "id": "q12",
+      "code": "TRI-CORNERS",
       "question": "A warning sign was shaped like a triangle. How many corners does a triangle have?",
       "options": ["2", "3", "4", "5"],
-      "correctAnswer": "3"
+      "correctAnswer": "3",
+      "hint": {
+        "title": "Corners match sides",
+        "text": "A triangle has three sides, and those sides meet at three corners."
+      },
+      "media": {
+        "type": "illustration",
+        "theme": "triangle",
+        "title": "Triangle corners",
+        "caption": "Count the pointed corners of the triangle.",
+        "callouts": ["corner 1", "corner 2", "corner 3"]
+      }
     },
     {
+      "id": "q13",
+      "code": "VOC-BECK",
       "question": "The teacher smiled and beckoned the child to come closer. What does beckoned mean?",
       "options": ["waved to come here", "pushed away", "laughed at", "pointed to the floor"],
-      "correctAnswer": "waved to come here"
-    }]}
+      "correctAnswer": "waved to come here",
+      "hint": {
+        "title": "Come closer clue",
+        "text": "The phrase come closer tells you the teacher made a signal to invite the child."
+      },
+      "media": {
+        "type": "illustration",
+        "theme": "reading",
+        "title": "A friendly signal",
+        "caption": "Beckoned means used a gesture to call someone closer.",
+        "word": "beckoned",
+        "callouts": ["smiled", "come closer", "waved"]
+      }
+    }
+  ]
+}

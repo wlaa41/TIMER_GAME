@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Edu Timer Game | Interactive Quiz Missions</title>
-    <meta name="description" content="AI Edu Timer Game is an interactive sci-fi quiz experience with timed missions, hints, 3D scenes, physics simulations, and uploadable question packs.">
-    <meta name="theme-color" content="#07111f">
-    <meta name="application-name" content="AI Edu Timer Game">
-    <meta name="apple-mobile-web-app-title" content="AI Edu Timer Game">
+    <title>AI Edu Quiz Quest | Interactive Learning Game</title>
+    <meta name="description" content="AI Edu Quiz Quest is a bright interactive quiz game for kids with timed rounds, hints, charts, images, 2D physics, and 3D learning scenes.">
+    <meta name="theme-color" content="#fff4d7">
+    <meta name="application-name" content="AI Edu Quiz Quest">
+    <meta name="apple-mobile-web-app-title" content="AI Edu Quiz Quest">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="robots" content="index, follow">
@@ -15,71 +15,95 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="manifest" href="site.webmanifest">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="AI Edu Timer Game">
-    <meta property="og:title" content="AI Edu Timer Game | Interactive Quiz Missions">
-    <meta property="og:description" content="A polished browser quiz game with manual timer control, hints, simulation questions, and a futuristic mission-control feel.">
+    <meta property="og:site_name" content="AI Edu Quiz Quest">
+    <meta property="og:title" content="AI Edu Quiz Quest | Interactive Learning Game">
+    <meta property="og:description" content="A kid-friendly quiz game with manual timers, hints, visual question media, 3D scenes, and 2D simulations.">
     <meta property="og:url" content="https://aiedu41.netlify.app/">
     <meta property="og:image" content="https://aiedu41.netlify.app/favicon.svg">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="AI Edu Timer Game | Interactive Quiz Missions">
-    <meta name="twitter:description" content="Timed quiz missions with hints, 3D interactions, and classroom-friendly question packs.">
+    <meta name="twitter:title" content="AI Edu Quiz Quest | Interactive Learning Game">
+    <meta name="twitter:description" content="Timed quiz quests with hints, charts, images, and interactive simulation questions.">
     <meta name="twitter:image" content="https://aiedu41.netlify.app/favicon.svg">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
 </head>
 <body>
-    <div class="bg-orb bg-orb-one"></div>
-    <div class="bg-orb bg-orb-two"></div>
-    <div class="scanlines"></div>
-
-    <div id="setup-screen" class="screen active">
-        <div class="neo-card">
-            <div class="eyebrow">Quantum Training Console</div>
-            <h1 class="glitch-title">MISSION<span>CONTROL</span></h1>
-            <p class="subtitle">Initialize system data to begin transit.</p>
-            <div class="feature-strip">
-                <div class="feature-pill">Dynamic scenes</div>
-                <div class="feature-pill">Reactive HUD</div>
-                <div class="feature-pill">Timed challenge</div>
-            </div>
-            
-            <div class="form-group">
-                <label>UPLOAD DATA CORE (JSON)</label>
-                <input type="file" id="json-upload" accept=".json" class="file-input">
-                <div id="file-status">NO CORE DETECTED</div>
-            </div>
-
-            <div class="form-group">
-                <label for="time-select">MISSION TIME</label>
-                <input type="number" id="time-input" class="time-select" min="1" step="1" value="10" placeholder="Enter minutes">
-                <div id="time-status">ENTER ANY NUMBER OF MINUTES FOR THE MISSION</div>
-            </div>
-
-            <button id="start-btn" class="btn-main disabled" disabled>AWAITING CORE...</button>
-        </div>
-    </div>
-
-    <div id="game-screen" class="screen hidden">
-        <div class="hud-shell">
-            <div class="main-timer-container">
-                <div class="timer-box">
-                    <span class="label">Chrono Limit</span>
-                    <span id="timer-display">10:00</span>
-                    <div id="timer-state" class="timer-state">Stable</div>
+    <main class="app-shell">
+        <section id="setup-screen" class="screen setup-screen active" aria-labelledby="setup-title">
+            <div class="setup-copy">
+                <p class="eyebrow">AI Edu Quest</p>
+                <h1 id="setup-title">Choose a question pack and start the adventure.</h1>
+                <p class="subtitle">Bright timed rounds with hints, charts, images, and interactive simulations.</p>
+                <div class="hero-art" aria-hidden="true">
+                    <div class="hero-board">
+                        <span class="tile tile-a">2D</span>
+                        <span class="tile tile-b">3D</span>
+                        <span class="tile tile-c">?</span>
+                        <span class="tile tile-d">A+</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="hud-mini">
+            <div class="setup-panel">
+                <div class="form-group">
+                    <label for="pack-select">Built-in pack</label>
+                    <div class="pack-loader">
+                        <select id="pack-select" class="time-select">
+                            <option value="questions/1.json">Maths, Shapes, and Motion</option>
+                            <option value="questions/percentage_5apr.json">Money Percentage Adventure</option>
+                            <option value="questions/2.json">Word Explorer and Shape Studio</option>
+                        </select>
+                        <button id="load-pack-btn" class="btn-main secondary compact-btn" type="button">Load</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="json-upload">Question pack</label>
+                    <input type="file" id="json-upload" accept=".json" class="file-input">
+                    <div id="file-status" class="field-note">No pack selected</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="time-input">Minutes to play</label>
+                    <input type="number" id="time-input" class="time-select" min="1" step="1" value="10" placeholder="Enter minutes">
+                    <div id="time-status" class="field-note">The pace counter splits this time across all questions.</div>
+                </div>
+
+                <button id="start-btn" class="btn-main disabled" disabled>Start Quest</button>
+            </div>
+        </section>
+
+        <section id="game-screen" class="screen game-screen hidden" aria-live="polite">
+            <header class="game-topbar">
+                <div>
+                    <p class="eyebrow">Now Playing</p>
+                    <h1 id="quiz-title-display">Quiz Quest</h1>
+                </div>
+                <button id="pause-btn" class="btn-main secondary compact-btn" type="button">Pause</button>
+            </header>
+
+            <div class="hud-shell" aria-label="Game status">
+                <div class="hud-item timer-box">
+                    <span class="hud-label">Total Time</span>
+                    <span id="timer-display" class="hud-value large">10:00</span>
+                    <span id="timer-state" class="hud-note">Ready</span>
+                </div>
+                <div class="hud-item pace-box">
+                    <span class="hud-label">Question Pace</span>
+                    <span id="question-pace-display" class="hud-value">0:00 / 0:00</span>
+                    <div class="mini-track"><div id="pace-fill" class="mini-fill"></div></div>
+                </div>
                 <div class="hud-item">
                     <span class="hud-label">Score</span>
                     <span id="score-display" class="hud-value">0/0</span>
                 </div>
                 <div class="hud-item">
-                    <span class="hud-label">Help Used</span>
+                    <span class="hud-label">Hints</span>
                     <span id="help-display" class="hud-value">0</span>
                 </div>
                 <div class="hud-item">
@@ -87,50 +111,60 @@
                     <span id="progress-display" class="hud-value">0/0</span>
                 </div>
             </div>
-        </div>
 
-        <div class="game-card">
-            <div class="card-topline">
-                <div class="eyebrow">Live Question Feed</div>
-                <div class="progress-track"><div id="progress-bar" class="progress-bar"></div></div>
-            </div>
-            <h2 id="question-text">INITIALIZING...</h2>
-            
-            <div id="media-stage" class="hidden">
-                <div id="canvas-wrapper"></div>
-            </div>
+            <article class="question-panel">
+                <div class="card-topline">
+                    <span id="question-code" class="question-code">Q-00</span>
+                    <div class="progress-track" aria-label="Quiz progress"><div id="progress-bar" class="progress-bar"></div></div>
+                </div>
 
-            <div id="input-area"></div>
-            <div class="action-row">
-                <button id="help-btn" class="btn-main secondary help-btn" type="button">Show Hint</button>
-            </div>
-            <div id="hint-box" class="hint-box hidden"></div>
-            <div id="feedback-message" class="feedback hidden"></div>
-        </div>
-    </div>
+                <h2 id="question-text">Initializing...</h2>
 
-    <div id="result-screen" class="screen hidden">
-        <div class="neo-card">
-            <div class="eyebrow">Mission Debrief</div>
-            <h1 class="glitch-title">MISSION<span>COMPLETE</span></h1>
-            <div class="final-stat">
-                <span class="label">FINAL SCORE</span>
-                <span id="final-score">0</span>
-            </div>
-            <div class="final-stat compact-stat">
-                <span class="label">HELP USED</span>
-                <span id="final-help">0</span>
-            </div>
-            <div class="button-row">
-                <button onclick="location.reload()" class="btn-main">RESTART</button>
-                <button onclick="location.reload()" class="btn-main secondary">NEW FILE</button>
-            </div>
-        </div>
-    </div>
+                <div id="media-stage" class="media-stage hidden">
+                    <div id="media-renderer" class="media-renderer"></div>
+                    <div id="canvas-wrapper" class="canvas-wrapper hidden"></div>
+                </div>
 
-    <audio id="snd-tick" src="https://actions.google.com/sounds/v1/foley/clock_ticking.ogg"></audio>
-    <audio id="snd-correct" src="https://actions.google.com/sounds/v1/cartoon/clink_glasses.ogg"></audio>
-    <audio id="snd-fail" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"></audio>
+                <div id="input-area"></div>
+
+                <div class="action-row">
+                    <button id="help-btn" class="btn-main secondary help-btn" type="button">Show Hint</button>
+                </div>
+
+                <div id="hint-box" class="hint-box hidden"></div>
+                <div id="feedback-message" class="feedback hidden"></div>
+            </article>
+
+            <div id="pause-overlay" class="pause-overlay hidden" role="status">
+                <div>
+                    <p class="eyebrow">Paused</p>
+                    <h2>Timer is frozen.</h2>
+                    <button id="resume-btn" class="btn-main compact-btn" type="button">Resume</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="result-screen" class="screen result-screen hidden" aria-labelledby="result-title">
+            <div class="result-panel">
+                <p class="eyebrow">Quest Complete</p>
+                <h1 id="result-title">Mission finished.</h1>
+                <div class="result-grid">
+                    <div class="final-stat">
+                        <span class="hud-label">Final Score</span>
+                        <span id="final-score">0/0</span>
+                    </div>
+                    <div class="final-stat">
+                        <span class="hud-label">Hints Used</span>
+                        <span id="final-help">0</span>
+                    </div>
+                </div>
+                <div class="button-row">
+                    <button onclick="location.reload()" class="btn-main">Play Again</button>
+                    <button onclick="location.reload()" class="btn-main secondary">New Pack</button>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <script src="app.js"></script>
 </body>

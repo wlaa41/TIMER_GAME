@@ -1,101 +1,196 @@
 {
-  "quizTitle": "The Quantum Academy: Mission Earth",
+  "quizTitle": "Quest Lab: Maths, Shapes, and Motion",
+  "description": "A mixed adventure pack with algebra, 3D shapes, percentage charts, and physics simulations.",
   "questions": [
     {
       "id": "q1",
+      "code": "ALG-01",
       "question": "Solve for x: 4x - 12 = 28",
       "options": ["4", "8", "10", "12"],
       "correctAnswer": "10",
-      "engine": "none",
-      "payload": {}
+      "hint": {
+        "title": "Balance move",
+        "text": "Undo the minus 12 first, then undo the multiply by 4.",
+        "steps": ["Add 12 to both sides.", "You get 4x = 40.", "Divide both sides by 4."]
+      },
+      "media": {
+        "type": "illustration",
+        "theme": "balance",
+        "title": "Keep the equation balanced",
+        "caption": "Whatever you do to one side of the equation, do to the other side too.",
+        "left": "4x - 12",
+        "right": "28",
+        "callouts": ["Add 12", "Then divide by 4"]
+      }
     },
     {
       "id": "q2",
+      "code": "GEO-3D-02",
       "question": "This cube has a side length of 4 units. What is its total surface area?",
       "options": ["16", "64", "96", "128"],
       "correctAnswer": "96",
-      "engine": "threejs",
-      "payload": {
-        "setup": "const geo = new THREE.BoxGeometry(2, 2, 2); const mat = new THREE.MeshStandardMaterial({color: 0x00ffcc, wireframe: true}); window.mesh = new THREE.Mesh(geo, mat); scene.add(window.mesh); camera.position.z = 4;",
-        "update": "window.mesh.rotation.y += 0.01; window.mesh.rotation.x += 0.005;"
+      "hint": {
+        "title": "Six square faces",
+        "text": "A cube has 6 faces. Work out one square face first, then multiply by 6.",
+        "steps": ["One face is 4 x 4.", "That makes 16 square units.", "6 faces means 16 x 6."]
+      },
+      "media": {
+        "type": "threejs",
+        "payload": {
+          "setup": "const geo = new THREE.BoxGeometry(2, 2, 2); const mat = new THREE.MeshStandardMaterial({ color: 0x3772ff, metalness: 0.12, roughness: 0.36 }); const edges = new THREE.EdgesGeometry(geo); const cube = new THREE.Mesh(geo, mat); cube.name = 'quizShape'; scene.add(cube); const lines = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffffff })); lines.name = 'quizEdges'; cube.add(lines); camera.position.z = 4.4;",
+          "update": "const cube = scene.getObjectByName('quizShape'); if (cube) { cube.rotation.y += 0.012; cube.rotation.x += 0.006; }"
+        }
       }
     },
     {
       "id": "q3",
+      "code": "PHY-2D-03",
       "question": "How many boxes are currently being affected by gravity in this simulation?",
       "options": ["3", "6", "9", "12"],
       "correctAnswer": "6",
-      "engine": "matterjs",
-      "payload": {
-        "setup": "for(let i=0; i<6; i++) { const box = Matter.Bodies.rectangle(100 + (i*40), 0, 30, 30, { restitution: 0.5 }); Matter.World.add(world, box); }"
+      "hint": {
+        "title": "Count the falling blocks",
+        "text": "Only count the colorful blocks that move. The hidden walls and floor are not part of the answer."
+      },
+      "media": {
+        "type": "matterjs",
+        "payload": {
+          "setup": "const colors = ['#3772ff', '#ff6b6b', '#ffcf4a', '#16b8a6', '#7c5cff', '#72c84f']; for (let i = 0; i < 6; i++) { const box = Matter.Bodies.rectangle(90 + (i * 56), 35 + (i % 2) * 18, 38, 38, { restitution: 0.62, friction: 0.08, render: { fillStyle: colors[i] } }); Matter.World.add(world, box); }"
+        }
       }
     },
     {
       "id": "q4",
+      "code": "GEO-3D-04",
       "question": "What is the name of the 3D shape rotating on your screen?",
       "options": ["Sphere", "Cylinder", "Torus", "Dodecahedron"],
       "correctAnswer": "Torus",
-      "engine": "threejs",
-      "payload": {
-        "setup": "const geo = new THREE.TorusGeometry(1.5, 0.5, 16, 100); const mat = new THREE.MeshPhongMaterial({color: 0xff007a, shininess: 100}); window.donut = new THREE.Mesh(geo, mat); scene.add(window.donut);",
-        "update": "window.donut.rotation.z += 0.03;"
+      "hint": {
+        "title": "Look for the hole",
+        "text": "This shape is like a ring or doughnut. Mathematicians call that a torus."
+      },
+      "media": {
+        "type": "threejs",
+        "payload": {
+          "setup": "const geo = new THREE.TorusGeometry(1.45, 0.42, 24, 100); const mat = new THREE.MeshStandardMaterial({ color: 0xff6b6b, metalness: 0.2, roughness: 0.28 }); const torus = new THREE.Mesh(geo, mat); torus.name = 'quizShape'; scene.add(torus); camera.position.z = 4.6;",
+          "update": "const shape = scene.getObjectByName('quizShape'); if (shape) { shape.rotation.z += 0.018; shape.rotation.y += 0.01; }"
+        }
       }
     },
     {
       "id": "q5",
+      "code": "PCT-05",
       "question": "A store offers a 25% discount on a $120 jacket. What is the final price?",
       "options": ["$80", "$90", "$95", "$100"],
       "correctAnswer": "$90",
-      "engine": "none",
-      "payload": {}
+      "hint": {
+        "title": "Find the discount first",
+        "text": "25% is one quarter. One quarter of $120 is $30, so subtract that from the original price."
+      },
+      "media": {
+        "type": "chart",
+        "title": "Original price and discount",
+        "caption": "The final price is the original price minus the discount.",
+        "values": [
+          { "label": "Original", "value": 120, "prefix": "$", "color": "#3772ff" },
+          { "label": "Discount", "value": 30, "prefix": "$", "color": "#ff6b6b" },
+          { "label": "Final", "value": 90, "prefix": "$", "color": "#16b8a6" }
+        ],
+        "teachingPoint": "25% of 120 is the same as 120 divided by 4."
+      }
     },
     {
       "id": "q6",
-      "question": "The ball in this simulation has 'high restitution' (bounciness). If it falls from 300px, will it eventually stop bouncing?",
+      "code": "PHY-2D-06",
+      "question": "The ball has high restitution, which means bounciness. If it falls, will it eventually stop bouncing?",
       "options": ["Yes, gravity always wins", "No, it is a perfect vacuum", "Only if friction is added", "Yes, but it takes 10 minutes"],
       "correctAnswer": "Yes, gravity always wins",
-      "engine": "matterjs",
-      "payload": {
-        "setup": "const ball = Matter.Bodies.circle(200, 50, 25, { restitution: 0.9, frictionAir: 0.01 }); Matter.World.add(world, ball);"
+      "hint": {
+        "title": "Energy gets smaller",
+        "text": "Each bounce loses a little energy, so the bounce height slowly gets lower."
+      },
+      "media": {
+        "type": "matterjs",
+        "payload": {
+          "setup": "const ball = Matter.Bodies.circle(width * 0.5, 55, 28, { restitution: 0.88, frictionAir: 0.018, render: { fillStyle: '#ff6b6b' } }); const ramp = Matter.Bodies.rectangle(width * 0.28, height * 0.62, width * 0.42, 18, { isStatic: true, angle: -0.16, render: { fillStyle: '#3772ff' } }); Matter.World.add(world, [ball, ramp]);"
+        }
       }
     },
     {
       "id": "q7",
-      "question": "This plane is oscillating. If its center is at y=0, and it moves up to y=2, what is the 'amplitude' of the wave?",
+      "code": "WAV-07",
+      "question": "This plane is oscillating from y = 0 up to y = 2. What is the amplitude?",
       "options": ["1", "2", "4", "0"],
       "correctAnswer": "2",
-      "engine": "threejs",
-      "payload": {
-        "setup": "const geo = new THREE.PlaneGeometry(3, 3); const mat = new THREE.MeshBasicMaterial({color: 0x6366f1, side: THREE.DoubleSide}); window.p = new THREE.Mesh(geo, mat); scene.add(window.p);",
-        "update": "window.p.position.y = Math.sin(Date.now() * 0.005) * 2;"
+      "hint": {
+        "title": "Center to top",
+        "text": "Amplitude is the distance from the middle line to the highest point."
+      },
+      "media": {
+        "type": "threejs",
+        "payload": {
+          "setup": "const geo = new THREE.PlaneGeometry(3, 2); const mat = new THREE.MeshStandardMaterial({ color: 0x16b8a6, side: THREE.DoubleSide }); const plane = new THREE.Mesh(geo, mat); plane.name = 'quizShape'; scene.add(plane); const axis = new THREE.GridHelper(5, 5, 0xffcf4a, 0xffcf4a); axis.rotation.x = Math.PI / 2; scene.add(axis); camera.position.z = 6;",
+          "update": "const plane = scene.getObjectByName('quizShape'); if (plane) { plane.position.y = Math.sin(Date.now() * 0.004) * 2; plane.rotation.z += 0.004; }"
+        }
       }
     },
     {
       "id": "q8",
-      "question": "What is the area of a triangle with a base of 10cm and a height of 8cm?",
-      "options": ["80cm²", "40cm²", "20cm²", "18cm²"],
-      "correctAnswer": "40cm²",
-      "engine": "none",
-      "payload": {}
+      "code": "AREA-08",
+      "question": "What is the area of a triangle with a base of 10 cm and a height of 8 cm?",
+      "options": ["80 cm^2", "40 cm^2", "20 cm^2", "18 cm^2"],
+      "correctAnswer": "40 cm^2",
+      "hint": {
+        "title": "Triangle area",
+        "text": "A triangle is half a rectangle with the same base and height.",
+        "steps": ["Multiply base x height.", "10 x 8 = 80.", "Take half: 80 / 2 = 40."]
+      },
+      "media": {
+        "type": "illustration",
+        "theme": "triangle",
+        "title": "Triangle area model",
+        "caption": "Base = 10 cm and height = 8 cm. The area is half of base x height.",
+        "callouts": ["base 10 cm", "height 8 cm", "half a rectangle"]
+      }
     },
     {
       "id": "q9",
-      "question": "Observe the 3D Knot. How many loops does a 'Trefoil Knot' traditionally have?",
+      "code": "GEO-3D-09",
+      "question": "Observe the 3D knot. How many loops does a trefoil knot traditionally have?",
       "options": ["1", "2", "3", "4"],
       "correctAnswer": "3",
-      "engine": "threejs",
-      "payload": {
-        "setup": "const geo = new THREE.TorusKnotGeometry(1, 0.4, 100, 16); const mat = new THREE.MeshNormalMaterial(); window.knot = new THREE.Mesh(geo, mat); scene.add(window.knot);",
-        "update": "window.knot.rotation.y += 0.02;"
+      "hint": {
+        "title": "Trefoil clue",
+        "text": "The word trefoil is linked to three parts or leaves."
+      },
+      "media": {
+        "type": "threejs",
+        "payload": {
+          "setup": "const geo = new THREE.TorusKnotGeometry(1.08, 0.32, 120, 18); const mat = new THREE.MeshNormalMaterial(); const knot = new THREE.Mesh(geo, mat); knot.name = 'quizShape'; scene.add(knot); camera.position.z = 4.8;",
+          "update": "const knot = scene.getObjectByName('quizShape'); if (knot) { knot.rotation.y += 0.016; knot.rotation.x += 0.006; }"
+        }
       }
     },
     {
       "id": "q10",
-      "question": "Final Mission: Solve for x. 5(x - 3) = 25",
+      "code": "ALG-10",
+      "question": "Final mission: Solve for x. 5(x - 3) = 25",
       "options": ["5", "8", "10", "15"],
       "correctAnswer": "8",
-      "engine": "none",
-      "payload": {}
+      "hint": {
+        "title": "Undo in reverse",
+        "text": "Divide by 5 first, then add 3.",
+        "steps": ["5(x - 3) = 25", "x - 3 = 5", "x = 8"]
+      },
+      "media": {
+        "type": "illustration",
+        "theme": "balance",
+        "title": "Final equation balance",
+        "caption": "Remove the outside multiply first, then solve the bracket.",
+        "left": "5(x - 3)",
+        "right": "25",
+        "callouts": ["divide by 5", "add 3"]
+      }
     }
   ]
 }

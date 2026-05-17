@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Child reading beside a night window">
+  <rect width="720" height="420" fill="#fff7df"/>
+  <rect x="70" y="52" width="230" height="220" rx="8" fill="#28304a" stroke="#222433" stroke-width="8"/>
+  <path d="M185 52v220M70 162h230" stroke="#fff7df" stroke-width="8"/>
+  <circle cx="238" cy="92" r="22" fill="#ffcf4a"/>
+  <path d="M86 246c55-52 120-53 198 0" fill="#5ea6ff" opacity=".45"/>
+  <rect x="360" y="170" width="210" height="126" rx="8" fill="#ffffff" stroke="#222433" stroke-width="8"/>
+  <path d="M465 170v126" stroke="#222433" stroke-width="7"/>
+  <path d="M382 206h62M486 206h62M382 238h52M486 238h70" stroke="#7c5cff" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="466" cy="118" r="54" fill="#ffb3c7" stroke="#222433" stroke-width="8"/>
+  <path d="M420 124c24 22 69 22 92 0" fill="none" stroke="#222433" stroke-width="7" stroke-linecap="round"/>
+  <path d="M438 102h2M492 102h2" stroke="#222433" stroke-width="12" stroke-linecap="round"/>
+  <rect x="336" y="288" width="260" height="54" rx="8" fill="#16b8a6" stroke="#222433" stroke-width="8"/>
+  <text x="466" y="324" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#222433">look carefully</text>
+</svg>

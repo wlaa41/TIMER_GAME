@@ -1,11 +1,11 @@
 {
-  "name": "AI Edu Timer Game",
-  "short_name": "AI Edu Game",
-  "description": "An interactive timed quiz game with hints, simulation questions, and a futuristic classroom-friendly interface.",
+  "name": "AI Edu Quiz Quest",
+  "short_name": "Quiz Quest",
+  "description": "A bright interactive quiz game for kids with hints, charts, images, 2D physics, and 3D learning scenes.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#07111f",
-  "theme_color": "#07111f",
+  "background_color": "#fff7df",
+  "theme_color": "#fff7df",
   "icons": [
     {
       "src": "/favicon.svg",
