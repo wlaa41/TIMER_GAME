@@ -1,6 +1,6 @@
 {
   "quizTitle": "Quest Lab: Maths, Shapes, and Motion",
-  "description": "A mixed adventure pack with algebra, 3D shapes, percentage charts, and physics simulations.",
+  "description": "A mixed adventure pack with algebra, 3D shapes, percentage charts, and physics simulations. Every question carries a full mini-lesson.",
   "questions": [
     {
       "id": "q1",
@@ -9,18 +9,102 @@
       "options": ["4", "8", "10", "12"],
       "correctAnswer": "10",
       "hint": {
-        "title": "Balance move",
-        "text": "Undo the minus 12 first, then undo the multiply by 4.",
-        "steps": ["Add 12 to both sides.", "You get 4x = 40.", "Divide both sides by 4."]
-      },
-      "media": {
-        "type": "illustration",
-        "theme": "balance",
-        "title": "Keep the equation balanced",
-        "caption": "Whatever you do to one side of the equation, do to the other side too.",
-        "left": "4x - 12",
-        "right": "28",
-        "callouts": ["Add 12", "Then divide by 4"]
+        "format": "lesson",
+        "title": "Solving Two-Step Equations",
+        "subtitle": "How to find a hidden number when a multiply and a subtract are both in the way.",
+        "sections": [
+          {
+            "heading": "What is the question really asking?",
+            "body": [
+              "An equation is a maths sentence with an equals sign in the middle. It promises that the left side and the right side are worth exactly the same amount.",
+              "The letter x is a hidden number we do not know yet. \"Solve for x\" simply means: find the one number x must be so the sentence stays true."
+            ],
+            "visual": {
+              "type": "illustration",
+              "theme": "balance",
+              "title": "One equation, two equal sides",
+              "caption": "The equals sign works like the middle of a balance scale.",
+              "left": "4x - 12",
+              "right": "28",
+              "callouts": ["Left side", "Right side", "Both worth the same"]
+            }
+          },
+          {
+            "heading": "Reading the expression 4x - 12",
+            "body": [
+              "Two things are being done to x. First it is multiplied by 4 - that is what 4x means: four equal x-blocks added together. Then 12 is taken away.",
+              "Each blue block in the scene below stands for one x. Drag the scene with your mouse or finger to spin it and see all four."
+            ],
+            "visual": {
+              "type": "threejs",
+              "title": "4x means four equal blocks",
+              "caption": "Spin the blocks to look around them.",
+              "payload": {
+                "setup": "const mat = new THREE.MeshStandardMaterial({ color: 0x6366f1, metalness: 0.12, roughness: 0.42 }); const group = new THREE.Group(); group.name = 'quizShape'; for (let i = 0; i < 4; i++) { const cube = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), mat); cube.position.x = (i - 1.5) * 1.4; cube.add(new THREE.LineSegments(new THREE.EdgesGeometry(cube.geometry), new THREE.LineBasicMaterial({ color: 0xffffff }))); group.add(cube); } scene.add(group); camera.position.set(0, 1.4, 7);",
+                "update": "const g = scene.getObjectByName('quizShape'); if (g) { g.rotation.y += 0.01; }"
+              }
+            }
+          },
+          {
+            "heading": "The golden rule: keep the scale balanced",
+            "body": [
+              "Picture the equals sign as the middle of a balance scale. Both pans hold the same weight, so the beam stays perfectly level.",
+              "If you change one side, you must make the EXACT same change to the other side. That keeps the scale balanced and keeps the equation true."
+            ],
+            "visual": {
+              "type": "image",
+              "src": "assets/balance-scale.svg",
+              "alt": "A level balance scale with an equal weight on each side",
+              "caption": "The same change on both sides keeps the equation balanced."
+            }
+          },
+          {
+            "heading": "Watch it work on different numbers",
+            "body": "Let's solve a similar equation first: 3x + 6 = 21. We undo the steps in reverse order - the + 6 first, then the multiply by 3.",
+            "steps": [
+              "Start with 3x + 6 = 21.",
+              "Undo the + 6: subtract 6 from both sides, which gives 3x = 15.",
+              "Undo the x 3: divide both sides by 3, which gives x = 5.",
+              "Check it: 3 x 5 + 6 = 21. True - so x = 5 is correct."
+            ],
+            "visual": {
+              "type": "chart",
+              "title": "The equation shrinking down to x",
+              "caption": "Each step peels away one operation until x is left alone.",
+              "values": [
+                { "label": "Both sides", "value": 21, "color": "#6366f1" },
+                { "label": "After - 6", "value": 15, "color": "#818cf8" },
+                { "label": "x equals", "value": 5, "color": "#15a34a" }
+              ],
+              "teachingPoint": "Undo addition or subtraction first, then undo multiplication or division."
+            }
+          },
+          {
+            "heading": "The two-step method",
+            "body": "Every two-step equation follows the same plan. You undo the equation in the OPPOSITE order to how it was built up.",
+            "steps": [
+              "Find the number being added or subtracted. Undo it on both sides.",
+              "Find the number x is multiplied or divided by. Undo it on both sides.",
+              "x is now alone - that is your answer.",
+              "Check by putting your answer back into the original equation."
+            ]
+          },
+          {
+            "heading": "Common mistakes to avoid",
+            "body": "Most slips on these questions come from just a few habits. Watch out for these:",
+            "points": [
+              "Dividing too early. Always undo the + or - before the multiply or divide.",
+              "Changing only one side. Whatever you do, do it to BOTH sides.",
+              "Forgetting the sign. Undoing a \"minus 12\" means you ADD 12.",
+              "Skipping the check. Putting your answer back in catches small mistakes."
+            ]
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "Your equation is 4x - 12 = 28. It has a \"subtract 12\" and a \"multiply by 4\". Use the two-step method on it.",
+            "note": "Undo the - 12 by adding 12 to both sides. Then undo the x 4 by dividing both sides by 4. You are only two moves away from x."
+          }
+        ]
       }
     },
     {
@@ -30,9 +114,67 @@
       "options": ["16", "64", "96", "128"],
       "correctAnswer": "96",
       "hint": {
-        "title": "Six square faces",
-        "text": "A cube has 6 faces. Work out one square face first, then multiply by 6.",
-        "steps": ["One face is 4 x 4.", "That makes 16 square units.", "6 faces means 16 x 6."]
+        "format": "lesson",
+        "title": "Surface Area of a Cube",
+        "subtitle": "Adding up the flat space on every face of a 3D box.",
+        "sections": [
+          {
+            "heading": "What surface area means",
+            "body": [
+              "Surface area is the total amount of flat space on the outside of a 3D shape. Imagine the wrapping paper you would need to cover it completely, with no gaps and no overlaps.",
+              "It is always measured in square units, such as square units or square centimetres."
+            ],
+            "visual": {
+              "type": "threejs",
+              "title": "A cube and its faces",
+              "caption": "Spin the cube - each flat side is one face.",
+              "payload": {
+                "setup": "const colors = [0x6366f1, 0x818cf8, 0x4f46e5, 0x6366f1, 0x818cf8, 0x4f46e5]; const mats = colors.map(function (c) { return new THREE.MeshStandardMaterial({ color: c, metalness: 0.1, roughness: 0.5 }); }); const cube = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), mats); cube.name = 'quizShape'; cube.add(new THREE.LineSegments(new THREE.EdgesGeometry(cube.geometry), new THREE.LineBasicMaterial({ color: 0xffffff }))); scene.add(cube); camera.position.set(0, 0, 5);",
+                "update": "const c = scene.getObjectByName('quizShape'); if (c) { c.rotation.y += 0.012; c.rotation.x += 0.006; }"
+              }
+            }
+          },
+          {
+            "heading": "A cube has 6 identical faces",
+            "body": "Every face of a cube is the same size square. As the cube turns you can only ever see three faces at once, but there are always six in total: top, bottom, front, back, left and right."
+          },
+          {
+            "heading": "Step 1: the area of one face",
+            "body": "Each face is a square. The area of a square is side multiplied by side, also written as side squared. If the side length is s, one face has an area of s x s."
+          },
+          {
+            "heading": "Watch it work on a smaller cube",
+            "body": "Let's find the surface area of a cube whose side is 3 units (not the quiz cube).",
+            "steps": [
+              "One face = 3 x 3 = 9 square units.",
+              "A cube has 6 faces.",
+              "Surface area = 6 x 9 = 54 square units."
+            ],
+            "visual": {
+              "type": "chart",
+              "title": "From one face to the whole cube",
+              "caption": "Work out one face, then multiply by the 6 faces.",
+              "values": [
+                { "label": "One face (3x3)", "value": 9, "color": "#818cf8" },
+                { "label": "All 6 faces", "value": 54, "color": "#6366f1" }
+              ],
+              "teachingPoint": "Surface area = 6 x (side x side)."
+            }
+          },
+          {
+            "heading": "Common mistakes to avoid",
+            "points": [
+              "Using the volume formula (side x side x side) by mistake - that fills the inside, not the surface.",
+              "Forgetting to multiply by 6 and giving the area of only one face.",
+              "Squaring incorrectly - 4 squared means 4 x 4, not 4 x 2."
+            ]
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "Your cube has a side length of 4 units.",
+            "note": "Find the area of one face first: 4 x 4. Then multiply that by the 6 faces of the cube."
+          }
+        ]
       },
       "media": {
         "type": "threejs",
@@ -49,8 +191,50 @@
       "options": ["3", "6", "9", "12"],
       "correctAnswer": "6",
       "hint": {
-        "title": "Count the falling blocks",
-        "text": "Only count the colorful blocks that move. The hidden walls and floor are not part of the answer."
+        "format": "lesson",
+        "title": "Gravity and Falling Objects",
+        "subtitle": "What gravity pulls on, and how to count moving objects carefully.",
+        "sections": [
+          {
+            "heading": "What gravity does",
+            "body": "Gravity is the invisible pull that draws objects toward the ground. In a physics simulation, every object that is free to move is pulled downward by gravity, so it falls.",
+            "visual": {
+              "type": "matterjs",
+              "title": "Free objects fall",
+              "caption": "Drag the blocks - gravity always pulls them back down.",
+              "payload": {
+                "setup": "const colors = ['#6366f1', '#818cf8', '#4f46e5']; for (let i = 0; i < 3; i++) { const b = Matter.Bodies.rectangle(width * 0.3 + i * 90, 40, 46, 46, { restitution: 0.5, render: { fillStyle: colors[i] } }); Matter.World.add(world, b); }"
+              }
+            }
+          },
+          {
+            "heading": "Moving objects versus fixed objects",
+            "body": "Some objects in a simulation are static - the floor and the side walls. They are fixed in place and gravity does not move them. Only the free, moving objects fall. When a question asks how many objects gravity affects, count only the ones that can move."
+          },
+          {
+            "heading": "How to count carefully",
+            "body": "Counting in a busy simulation is easy to get wrong. Slow down and be systematic.",
+            "steps": [
+              "Look only at the coloured, moving blocks.",
+              "Point to each block, one at a time, as you count.",
+              "Do not count the floor or the side walls - they are fixed.",
+              "Say the running total out loud so you do not lose your place."
+            ]
+          },
+          {
+            "heading": "Common mistakes to avoid",
+            "points": [
+              "Counting the floor or walls - gravity does not move those.",
+              "Counting the same block twice when blocks pile up or overlap.",
+              "Guessing the number quickly instead of counting one by one."
+            ]
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "Look at the simulation on the question screen.",
+            "note": "Count only the coloured blocks that are moving and falling. Point to each one and count slowly - do not include the hidden floor or walls."
+          }
+        ]
       },
       "media": {
         "type": "matterjs",
@@ -66,8 +250,51 @@
       "options": ["Sphere", "Cylinder", "Torus", "Dodecahedron"],
       "correctAnswer": "Torus",
       "hint": {
-        "title": "Look for the hole",
-        "text": "This shape is like a ring or doughnut. Mathematicians call that a torus."
+        "format": "lesson",
+        "title": "Naming 3D Shapes",
+        "subtitle": "How to recognise a torus and tell it apart from other solids.",
+        "sections": [
+          {
+            "heading": "Look at the overall form",
+            "body": "To name a 3D shape, study its overall form. Ask yourself: does it have flat faces or curved surfaces? Does it have corners? Does it have a hole? Each clue narrows down the name.",
+            "visual": {
+              "type": "threejs",
+              "title": "A ring-shaped solid",
+              "caption": "Spin it - notice the hole through the middle.",
+              "payload": {
+                "setup": "const geo = new THREE.TorusGeometry(1.4, 0.42, 24, 90); const mat = new THREE.MeshStandardMaterial({ color: 0x6366f1, metalness: 0.2, roughness: 0.35 }); const t = new THREE.Mesh(geo, mat); t.name = 'quizShape'; scene.add(t); camera.position.z = 4.6;",
+                "update": "const s = scene.getObjectByName('quizShape'); if (s) { s.rotation.z += 0.016; s.rotation.y += 0.01; }"
+              }
+            }
+          },
+          {
+            "heading": "What makes a torus",
+            "body": "A torus is a ring-shaped, doughnut-shaped solid. Its one defining feature is the hole through the middle. If a smooth, curved 3D shape has a single hole running through it, it is a torus."
+          },
+          {
+            "heading": "Telling the choices apart",
+            "body": "Compare the four options by their key feature:",
+            "points": [
+              "A sphere is a perfectly round ball with no hole and no flat faces.",
+              "A cylinder is like a tin can - two flat circular ends joined by a curved side.",
+              "A dodecahedron has 12 flat pentagon-shaped faces.",
+              "A torus is a ring with a hole through the middle."
+            ]
+          },
+          {
+            "heading": "Common mistakes to avoid",
+            "points": [
+              "Mixing up a torus with a sphere - a sphere has no hole.",
+              "Choosing a shape by its colour or size instead of its form.",
+              "Forgetting that the hole is the torus's biggest clue."
+            ]
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "Look closely at the shape rotating on the question screen.",
+            "note": "Does it have a hole through the middle, like a doughnut or a ring? If it does, you already know its name."
+          }
+        ]
       },
       "media": {
         "type": "threejs",
@@ -84,19 +311,68 @@
       "options": ["$80", "$90", "$95", "$100"],
       "correctAnswer": "$90",
       "hint": {
-        "title": "Find the discount first",
-        "text": "25% is one quarter. One quarter of $120 is $30, so subtract that from the original price."
-      },
-      "media": {
-        "type": "chart",
-        "title": "Original price and discount",
-        "caption": "The final price is the original price minus the discount.",
-        "values": [
-          { "label": "Original", "value": 120, "prefix": "$", "color": "#3772ff" },
-          { "label": "Discount", "value": 30, "prefix": "$", "color": "#ff6b6b" },
-          { "label": "Final", "value": 90, "prefix": "$", "color": "#16b8a6" }
-        ],
-        "teachingPoint": "25% of 120 is the same as 120 divided by 4."
+        "format": "lesson",
+        "title": "Percentage Discounts",
+        "subtitle": "Working out a sale price when a percentage is taken off.",
+        "sections": [
+          {
+            "heading": "What a discount is",
+            "body": "A discount is an amount taken off the original price. A 25% discount means 25 out of every 100 of the price is removed. To find the final price you first work out the discount amount, then subtract it.",
+            "visual": {
+              "type": "illustration",
+              "theme": "shop",
+              "title": "Money off at the shop",
+              "caption": "A discount lowers the price you actually pay.",
+              "label": "25% OFF"
+            }
+          },
+          {
+            "heading": "Turn the percentage into a simple fraction",
+            "body": "Percentages are much easier when you turn them into a fraction. 25% means 25 per 100, which simplifies to one quarter. So finding 25% of a number is exactly the same as dividing that number by 4."
+          },
+          {
+            "heading": "Watch it work on different numbers",
+            "body": "Let's take 25% off an $80 game (not the quiz jacket).",
+            "steps": [
+              "25% is one quarter, so find a quarter of 80: 80 / 4 = 20.",
+              "The discount is $20.",
+              "Final price = original - discount = 80 - 20 = 60.",
+              "The game costs $60."
+            ],
+            "visual": {
+              "type": "chart",
+              "title": "Original price, discount, and final price",
+              "caption": "The final price is what is left after the discount is removed.",
+              "values": [
+                { "label": "Original", "value": 80, "prefix": "$", "color": "#6366f1" },
+                { "label": "Discount", "value": 20, "prefix": "$", "color": "#818cf8" },
+                { "label": "Final price", "value": 60, "prefix": "$", "color": "#15a34a" }
+              ],
+              "teachingPoint": "Find the discount, then subtract it from the original price."
+            }
+          },
+          {
+            "heading": "The two steps for any discount",
+            "steps": [
+              "Find the discount: turn the percentage into a fraction and apply it to the original price.",
+              "Subtract the discount from the original price.",
+              "What is left is the final price you pay."
+            ]
+          },
+          {
+            "heading": "Common mistakes to avoid",
+            "points": [
+              "Giving the discount as the answer instead of the price you actually pay.",
+              "Forgetting to subtract - the final price is always less than the original.",
+              "Using the wrong fraction - 25% is a quarter, 50% is a half, 10% is a tenth."
+            ]
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "The jacket costs $120 and the discount is 25%.",
+            "note": "Find one quarter of 120 to get the discount amount, then subtract it from $120."
+          }
+        ]
       }
     },
     {
@@ -106,8 +382,56 @@
       "options": ["Yes, gravity always wins", "No, it is a perfect vacuum", "Only if friction is added", "Yes, but it takes 10 minutes"],
       "correctAnswer": "Yes, gravity always wins",
       "hint": {
-        "title": "Energy gets smaller",
-        "text": "Each bounce loses a little energy, so the bounce height slowly gets lower."
+        "format": "lesson",
+        "title": "Why Bouncing Stops",
+        "subtitle": "How a bouncing ball slowly loses energy until it comes to rest.",
+        "sections": [
+          {
+            "heading": "What restitution means",
+            "body": "Restitution is a measure of bounciness. A restitution of exactly 1 would be a perfect bounce that never loses energy. Real objects always have restitution less than 1, so every bounce returns a little less than the one before.",
+            "visual": {
+              "type": "matterjs",
+              "title": "A bouncy but not perfect ball",
+              "caption": "Watch each bounce come back a little lower.",
+              "payload": {
+                "setup": "const ball = Matter.Bodies.circle(width * 0.5, 50, 26, { restitution: 0.82, render: { fillStyle: '#6366f1' } }); Matter.World.add(world, ball);"
+              }
+            }
+          },
+          {
+            "heading": "Energy leaks away on every bounce",
+            "body": "Each time the ball hits the ground, a little energy is lost - it turns into heat and sound. With less energy, the next bounce cannot reach as high. Bounce after bounce, the height keeps shrinking.",
+            "visual": {
+              "type": "chart",
+              "title": "Bounce heights getting smaller",
+              "caption": "Every bounce keeps only part of the height before it.",
+              "values": [
+                { "label": "Bounce 1", "value": 100, "color": "#6366f1" },
+                { "label": "Bounce 2", "value": 64, "color": "#818cf8" },
+                { "label": "Bounce 3", "value": 41, "color": "#818cf8" },
+                { "label": "Bounce 4", "value": 26, "color": "#4f46e5" }
+              ],
+              "teachingPoint": "The bounces never grow - they only ever get smaller."
+            }
+          },
+          {
+            "heading": "Why gravity always wins",
+            "body": "Gravity never switches off. It pulls the ball down on every single bounce. Because the ball keeps losing energy while gravity keeps pulling, the bounces get smaller and smaller until the ball finally rests on the ground."
+          },
+          {
+            "heading": "Checking the other options",
+            "points": [
+              "It is not a vacuum - and even in a vacuum the ball would still stop, because energy is lost in the bounce itself, not in the air.",
+              "Friction is not needed - energy is already lost each time the ball strikes the ground.",
+              "There is no fixed time like 10 minutes - how long it takes depends on the ball and the surface."
+            ]
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "The ball is very bouncy, but not perfectly bouncy.",
+            "note": "Every bounce loses a little energy while gravity keeps pulling down. So yes - the ball will eventually stop bouncing."
+          }
+        ]
       },
       "media": {
         "type": "matterjs",
@@ -123,8 +447,50 @@
       "options": ["1", "2", "4", "0"],
       "correctAnswer": "2",
       "hint": {
-        "title": "Center to top",
-        "text": "Amplitude is the distance from the middle line to the highest point."
+        "format": "lesson",
+        "title": "Amplitude of an Oscillation",
+        "subtitle": "Measuring how far something swings from its resting position.",
+        "sections": [
+          {
+            "heading": "What amplitude means",
+            "body": "When something oscillates, it moves up and down again and again. Amplitude is the distance from the middle resting line to the furthest point of the swing - the highest point reached above the middle.",
+            "visual": {
+              "type": "threejs",
+              "title": "An object swinging up and down",
+              "caption": "Watch it rise above and dip below the middle line.",
+              "payload": {
+                "setup": "const ball = new THREE.Mesh(new THREE.SphereGeometry(0.42, 24, 24), new THREE.MeshStandardMaterial({ color: 0x6366f1, metalness: 0.15, roughness: 0.4 })); ball.name = 'quizShape'; scene.add(ball); const grid = new THREE.GridHelper(6, 6, 0x888888, 0x888888); grid.rotation.x = Math.PI / 2; scene.add(grid); camera.position.set(0, 0, 6);",
+                "update": "const b = scene.getObjectByName('quizShape'); if (b) { b.position.y = Math.sin(Date.now() * 0.0035) * 2; }"
+              }
+            }
+          },
+          {
+            "heading": "Middle line, top and bottom",
+            "body": "Picture three lines: the middle resting line, the top of the swing, and the bottom of the swing. The amplitude is measured from the MIDDLE line to the top - not all the way from the bottom to the top."
+          },
+          {
+            "heading": "Watch it work on different numbers",
+            "body": "Suppose something swings between y = -3 and y = 3.",
+            "steps": [
+              "Find the middle line - it sits halfway between the lowest and highest point, at y = 0.",
+              "Find the highest point: y = 3.",
+              "Amplitude = highest point - middle line = 3 - 0 = 3."
+            ]
+          },
+          {
+            "heading": "Common mistakes to avoid",
+            "points": [
+              "Measuring from the bottom all the way to the top - that gives double the amplitude.",
+              "Forgetting to find the middle resting line first.",
+              "Confusing amplitude with how fast the object moves."
+            ]
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "The plane moves from y = 0 up to y = 2.",
+            "note": "y = 0 is the middle resting line and y = 2 is the top of the swing. The amplitude is the distance between them."
+          }
+        ]
       },
       "media": {
         "type": "threejs",
@@ -141,16 +507,62 @@
       "options": ["80 cm^2", "40 cm^2", "20 cm^2", "18 cm^2"],
       "correctAnswer": "40 cm^2",
       "hint": {
-        "title": "Triangle area",
-        "text": "A triangle is half a rectangle with the same base and height.",
-        "steps": ["Multiply base x height.", "10 x 8 = 80.", "Take half: 80 / 2 = 40."]
-      },
-      "media": {
-        "type": "illustration",
-        "theme": "triangle",
-        "title": "Triangle area model",
-        "caption": "Base = 10 cm and height = 8 cm. The area is half of base x height.",
-        "callouts": ["base 10 cm", "height 8 cm", "half a rectangle"]
+        "format": "lesson",
+        "title": "Area of a Triangle",
+        "subtitle": "Why a triangle's area is half of base times height.",
+        "sections": [
+          {
+            "heading": "What area means",
+            "body": "Area is the amount of flat space inside a shape, measured in square units such as square centimetres. To find the area of a triangle we use two measurements: its base and its height.",
+            "visual": {
+              "type": "illustration",
+              "theme": "triangle",
+              "title": "The base and the height",
+              "caption": "The base is the flat bottom; the height is the straight distance up to the top point."
+            }
+          },
+          {
+            "heading": "A triangle is half a rectangle",
+            "body": "Take any triangle and draw the rectangle that fits snugly around it with the same base and the same height. The triangle always fills exactly half of that rectangle. That is the key idea behind the formula."
+          },
+          {
+            "heading": "The formula",
+            "body": "Area of a triangle = (base x height) / 2. First multiply the base by the height - that gives the surrounding rectangle. Then halve it, because the triangle is half of the rectangle."
+          },
+          {
+            "heading": "Watch it work on different numbers",
+            "body": "Find the area of a triangle with base 6 cm and height 4 cm (not the quiz triangle).",
+            "steps": [
+              "Multiply base x height: 6 x 4 = 24.",
+              "That is the area of the surrounding rectangle.",
+              "Halve it: 24 / 2 = 12.",
+              "The area of the triangle is 12 square centimetres."
+            ],
+            "visual": {
+              "type": "chart",
+              "title": "Rectangle first, then take half",
+              "caption": "The triangle is always half of the rectangle around it.",
+              "values": [
+                { "label": "Rectangle (6x4)", "value": 24, "color": "#6366f1" },
+                { "label": "Triangle (half)", "value": 12, "color": "#15a34a" }
+              ],
+              "teachingPoint": "Multiply base by height, then divide by 2."
+            }
+          },
+          {
+            "heading": "Common mistakes to avoid",
+            "points": [
+              "Forgetting to divide by 2 - that gives the rectangle's area, not the triangle's.",
+              "Using the length of a slanted side instead of the straight up-and-down height.",
+              "Leaving off the units - area is always written in square units."
+            ]
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "Your triangle has a base of 10 cm and a height of 8 cm.",
+            "note": "Multiply 10 by 8 first to get the rectangle, then take half of the result."
+          }
+        ]
       }
     },
     {
@@ -160,8 +572,51 @@
       "options": ["1", "2", "3", "4"],
       "correctAnswer": "3",
       "hint": {
-        "title": "Trefoil clue",
-        "text": "The word trefoil is linked to three parts or leaves."
+        "format": "lesson",
+        "title": "The Trefoil Knot",
+        "subtitle": "Reading the name of a shape to understand its structure.",
+        "sections": [
+          {
+            "heading": "Look at the knot",
+            "body": "A trefoil knot is the simplest knot that cannot be untangled into a plain loop. As it turns, you can trace a single strand crossing over and under itself.",
+            "visual": {
+              "type": "threejs",
+              "title": "A trefoil knot",
+              "caption": "Spin it slowly and follow the strand around.",
+              "payload": {
+                "setup": "const geo = new THREE.TorusKnotGeometry(1.05, 0.30, 140, 18); const mat = new THREE.MeshStandardMaterial({ color: 0x6366f1, metalness: 0.2, roughness: 0.35 }); const k = new THREE.Mesh(geo, mat); k.name = 'quizShape'; scene.add(k); camera.position.z = 4.8;",
+                "update": "const k = scene.getObjectByName('quizShape'); if (k) { k.rotation.y += 0.014; k.rotation.x += 0.006; }"
+              }
+            }
+          },
+          {
+            "heading": "The clue is in the name",
+            "body": "The word trefoil comes from tre, meaning three, and foil, meaning leaf - the same idea as a three-leaf clover. The name itself tells you the shape has three parts, or three loops."
+          },
+          {
+            "heading": "Words that hide numbers",
+            "body": "Many maths and science words carry a hidden number. Spotting it helps you answer quickly.",
+            "points": [
+              "tri or tre means three - triangle, tricycle, trefoil.",
+              "bi means two - bicycle, binary.",
+              "pent means five - pentagon.",
+              "oct means eight - octagon, octopus."
+            ]
+          },
+          {
+            "heading": "Common mistakes to avoid",
+            "points": [
+              "Trying to count loops on a fast-spinning shape instead of using the name.",
+              "Confusing the number of crossings with the number of loops.",
+              "Guessing without using the meaning hidden in the word."
+            ]
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "The shape on the question screen is a trefoil knot.",
+            "note": "Tre means three. A trefoil knot traditionally has three loops, just like a three-leaf clover."
+          }
+        ]
       },
       "media": {
         "type": "threejs",
@@ -178,18 +633,66 @@
       "options": ["5", "8", "10", "15"],
       "correctAnswer": "8",
       "hint": {
-        "title": "Undo in reverse",
-        "text": "Divide by 5 first, then add 3.",
-        "steps": ["5(x - 3) = 25", "x - 3 = 5", "x = 8"]
-      },
-      "media": {
-        "type": "illustration",
-        "theme": "balance",
-        "title": "Final equation balance",
-        "caption": "Remove the outside multiply first, then solve the bracket.",
-        "left": "5(x - 3)",
-        "right": "25",
-        "callouts": ["divide by 5", "add 3"]
+        "format": "lesson",
+        "title": "Equations with Brackets",
+        "subtitle": "Solving for x when part of the equation is locked inside brackets.",
+        "sections": [
+          {
+            "heading": "What the brackets mean",
+            "body": "In 5(x - 3), the brackets mean the whole expression (x - 3) is multiplied by 5. The number sitting just outside the brackets multiplies everything inside them.",
+            "visual": {
+              "type": "illustration",
+              "theme": "balance",
+              "title": "A bracket equation, still balanced",
+              "caption": "The two sides are still equal, just like any equation.",
+              "left": "5(x - 3)",
+              "right": "25",
+              "callouts": ["Left side", "Right side", "Both worth the same"]
+            }
+          },
+          {
+            "heading": "The balance rule still applies",
+            "body": "Just like any equation, both sides must always stay equal - whatever you do to one side, do to the other. The quickest path here is to first divide both sides by 5, which removes the multiplier in front of the bracket.",
+            "visual": {
+              "type": "image",
+              "src": "assets/balance-scale.svg",
+              "alt": "A level balance scale with an equal weight on each side",
+              "caption": "The same change on both sides keeps the equation true."
+            }
+          },
+          {
+            "heading": "Watch it work on different numbers",
+            "body": "Let's solve a similar equation first: 3(x - 2) = 12.",
+            "steps": [
+              "Divide both sides by 3: (x - 2) = 4. The bracket multiplier is gone.",
+              "Now undo the - 2 by adding 2 to both sides.",
+              "x = 4 + 2 = 6.",
+              "Check it: 3(6 - 2) = 3 x 4 = 12. True - so x = 6 is correct."
+            ]
+          },
+          {
+            "heading": "The method for bracket equations",
+            "steps": [
+              "Divide both sides by the number in front of the bracket.",
+              "This leaves just the bracket equal to a number.",
+              "Solve the simple equation that is left inside the bracket.",
+              "Check your answer in the original equation."
+            ]
+          },
+          {
+            "heading": "Common mistakes to avoid",
+            "points": [
+              "Adding before dividing - remove the bracket multiplier first.",
+              "Dividing only one term instead of the whole of the other side.",
+              "Forgetting to undo the number inside the bracket after the multiplier is gone."
+            ]
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "Your final equation is 5(x - 3) = 25.",
+            "note": "Divide both sides by 5 first to clear the bracket, then undo the - 3 to find x."
+          }
+        ]
       }
     }
   ]

@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"const d=require\\('./questions/1.json'\\); console.log\\('valid JSON, questions:', d.questions.length\\); console.log\\('q1 hint format:', d.questions[0].hint.format, '| sections:', d.questions[0].hint.sections.length\\);\")",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(node -e \"const d=require\\('./questions/1.json'\\); const q1=d.questions[0]; console.log\\('q1 media:', q1.media===undefined?'removed \\(good\\)':JSON.stringify\\(q1.media\\)\\); console.log\\('q1 hint sections:', q1.hint.sections.length\\);\")",
+      "Bash(curl -s -o /dev/null -w \"server: %{http_code}\" http://localhost:8765/index.html)",
+      "PowerShell(Start-Process \"http://localhost:8765/\")",
+      "Bash(node -e \"const d=require\\('./questions/1.json'\\); console.log\\('valid JSON | questions:', d.questions.length\\); d.questions.forEach\\(q=>{const h=q.hint; const fmt=h&&h.format==='lesson'?\\('lesson\\('+h.sections.length+'\\)'\\):'LEGACY/none'; console.log\\(' ', q.code.padEnd\\(12\\), fmt.padEnd\\(12\\), 'media:', q.media?q.media.type:'-'\\);}\\);\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8765/index.html)",
+      "Read(//c/tmp/web_game_timer/questions/**)",
+      "PowerShell(try { Remove-Item -LiteralPath \"C:\\\\tmp\\\\web_game_timer\" -Recurse -Force -ErrorAction Stop; \"DELETED OK\" } catch { \"FAILED: \" + $_.Exception.Message }; \"--- does it still exist? ---\"; Test-Path \"C:\\\\tmp\\\\web_game_timer\")"
+    ]
+  }
+}

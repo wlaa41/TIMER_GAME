@@ -6,6 +6,7 @@ Live site: <https://aiedu41.netlify.app/>
 
 ## Highlights
 
+- Minimal interface with light and dark themes (one-tap toggle, follows the device by default).
 - Upload local JSON question packs.
 - Load bundled question packs directly on the deployed site.
 - Set any mission length in minutes.
@@ -15,10 +16,12 @@ Live site: <https://aiedu41.netlify.app/>
 - Track how many hints the player used.
 - Render rich question media:
   - images or local SVG assets
+  - video clips (local files or embeds)
   - bar charts
   - kid-friendly illustrations
   - Three.js 3D scenes
   - Matter.js 2D physics simulations
+- Expand a hint into a full multi-section mini-lesson with its own visuals.
 - Drag 2D physics objects with the mouse.
 - Rotate and zoom 3D scenes with the mouse.
 
@@ -31,7 +34,10 @@ TIMER_GAME/
 ├── style.css
 ├── favicon.svg
 ├── site.webmanifest
+├── README.md
+├── QUESTION_FORMAT.md
 ├── assets/
+│   ├── balance-scale.svg
 │   ├── reading-window.svg
 │   └── shape-gallery.svg
 └── questions/
@@ -56,7 +62,11 @@ http://localhost:8000
 
 ## Question JSON Format
 
-Each question can include a code, hint, answer options, and optional media.
+The full, authoritative pack specification lives in [QUESTION_FORMAT.md](QUESTION_FORMAT.md).
+
+Each question can include a code, hint, answer options, and optional media. The
+`hint` can be a small legacy hint (below) or a full multi-section **mini-lesson**
+with its own per-section visuals — see the Lesson section of QUESTION_FORMAT.md.
 
 ```json
 {
@@ -142,6 +152,18 @@ Supported themes include `balance`, `triangle`, `shop`, `reading`, and `study`.
   }
 }
 ```
+
+### Video
+
+```json
+{
+  "type": "video",
+  "src": "assets/two-step-equations.mp4",
+  "caption": "A short walkthrough."
+}
+```
+
+Use `embed` instead of `src` for a YouTube/Vimeo embed URL.
 
 ## Notes
 
