@@ -68,14 +68,12 @@
             <div class="setup-panel">
                 <div class="form-group">
                     <label for="pack-select">Built-in pack</label>
-                    <div class="pack-loader">
-                        <select id="pack-select" class="time-select">
-                            <option value="questions/1.json">Maths, Shapes, and Motion</option>
-                            <option value="questions/percentage_5apr.json">Money Percentage Adventure</option>
-                            <option value="questions/2.json">Word Explorer and Shape Studio</option>
-                        </select>
-                        <button id="load-pack-btn" class="btn-main secondary compact-btn" type="button">Load</button>
-                    </div>
+                    <select id="pack-select" class="time-select">
+                        <option value="questions/1.json">Maths, Shapes, and Motion</option>
+                        <option value="questions/percentages.json">Percentage Power</option>
+                        <option value="questions/2.json">Word Explorer and Shape Studio</option>
+                    </select>
+                    <div class="field-note">Pick a pack and it loads straight away.</div>
                 </div>
 
                 <div class="form-group">
@@ -131,6 +129,10 @@
             <article class="question-panel">
                 <div class="card-topline">
                     <span id="question-code" class="question-code">Q-00</span>
+                    <span id="question-time" class="question-time hidden" title="Suggested time for this question">
+                        <svg class="question-time-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>
+                        <span id="question-time-value">0:00</span>
+                    </span>
                     <div class="progress-track" aria-label="Quiz progress"><div id="progress-bar" class="progress-bar"></div></div>
                 </div>
 

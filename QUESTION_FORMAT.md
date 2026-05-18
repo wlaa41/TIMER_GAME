@@ -37,6 +37,7 @@ AI Edu Quiz Quest. A pack can be uploaded from disk or bundled in `questions/`.
   "question": "Solve for x: 4x - 12 = 28",
   "options": ["4", "8", "10", "12"],
   "correctAnswer": "10",
+  "estimatedSeconds": 90,
   "media": { /* optional Media object - see section 3 */ },
   "hint":  { /* Lesson object (section 4) or Legacy hint (section 5) */ }
 }
@@ -49,6 +50,7 @@ AI Edu Quiz Quest. A pack can be uploaded from disk or bundled in `questions/`.
 | `question`      | string   | yes      | The prompt the player reads.                                 |
 | `options`       | string[] | yes      | Answer buttons. Use 2-4 for the cleanest layout.             |
 | `correctAnswer` | string   | yes      | Must exactly match one entry of `options` (case-insensitive).|
+| `estimatedSeconds` | number | no    | Suggested seconds to answer this question. Drives the time badge and pace meter — see the note below. |
 | `media`         | Media    | no       | A visual shown with the question itself.                     |
 | `hint`          | Lesson \| Legacy | no | The teaching content behind the hint button.            |
 
@@ -56,6 +58,13 @@ AI Edu Quiz Quest. A pack can be uploaded from disk or bundled in `questions/`.
 > immediately, before the player tries. If a visual would reveal the method or
 > answer, leave `media` out and place that visual inside a lesson section
 > instead — the lesson only opens when the player presses **Let's Learn**.
+
+> **Estimated time:** `estimatedSeconds` is optional. When set, the game shows
+> it as a small time badge on the question and points the Question Pace meter
+> at it instead of a flat average. When *every* question in a pack has one, the
+> setup screen sums them to pre-fill the total play time (still editable).
+> Packs without the field are unaffected. Vary it with difficulty — a quick
+> recall question might be `60`, a multi-step challenge `240` or more.
 
 ---
 
@@ -237,12 +246,26 @@ they render in this order: **heading → body → visual → steps → points �
 
 ### 4.2 Writing guidance
 
-- A lesson should **teach the idea and walk a parallel worked example**, then
-  point the player back at the real question — it should not simply state the
-  question's own answer.
-- A typical lesson has 5–8 sections: what the question asks, the core idea,
-  a worked example, the method, common mistakes, and a closing pointer.
-- Mix visual types across sections so the lesson stays lively.
+A lesson is not a definition — it is a tiny, thrilling read that leaves a child
+knowing more and *wondering* more. Write like a warm science communicator
+talking to one curious explorer.
+
+- **Voice.** Short sentences, one idea at a time. Speak to "you". Swap jargon
+  for vivid, concrete pictures. Never talk down — light them up.
+- **The arc.** A typical lesson runs 6–8 sections in this rhythm: a curious
+  **hook** (an everyday scene, not "Today we learn…"), the **big idea**, a
+  **worked example on _different_ numbers**, a **Fun Fact**, a **"where it lives
+  in the world"** section, a **"try it yourself"** section of real activities,
+  and a closing **pointer back to the question**.
+- **Three sections are mandatory:** a Fun Fact, a real-world expansion, and a
+  hands-on "try it yourself" — they are what make a lesson sing.
+- **Never reveal the question's own answer.** Teach the method or the idea and
+  leave the explorer the final, satisfying step. For maths, always demonstrate
+  on numbers different from the question's.
+- **Every fact must be true** — fun facts included. Verify anything uncertain.
+- **Build knowledge across the pack.** Order questions easy → hard, and let a
+  later lesson lean on an idea an earlier one taught.
+- Give most sections a visual, and mix the types so the lesson stays lively.
 
 ---
 

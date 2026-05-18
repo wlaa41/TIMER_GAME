@@ -9,7 +9,10 @@
       "Bash(node -e \"const d=require\\('./questions/1.json'\\); console.log\\('valid JSON | questions:', d.questions.length\\); d.questions.forEach\\(q=>{const h=q.hint; const fmt=h&&h.format==='lesson'?\\('lesson\\('+h.sections.length+'\\)'\\):'LEGACY/none'; console.log\\(' ', q.code.padEnd\\(12\\), fmt.padEnd\\(12\\), 'media:', q.media?q.media.type:'-'\\);}\\);\")",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8765/index.html)",
       "Read(//c/tmp/web_game_timer/questions/**)",
-      "PowerShell(try { Remove-Item -LiteralPath \"C:\\\\tmp\\\\web_game_timer\" -Recurse -Force -ErrorAction Stop; \"DELETED OK\" } catch { \"FAILED: \" + $_.Exception.Message }; \"--- does it still exist? ---\"; Test-Path \"C:\\\\tmp\\\\web_game_timer\")"
+      "PowerShell(try { Remove-Item -LiteralPath \"C:\\\\tmp\\\\web_game_timer\" -Recurse -Force -ErrorAction Stop; \"DELETED OK\" } catch { \"FAILED: \" + $_.Exception.Message }; \"--- does it still exist? ---\"; Test-Path \"C:\\\\tmp\\\\web_game_timer\")",
+      "Bash(python \".claude/skills/quiz-pack-builder/scripts/validate_pack.py\" questions/1.json)",
+      "WebSearch",
+      "Bash(python -)"
     ]
   }
 }

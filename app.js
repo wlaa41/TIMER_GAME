@@ -45,7 +45,6 @@ const els = {
     fileInput: document.getElementById("json-upload"),
     fileStatus: document.getElementById("file-status"),
     packSelect: document.getElementById("pack-select"),
-    loadPackBtn: document.getElementById("load-pack-btn"),
     timeInput: document.getElementById("time-input"),
     timeStatus: document.getElementById("time-status"),
     startBtn: document.getElementById("start-btn"),
@@ -62,6 +61,8 @@ const els = {
     progressDisplay: document.getElementById("progress-display"),
     progressBar: document.getElementById("progress-bar"),
     questionCode: document.getElementById("question-code"),
+    questionTime: document.getElementById("question-time"),
+    questionTimeValue: document.getElementById("question-time-value"),
     questionText: document.getElementById("question-text"),
     mediaStage: document.getElementById("media-stage"),
     mediaRenderer: document.getElementById("media-renderer"),
@@ -110,6 +111,27 @@ const getSelectedDurationSeconds = () => {
     const minutes = Math.max(1, parseInt(els.timeInput.value, 10) || 10);
     els.timeInput.value = minutes;
     return minutes * 60;
+};
+
+// A question may carry `estimatedSeconds` - the suggested time to answer it.
+// Returns a positive whole number of seconds, or null when none is set.
+const getQuestionEstimate = (question) => {
+    const value = Number(question && question.estimatedSeconds);
+    return Number.isFinite(value) && value > 0 ? Math.round(value) : null;
+};
+
+// The suggested total play time: the sum of every question's estimate. Returns
+// null unless EVERY question has one, so legacy packs keep the manual time.
+const getPackEstimateTotal = () => {
+    const questions = getQuestions();
+    if (!questions.length) return null;
+    let total = 0;
+    for (const question of questions) {
+        const estimate = getQuestionEstimate(question);
+        if (estimate === null) return null;
+        total += estimate;
+    }
+    return total;
 };
 
 const updateScoreDisplay = () => {
@@ -789,6 +811,17 @@ function loadQuestion() {
 
     els.questionCode.textContent = question.code || question.id || `Q-${currentQuestionIndex + 1}`;
     els.questionText.textContent = question.question;
+
+    const estimateSeconds = getQuestionEstimate(question);
+    questionTargetSeconds = estimateSeconds
+        || Math.max(1, Math.round(selectedDuration / questions.length));
+    if (estimateSeconds) {
+        els.questionTimeValue.textContent = formatTime(estimateSeconds);
+        els.questionTime.classList.remove("hidden");
+    } else {
+        els.questionTime.classList.add("hidden");
+    }
+
     els.progressDisplay.textContent = `${currentQuestionIndex + 1}/${questions.length}`;
     els.progressBar.style.width = `${((currentQuestionIndex + 1) / questions.length) * 100}%`;
     els.feedback.classList.add("hidden");
@@ -920,12 +953,25 @@ const setLoadedQuiz = (data, sourceLabel) => {
     if (sourceLabel) els.fileStatus.textContent += ` from ${sourceLabel}`;
     els.startBtn.disabled = false;
     els.startBtn.classList.remove("disabled");
-    els.timeStatus.textContent = `Pace target: ${formatTime(Math.round(getSelectedDurationSeconds() / getQuestions().length))} per question.`;
+
+    const suggestedTotal = getPackEstimateTotal();
+    if (suggestedTotal) {
+        const suggestedMinutes = Math.max(1, Math.ceil(suggestedTotal / 60));
+        els.timeInput.value = suggestedMinutes;
+        selectedDuration = suggestedMinutes * 60;
+        els.timeStatus.textContent = `This pack suggests ${suggestedMinutes} min total - each question carries its own pace target. Adjust the minutes if you like.`;
+    } else {
+        els.timeStatus.textContent = `Pace target: ${formatTime(Math.round(getSelectedDurationSeconds() / getQuestions().length))} per question.`;
+    }
 };
 
 els.timeInput.addEventListener("change", () => {
     selectedDuration = getSelectedDurationSeconds();
-    els.timeStatus.textContent = `Pace target: ${formatTime(Math.round(selectedDuration / Math.max(1, getQuestions().length || 1)))} per question.`;
+    if (getPackEstimateTotal()) {
+        els.timeStatus.textContent = `Total play time set to ${Math.round(selectedDuration / 60)} min. Each question still keeps its own suggested time.`;
+    } else {
+        els.timeStatus.textContent = `Pace target: ${formatTime(Math.round(selectedDuration / Math.max(1, getQuestions().length || 1)))} per question.`;
+    }
 });
 
 els.fileInput.addEventListener("change", (event) => {
@@ -949,7 +995,7 @@ els.fileInput.addEventListener("change", (event) => {
 
 async function loadSelectedBuiltInPack(options = {}) {
     try {
-        els.loadPackBtn.disabled = true;
+        els.packSelect.disabled = true;
         if (!options.silent) els.fileStatus.textContent = "Loading built-in pack...";
         const response = await fetch(els.packSelect.value);
         if (!response.ok) throw new Error("Pack not found.");
@@ -960,11 +1006,11 @@ async function loadSelectedBuiltInPack(options = {}) {
         els.startBtn.disabled = true;
         els.startBtn.classList.add("disabled");
     } finally {
-        els.loadPackBtn.disabled = false;
+        els.packSelect.disabled = false;
     }
 }
 
-els.loadPackBtn.addEventListener("click", () => {
+els.packSelect.addEventListener("change", () => {
     loadSelectedBuiltInPack();
 });
 

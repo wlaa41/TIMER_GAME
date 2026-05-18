@@ -267,12 +267,6 @@ h3 {
     margin-bottom: 18px;
 }
 
-.pack-loader {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 10px;
-}
-
 label,
 .hud-label {
     color: var(--text-muted);
@@ -478,8 +472,7 @@ select.time-select {
 }
 
 .card-topline {
-    display: grid;
-    grid-template-columns: auto minmax(140px, 1fr);
+    display: flex;
     align-items: center;
     gap: 16px;
 }
@@ -497,7 +490,35 @@ select.time-select {
     letter-spacing: 0.04em;
 }
 
+.question-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex: none;
+    min-height: 30px;
+    padding: 5px 11px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface-2);
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.question-time-icon {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
 .progress-track {
+    flex: 1;
+    min-width: 120px;
     height: 8px;
 }
 
@@ -1244,8 +1265,7 @@ select.time-select {
     .input-grid,
     .result-grid,
     .button-row,
-    .chart-row,
-    .pack-loader {
+    .chart-row {
         grid-template-columns: 1fr;
     }
 

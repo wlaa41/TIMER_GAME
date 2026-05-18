@@ -1,0 +1,1114 @@
+{
+  "quizTitle": "Percentage Power",
+  "description": "A 12-question percentages adventure for curious explorers around age 10. The pack climbs a deliberate ladder - from what 'per cent' means, through percentages as fractions and decimals, the land beyond 100%, finding 10% and 1%, building any percentage, discounts and increases, comparing fairly, and finally working backwards. Every question carries its own estimated time and a full 'Let's Learn' mini-lesson written in a warm, science-communicator voice: a curious hook, a true fun fact, a real-world section, and hands-on activities. Each lesson teaches the method on different numbers and never gives the question's own answer away, and later lessons lean on ideas the earlier ones taught.",
+  "questions": [
+    {
+      "id": "q1",
+      "code": "PCT-01",
+      "question": "This big square is split into 100 small squares. Some of them are coloured in. What percentage of the whole square is coloured?",
+      "options": ["3%", "30%", "70%", "100%"],
+      "correctAnswer": "30%",
+      "estimatedSeconds": 60,
+      "media": {
+        "type": "image",
+        "src": "assets/percent-grid-question.svg",
+        "alt": "A 10 by 10 grid of 100 small squares, with the bottom three rows coloured in and the rest left grey",
+        "caption": "Each small square is the same size, and there are 100 of them."
+      },
+      "hint": {
+        "format": "lesson",
+        "title": "What a Percentage Really Is",
+        "subtitle": "The big secret hiding inside the word 'per cent'.",
+        "sections": [
+          {
+            "heading": "Have you spotted the little % sign?",
+            "body": [
+              "Start looking, and you will see a tiny sign almost everywhere: %. It sits next to the battery icon on a phone. It shouts from posters in shop windows. A weather app uses it to tell you the chance of rain tomorrow.",
+              "That little mark is called the percent sign, and it points to one of the most useful ideas in all of maths. Once you understand it, you will spot it everywhere - and you will know exactly what it is trying to tell you."
+            ],
+            "visual": {
+              "type": "illustration",
+              "theme": "shop",
+              "title": "A sign you have seen before",
+              "caption": "Shops love the % sign - it tells you how much money you will save.",
+              "label": "50% OFF"
+            }
+          },
+          {
+            "heading": "'Per cent' means 'per hundred'",
+            "body": [
+              "The word 'percent' is really two small words joined together: 'per' and 'cent'. 'Per' means 'for every'. 'Cent' means 'hundred' - it is the same 'cent' hiding inside a century (a hundred years), a centimetre (a hundred of them make one metre), and even a centipede, whose name means 'a hundred feet'.",
+              "So 'per cent' simply means 'for every hundred'. A percentage is a way of counting that always imagines you have exactly 100 things. Colour in 1 square out of 100 and that is 1 percent. Colour 25 of them and that is 25 percent."
+            ],
+            "visual": {
+              "type": "image",
+              "src": "assets/percent-grid-seventy.svg",
+              "alt": "A 10 by 10 grid of 100 squares with 70 of them coloured in",
+              "caption": "70 squares out of 100 are coloured - that is 70 percent, written 70%."
+            }
+          },
+          {
+            "heading": "Every tiny square is worth 1%",
+            "body": [
+              "Picture that whole grid of 100 squares. The full grid - every single square coloured - is 100%. That means 'all of it'. A grid with nothing coloured at all is 0% - 'none of it'.",
+              "Here is the handy part: every tiny square is worth exactly 1%. So to read a percentage off a grid, you only have to do one thing - count the coloured squares. The number you land on is the percentage."
+            ],
+            "visual": {
+              "type": "chart",
+              "title": "Percent is a scale from 0 to 100",
+              "caption": "Every percentage sits somewhere along this line.",
+              "values": [
+                { "label": "Empty", "value": 0, "suffix": "%", "color": "#c8ccd6" },
+                { "label": "A quarter", "value": 25, "suffix": "%", "color": "#818cf8" },
+                { "label": "Half", "value": 50, "suffix": "%", "color": "#6366f1" },
+                { "label": "Three quarters", "value": 75, "suffix": "%", "color": "#4f46e5" },
+                { "label": "Full", "value": 100, "suffix": "%", "color": "#4338ca" }
+              ],
+              "teachingPoint": "0% is nothing and 100% is everything - every other percentage sits in between."
+            }
+          },
+          {
+            "heading": "Fun fact: the % sign is younger than you think",
+            "body": [
+              "Here is something surprising. The percent sign - % - is one of the youngest symbols in all of maths. About 600 years ago it simply did not exist. Instead, people wrote out the whole phrase 'per cento', which is Italian for 'for every hundred'.",
+              "Over hundreds of years, busy merchants and writers squished that phrase smaller and smaller. 'Per cento' shrank to a quick scribble, and then to a tiny mark, until at last it collapsed into the % we use today. Look closely at it: two little round circles, a neat reminder of the two zeros in 100."
+            ],
+            "note": "The % sign began life as words. People squished 'per cento' down for about 600 years until it became a single little symbol."
+          },
+          {
+            "heading": "Percentages are absolutely everywhere",
+            "body": "Once you know what the % sign means, you cannot stop seeing it. It is one of the most useful tools humans have ever invented for describing the world quickly and fairly.",
+            "points": [
+              "Battery: your phone or tablet shows its charge as a percentage. 100% is completely full, and a nervous 8% means find a charger fast.",
+              "Weather: forecasters say things like '70% chance of rain' to tell you how likely a soggy day will be.",
+              "Shops: sales shout '50% off', telling you that half of the price has vanished.",
+              "Scores: tests and quizzes are often marked as a percentage - a score imagined out of 100.",
+              "Games: players love to reach '100% completion' when they have found every last secret."
+            ]
+          },
+          {
+            "heading": "Try it yourself: become a Percent Detective",
+            "body": "The best way to lock in a new idea is to hunt for it in the real world. Here are some missions for you.",
+            "points": [
+              "Percent hunt: over one whole day, count every % sign you can spot - on food packets, screens, posters and shop windows.",
+              "Battery check: look at the battery percentage on a phone or tablet right now. Is it closer to a full 100% or an empty 0%?",
+              "Draw your own grid: rule a 10-by-10 grid of 100 squares, colour in any amount you like, then count the coloured squares to read off the percentage.",
+              "Be a forecaster: next time you hear a weather report, listen for the percentage chance of rain and decide whether to pack an umbrella."
+            ]
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "Look at the grid of 100 squares on your question screen. Some squares are coloured in, and your job is to say what percentage of the whole grid that is.",
+            "note": "Count the coloured squares - each one is worth 1%. Quick shortcut: see how many full rows of ten are coloured, because every full row of ten squares is worth ten percent."
+          }
+        ]
+      }
+    },
+    {
+      "id": "q2",
+      "code": "PCT-02",
+      "question": "At a party, 25% of a pizza is still left in the box. What fraction of the whole pizza is that?",
+      "options": ["1/2", "1/3", "1/4", "1/5"],
+      "correctAnswer": "1/4",
+      "estimatedSeconds": 75,
+      "hint": {
+        "format": "lesson",
+        "title": "A Percentage Is a Fraction in Disguise",
+        "subtitle": "Every percentage is really a fraction wearing a costume.",
+        "sections": [
+          {
+            "heading": "You already know the big secret",
+            "body": [
+              "In the very first question you learned that 'per cent' means 'per hundred'. A percentage counts how many parts you have out of 100.",
+              "Now stop and think about that. 'So many parts out of 100' - that is exactly what a fraction is! A percentage and a fraction turn out to be two ways of saying the very same thing."
+            ]
+          },
+          {
+            "heading": "Slicing a whole into equal pieces",
+            "body": [
+              "Picture a pizza. Slice it into equal pieces and each slice is a fraction of the whole pizza. If 8 equal slices make the pizza, then one slice is 1/8 of it and three slices are 3/8. A fraction simply counts how many slices you have out of the total.",
+              "A percentage works in exactly the same way - it just always imagines the whole has been cut into 100 equal slices. So to turn a percentage into a fraction, write the number on top and put 100 underneath: 50% becomes 50/100, and 7% becomes 7/100."
+            ],
+            "visual": {
+              "type": "threejs",
+              "title": "A pizza cut into equal slices",
+              "caption": "Drag to spin the pizza - each slice is one equal piece of the whole.",
+              "payload": {
+                "setup": "const g = new THREE.Group(); g.name = 'quizShape'; const cheese = new THREE.MeshStandardMaterial({ color: 0xf2b73d, roughness: 0.7 }); const pep = new THREE.MeshStandardMaterial({ color: 0xc0392b, roughness: 0.5 }); const N = 8; const present = 6; const seg = Math.PI * 2 / N; const gap = 0.06; for (let i = 0; i < present; i++) { const a0 = i * seg + gap / 2; const len = seg - gap; const slice = new THREE.Mesh(new THREE.CylinderGeometry(2.1, 2.1, 0.36, 20, 1, false, a0, len), cheese); g.add(slice); const mid = a0 + len / 2; for (let k = 0; k < 2; k++) { const r = 0.8 + k * 0.7; const dot = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.14, 16), pep); dot.position.set(Math.cos(mid) * r, 0.26, Math.sin(mid) * r); g.add(dot); } } scene.add(g); camera.position.set(0, 4.2, 5.2);",
+                "update": "const g = scene.getObjectByName('quizShape'); if (g) { g.rotation.y += 0.006; }"
+              }
+            }
+          },
+          {
+            "heading": "Shrinking a fraction to its simplest form",
+            "body": "A fraction like 50/100 is correct, but it is bulky. You can shrink it: divide the top number and the bottom number by the same thing. The amount stays exactly the same - it is just written in smaller, friendlier numbers.",
+            "steps": [
+              "Take 20%. As a fraction that is 20/100.",
+              "Find a number that divides into both 20 and 100. The number 20 works nicely.",
+              "Divide top and bottom by 20: the 20 becomes 1, and the 100 becomes 5.",
+              "So 20% is the tidy little fraction 1/5, said 'one fifth'."
+            ]
+          },
+          {
+            "heading": "The famous fractions worth knowing by heart",
+            "body": "A few percentages turn into such neat fractions that it is worth keeping them in your pocket. Learn these and you can swap costumes in a flash.",
+            "visual": {
+              "type": "chart",
+              "title": "Four percentages and their friendly fractions",
+              "caption": "Each bar is a percentage that hides a famous fraction.",
+              "values": [
+                { "label": "One tenth", "value": 10, "suffix": "%", "color": "#a5b4fc" },
+                { "label": "One fifth", "value": 20, "suffix": "%", "color": "#818cf8" },
+                { "label": "One half", "value": 50, "suffix": "%", "color": "#6366f1" },
+                { "label": "Three quarters", "value": 75, "suffix": "%", "color": "#4f46e5" }
+              ],
+              "teachingPoint": "10% is 1/10, 20% is 1/5, 50% is 1/2, and 75% is 3/4."
+            },
+            "points": [
+              "50% is 1/2 - one half. Half coloured in, half left blank.",
+              "10% is 1/10 - one tenth. One strip out of ten equal strips.",
+              "75% is 3/4 - three quarters. Three parts out of four.",
+              "20% is 1/5 - one fifth. One part out of five equal parts."
+            ]
+          },
+          {
+            "heading": "Fun fact: the word 'fraction' means 'broken'",
+            "body": [
+              "The word 'fraction' comes from the Latin word 'fractus', which means 'broken'. A fraction really is a broken number - one whole thing snapped into equal pieces.",
+              "Percentages are simply fractions that have all agreed to break the whole into the same number of pieces: exactly 100 of them. Because every percentage is broken into 100, any two of them line up side by side with no fuss at all."
+            ],
+            "note": "A fraction is a 'broken' number. A percentage is a fraction always broken into 100 equal pieces."
+          },
+          {
+            "heading": "Fractions and percentages all around you",
+            "body": "Once you spot that fractions and percentages are the same idea, you start to see the pair everywhere - sometimes wearing one costume, sometimes the other.",
+            "points": [
+              "A football match has two halves, and each half is 50% of the whole game.",
+              "A recipe that asks for half a cup of milk is asking for 50% of a cup.",
+              "A clock shows quarter past and half past - those are fractions of one hour.",
+              "A shop sign shouting '50% off' is really just shouting 'half off'."
+            ]
+          },
+          {
+            "heading": "Try it yourself: the paper-folding test",
+            "body": "Fractions and percentages feel real once your own hands have made them.",
+            "points": [
+              "Take a sheet of paper and fold it in half. Each part is 1/2 of the page - that is 50%.",
+              "Fold it in half again. Now the page is in four equal parts, each one a quarter of the sheet.",
+              "Colour in some of those parts, then say how much you coloured as a fraction.",
+              "Hunt in a kitchen cupboard for any percentage on a label, and rewrite it as a fraction over 100."
+            ]
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "Your question says 25% of the pizza is left, and asks for that amount as a fraction.",
+            "note": "Start by writing 25 over 100, exactly as the rule says. Then hunt for a number that divides into both 25 and 100, and use it to shrink the fraction down to its simplest form."
+          }
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "code": "PCT-03",
+      "question": "Which decimal means exactly the same as 60%?",
+      "options": ["0.06", "0.6", "6.0", "0.66"],
+      "correctAnswer": "0.6",
+      "estimatedSeconds": 90,
+      "hint": {
+        "format": "lesson",
+        "title": "The Third Costume: the Decimal",
+        "subtitle": "The same number has one more disguise - and it loves to live in money.",
+        "sections": [
+          {
+            "heading": "One number, now three costumes",
+            "body": [
+              "You have already met a number wearing two costumes. As a percentage it might be 50%. As a fraction it is 1/2.",
+              "It has one last costume to show you: the decimal. Once you can spot all three, no version of the number will ever fool you again."
+            ]
+          },
+          {
+            "heading": "A percentage is really hundredths",
+            "body": [
+              "Remember that 'cent' means hundred. A percentage counts in hundredths - pieces so small that 100 of them make one whole.",
+              "A decimal counts in tenths and hundredths too. The first place after the dot is tenths, and the second place is hundredths. So 0.50 means 50 hundredths - and 50 hundredths is exactly what 50% means."
+            ]
+          },
+          {
+            "heading": "The two-place hop",
+            "body": "To turn a percentage into a decimal you divide by 100. The quick way to picture that: the decimal point hops two places to the left.",
+            "steps": [
+              "Take 30%. Picture the dot sitting just after the digits, like this: 30.",
+              "Divide by 100 by hopping the dot two places to the left: 30 becomes 0.30.",
+              "0.30 is the same as 0.3 - a spare zero on the end changes nothing.",
+              "Try a small one: 8% becomes 0.08, because the dot must hop right past both digits."
+            ],
+            "visual": {
+              "type": "chart",
+              "title": "From percentage to decimal",
+              "caption": "Each percentage shrinks to its decimal twin when you divide by 100.",
+              "values": [
+                { "label": "30% becomes 0.3", "value": 30, "suffix": "%", "color": "#818cf8" },
+                { "label": "8% becomes 0.08", "value": 8, "suffix": "%", "color": "#6366f1" },
+                { "label": "90% becomes 0.9", "value": 90, "suffix": "%", "color": "#4f46e5" }
+              ],
+              "teachingPoint": "The bigger the percentage, the bigger its decimal - the two always move together."
+            }
+          },
+          {
+            "heading": "All three costumes together",
+            "body": "Here are a few numbers shown in every costume at once. Reading across each line, you are looking at the very same amount three times over.",
+            "visual": {
+              "type": "image",
+              "src": "assets/percent-grid-fifty.svg",
+              "alt": "A 10 by 10 grid with 50 of the 100 squares coloured in",
+              "caption": "Half the grid: 50% as a percentage, 1/2 as a fraction, 0.5 as a decimal."
+            },
+            "points": [
+              "One half: 50% is the fraction 1/2 and the decimal 0.5.",
+              "One tenth: 10% is the fraction 1/10 and the decimal 0.1.",
+              "One fifth: 20% is the fraction 1/5 and the decimal 0.2."
+            ]
+          },
+          {
+            "heading": "Fun fact: the dot is a young invention",
+            "body": [
+              "The decimal point looks tiny and simple, but it is one of the newer ideas in maths - only around 400 years old.",
+              "Before mathematicians began using the dot in the early 1600s, every calculation with parts of a number meant wrestling with clumsy fractions. That one small dot made arithmetic enormously faster for the whole world."
+            ],
+            "note": "The decimal point is only about 400 years old - younger than plenty of castles still standing today."
+          },
+          {
+            "heading": "Decimals live in your money",
+            "body": "Decimals are the reason money and percentages get along so well. Money is built out of hundredths, exactly like a percentage is.",
+            "points": [
+              "One pound is 100 pence, so a single penny is 1/100 of a pound - written GBP 0.01.",
+              "Fifty pence is half a pound: 50% of GBP 1, and the decimal GBP 0.50.",
+              "A calculator always answers in decimals - try dividing 1 by 4 and watch what appears.",
+              "Race times and measurements use decimals too, like a sprint timed at 9.8 seconds."
+            ]
+          },
+          {
+            "heading": "Try it yourself: the calculator hop",
+            "body": "A calculator turns the two-place hop into a quick game.",
+            "points": [
+              "Type any percentage you like into a calculator and divide it by 100. Watch where the dot lands.",
+              "Do it for 40%, then 5%, then 90%, and write down each decimal you get.",
+              "Look at price tags in a shop - the part after the dot is the pence, counted in hundredths of a pound.",
+              "Pick a decimal like 0.7 and challenge someone to say it back to you as a percentage."
+            ]
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "Your question asks which decimal is the same as 60%.",
+            "note": "Use the two-place hop: divide 60 by 100 by moving the decimal point two places to the left. Watch carefully where the dot finally settles."
+          }
+        ]
+      }
+    },
+    {
+      "id": "q4",
+      "code": "PCT-04",
+      "question": "A box of cereal says one bowl gives you '150% of your daily vitamin C'. What does more than 100% mean here?",
+      "options": ["Less than a full day's amount", "Exactly a full day's amount", "More than a full day's amount", "It must be a printing mistake"],
+      "correctAnswer": "More than a full day's amount",
+      "estimatedSeconds": 90,
+      "hint": {
+        "format": "lesson",
+        "title": "100%, and the Land Beyond It",
+        "subtitle": "What 'the whole thing' means - and what happens when you go past it.",
+        "sections": [
+          {
+            "heading": "What does 'the whole thing' mean?",
+            "body": [
+              "The number 100% turns up everywhere. A fully charged phone is at 100%. A finished video game is '100% complete'. A test where you got everything right is 100%.",
+              "Each time, 100% is saying the same thing: all of it. One whole, complete thing, with nothing at all missing."
+            ]
+          },
+          {
+            "heading": "100% is one whole, 0% is nothing",
+            "body": "Picture the grid of 100 squares again. When every single square is coloured, the grid is 100% full - that is one whole grid. When not a single square is coloured, the grid is at 0% - nothing at all. Every percentage you have met so far has lived somewhere between those two.",
+            "visual": {
+              "type": "image",
+              "src": "assets/percent-grid-onehundred.svg",
+              "alt": "A 10 by 10 grid with all 100 squares coloured in",
+              "caption": "Every square coloured: this grid is 100% full - one whole."
+            }
+          },
+          {
+            "heading": "Can you go past 100%?",
+            "body": [
+              "Here is the surprising part. You absolutely can go past 100% - but only when you have more than one whole thing to talk about.",
+              "One full grid is 100%. Add half of a second grid and you now have 150%: one whole and one half. Two full grids would be 200% - two complete wholes."
+            ],
+            "visual": {
+              "type": "image",
+              "src": "assets/percent-grid-over.svg",
+              "alt": "Two grids, the first completely coloured and the second half coloured",
+              "caption": "One full grid plus half of another: 100% + 50% = 150%."
+            }
+          },
+          {
+            "heading": "When 'over 100%' makes sense",
+            "body": "Going past 100% only makes sense when more than one whole is actually possible. That is the quick test to run in your head.",
+            "points": [
+              "A phone battery cannot pass 100% - it holds exactly one whole charge and not a drop more.",
+              "A bowl of cereal CAN give 150% of a daily amount - a full day's worth, and then half as much again.",
+              "You cannot colour more than 100% of one grid, but with two grids you easily can.",
+              "A price can climb by 200%, because money has no top limit."
+            ]
+          },
+          {
+            "heading": "Fun fact: nobody can really give 110%",
+            "body": [
+              "Coaches and contestants love to shout 'I gave it 110%!'. It sounds wonderful - but think about it for a second.",
+              "100% of your effort is already every last scrap you have. There is no secret extra 10% hiding anywhere. 'Giving 110%' is a fun, impossible figure of speech - the maths simply does not allow it."
+            ],
+            "note": "100% of your effort is already everything you have. You cannot truly give 110% - it just sounds exciting."
+          },
+          {
+            "heading": "Where giant percentages show up",
+            "body": "Once a percentage is allowed to climb past 100, you will start to spot enormous ones in the wild.",
+            "points": [
+              "Food labels boast '150% of your daily vitamin C', and sometimes far more.",
+              "News reports say things like 'house prices rose by 120%'.",
+              "Adverts shout that a new phone is '200% faster' - meaning twice as fast.",
+              "Doubling a recipe to feed twice as many people means making 200% of it."
+            ]
+          },
+          {
+            "heading": "Try it yourself: the over-100% hunt",
+            "body": "Big percentages are hiding in plain sight once you start looking.",
+            "points": [
+              "Read the labels on food packets and find one that promises more than 100% of something.",
+              "Listen out for 'I gave 110%' in sport, and enjoy quietly knowing it is impossible.",
+              "If 100% of a recipe feeds four people, work out how many people 200% would feed.",
+              "Ask a grown-up to point out a news story that uses a percentage bigger than 100."
+            ]
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "Your question is about a cereal that gives 150% of a daily amount of vitamin C.",
+            "note": "Remember that 100% would be exactly one full day's worth. Now compare: is 150 smaller than 100, equal to 100, or larger than 100?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "q5",
+      "code": "PCT-05",
+      "question": "There are 80 sweets in a jar. How many sweets is 10% of them?",
+      "options": ["4", "8", "10", "18"],
+      "correctAnswer": "8",
+      "estimatedSeconds": 105,
+      "hint": {
+        "format": "lesson",
+        "title": "The Magic of 10%",
+        "subtitle": "The single most useful trick in the whole of percentages.",
+        "sections": [
+          {
+            "heading": "The trick that unlocks everything",
+            "body": [
+              "If you learn only one percentage trick in your whole life, make it this one: finding 10%.",
+              "10% is small, friendly, and astonishingly powerful. Once you can find 10% of a number in a heartbeat, you are halfway to finding almost any percentage at all."
+            ]
+          },
+          {
+            "heading": "10% means one tenth",
+            "body": "Think back to the grid of 100 squares. One full row holds ten squares, and ten out of a hundred is 10%. A row is one tenth of the whole grid. So 10% is simply another way of saying 'one tenth' - one equal part out of ten.",
+            "visual": {
+              "type": "image",
+              "src": "assets/percent-grid-ten.svg",
+              "alt": "A 10 by 10 grid with one row of ten squares coloured in",
+              "caption": "One row out of ten: ten coloured squares is 10% of the grid."
+            }
+          },
+          {
+            "heading": "To find 10%, just divide by 10",
+            "body": "Because 10% is one tenth, finding it is easy: split the number into 10 equal parts and take one part. In other words, divide by 10.",
+            "steps": [
+              "10% of 60: divide 60 by 10 to get 6.",
+              "10% of 240: divide 240 by 10 to get 24.",
+              "10% of 35: divide 35 by 10 to get 3.5 - dividing by 10 can give a decimal, and that is perfectly fine.",
+              "A handy picture: dividing by 10 slides every digit one place down in size."
+            ],
+            "visual": {
+              "type": "chart",
+              "title": "A number and its 10%, side by side",
+              "caption": "Ten percent is always one tenth the size of the whole number.",
+              "values": [
+                { "label": "The number 60", "value": 60, "color": "#c8ccd6" },
+                { "label": "10% of 60", "value": 6, "color": "#6366f1" },
+                { "label": "The number 240", "value": 240, "color": "#c8ccd6" },
+                { "label": "10% of 240", "value": 24, "color": "#6366f1" }
+              ],
+              "teachingPoint": "Whatever the number, its 10% is that number shared into ten equal parts."
+            }
+          },
+          {
+            "heading": "Fun fact: the word 'digit' means finger",
+            "body": [
+              "Humans count in tens, and there is a wonderfully simple reason why: we have ten fingers. Our entire number system is built around the number 10 because of the hands you are using right now.",
+              "The proof is hiding in the language. The word 'digit' means both a number symbol AND a finger or toe - it comes from the Latin word 'digitus', which means finger."
+            ],
+            "note": "We count in tens because we have ten fingers. The word 'digit' even means 'finger'."
+          },
+          {
+            "heading": "10% follows money everywhere",
+            "body": "Because 10% is so quick to work out, the world leans on it constantly - especially wherever money is involved.",
+            "points": [
+              "In many countries people leave a tip of about 10% of the bill in a restaurant.",
+              "Shops run '10% off' sales because the saving is easy for shoppers to check in their heads.",
+              "Lots of people choose to give 10% of their pocket money or earnings to charity.",
+              "To buy a home, families often save a deposit worked out as a percentage of the price."
+            ]
+          },
+          {
+            "heading": "Try it yourself: become a 10% machine",
+            "body": "The only way to make this trick lightning fast is to practise it until it feels like nothing at all.",
+            "points": [
+              "Find 10% of your age, then 10% of the current year, then 10% of 1000.",
+              "Next time you spot a price, race to find 10% of it before anyone else can.",
+              "Draw 30 dots on paper, then circle 10% of them.",
+              "Ask someone to call out numbers, and answer with their 10% as fast as you can."
+            ]
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "Your question asks for 10% of the 80 sweets in the jar.",
+            "note": "10% means one tenth. Share the 80 sweets equally into ten groups - or simply divide 80 by 10 - and see how big a single group turns out to be."
+          }
+        ]
+      }
+    },
+    {
+      "id": "q6",
+      "code": "PCT-06",
+      "question": "A school has 600 pupils. How many pupils is 1% of the whole school?",
+      "options": ["1", "6", "10", "60"],
+      "correctAnswer": "6",
+      "estimatedSeconds": 105,
+      "hint": {
+        "format": "lesson",
+        "title": "1%: the Tiniest Helper",
+        "subtitle": "Meet the little sibling of 10% - small, but mighty useful.",
+        "sections": [
+          {
+            "heading": "10% has a little sibling",
+            "body": [
+              "You can now find 10% of a number in a flash. Brilliant. But 10% has a smaller sibling that is just as handy: 1%.",
+              "1% is the smallest, most precise percentage helper of all. When a question needs an exact answer, 1% is the tool that gets you there."
+            ]
+          },
+          {
+            "heading": "1% means one hundredth",
+            "body": "Back to the grid of 100 squares one more time. A single square - just one out of the hundred - is 1%. Where 10% was a whole row, 1% is one tiny tile. It is one equal part out of a hundred.",
+            "visual": {
+              "type": "image",
+              "src": "assets/percent-grid-one.svg",
+              "alt": "A 10 by 10 grid with only one single square coloured in",
+              "caption": "Just one square out of 100: that single tile is 1% of the grid."
+            }
+          },
+          {
+            "heading": "To find 1%, divide by 100",
+            "body": "Since 1% is one hundredth, you find it by sharing the number into 100 equal parts and taking one of them. That means dividing by 100.",
+            "steps": [
+              "1% of 300: divide 300 by 100 to get 3.",
+              "1% of 4500: divide 4500 by 100 to get 45.",
+              "1% of 80: divide 80 by 100 to get 0.8 - small numbers give small, decimal answers.",
+              "A neat link: 1% is just 10% of the 10%. Find 10%, then find 10% of that answer."
+            ]
+          },
+          {
+            "heading": "Fun fact: 1% of a day is a quick break",
+            "body": [
+              "A whole day holds 24 hours, and 24 hours is 1440 minutes. So how long is 1% of a day?",
+              "Divide 1440 by 100 and you get 14.4 minutes - a little under fifteen minutes. Every time about a quarter of an hour slips by, another 1% of your day has gone."
+            ],
+            "note": "1% of a single day is about 14 and a half minutes - roughly the length of one cartoon episode."
+          },
+          {
+            "heading": "Small percentages, big effects",
+            "body": "1% sounds tiny, but tiny percentages quietly add up to surprisingly large things.",
+            "points": [
+              "A carton of '1% milk' is telling you how much of it is fat - just one hundredth.",
+              "When a phone battery drops to 1%, only one hundredth of its power is left.",
+              "Banks use small percentages, like 2% or 3%, to work out the interest on savings.",
+              "Getting just 1% better at something every day adds up to a huge improvement over a year."
+            ]
+          },
+          {
+            "heading": "Try it yourself: hunt for 1%",
+            "body": "Small as it is, 1% is easy to pin down once you trust the divide-by-100 rule.",
+            "points": [
+              "Work out 1% of 100, then 1% of 500, then 1% of 2000.",
+              "Check the fun fact for yourself: divide 1440 minutes by 100 and see what you get.",
+              "Find 1% of the number of pages in a thick book.",
+              "Look for the % sign on a food label and find 1% of the amount printed beside it."
+            ]
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "Your question asks for 1% of the 600 pupils in the school.",
+            "note": "1% means one hundredth. Share the 600 pupils equally into a hundred groups - or simply divide 600 by 100 - to see the size of one group."
+          }
+        ]
+      }
+    },
+    {
+      "id": "q7",
+      "code": "PCT-07",
+      "question": "A winter coat costs GBP 200. How much money is 30% of GBP 200?",
+      "options": ["GBP 30", "GBP 60", "GBP 70", "GBP 90"],
+      "correctAnswer": "GBP 60",
+      "estimatedSeconds": 150,
+      "hint": {
+        "format": "lesson",
+        "title": "Two Master Keys: Build Any Percentage",
+        "subtitle": "Combine 10% and 1%, and no percentage can hide from you.",
+        "sections": [
+          {
+            "heading": "You are holding two master keys",
+            "body": [
+              "Look at what you can already do. You can find 10% of a number, and you can find 1% of a number. Those are two master keys.",
+              "Here is the exciting part: by combining those two keys, you can unlock absolutely any percentage you will ever meet. Watch how it works."
+            ]
+          },
+          {
+            "heading": "Stacking up tens",
+            "body": "Most percentages are simply a stack of 10%s. 20% is two 10%s. 30% is three of them. 40% is four. So find 10% just once, then add copies of it.",
+            "steps": [
+              "Find 40% of 50. First find 10% of 50: that is 5.",
+              "40% is four lots of 10%.",
+              "So add four 5s together: 5 plus 5 plus 5 plus 5 is 20.",
+              "40% of 50 is 20."
+            ],
+            "visual": {
+              "type": "chart",
+              "title": "Stacking 10%s of the number 50",
+              "caption": "Each extra 10% adds another 5 to the pile.",
+              "values": [
+                { "label": "10% of 50", "value": 5, "color": "#a5b4fc" },
+                { "label": "20% of 50", "value": 10, "color": "#818cf8" },
+                { "label": "30% of 50", "value": 15, "color": "#6366f1" },
+                { "label": "40% of 50", "value": 20, "color": "#4f46e5" }
+              ],
+              "teachingPoint": "Find 10% once, then stack up as many copies as you need."
+            }
+          },
+          {
+            "heading": "Half a key: finding 5%",
+            "body": "What about percentages that are not neat multiples of ten, like 15%? Easy - 5% is simply half of 10%. Find 10%, then halve it.",
+            "steps": [
+              "Find 15% of 80. Start with 10% of 80, which is 8.",
+              "Now find 5%: that is half of 8, which is 4.",
+              "15% is 10% plus 5%, so add them together: 8 plus 4 is 12.",
+              "15% of 80 is 12."
+            ]
+          },
+          {
+            "heading": "1% for the finishing touch",
+            "body": "When you need an exact, awkward percentage - say 37% - reach for your second key. Build the tens first, then add single 1%s on top until you arrive. 37% is three lots of 10% plus seven lots of 1%."
+          },
+          {
+            "heading": "Fun fact: the percentage swap trick",
+            "body": [
+              "Here is a secret that feels like magic. The percentage and the number are allowed to swap places without changing the answer. That means x% of y is always equal to y% of x.",
+              "Suppose someone asks for 4% of 50. That looks fiddly. But swap it around: 50% of 4. 50% is just a half, and half of 4 is 2. The hard-looking question became one you can answer instantly."
+            ],
+            "note": "x% of y always equals y% of x. Swapping the two numbers can turn a hard sum into an easy one."
+          },
+          {
+            "heading": "Building percentages in the real world",
+            "body": "This building trick is exactly how quick-thinking people work out percentages without ever reaching for a calculator.",
+            "points": [
+              "Working out a tip in a restaurant: find 10%, then nudge it up or down.",
+              "Checking a sale: 30% off means finding three 10%s of the price.",
+              "Splitting a bill or sharing a prize fairly between friends.",
+              "Adding on tax that is charged as a percentage on top of a price."
+            ]
+          },
+          {
+            "heading": "Try it yourself: become a percentage builder",
+            "body": "Building percentages is a skill, and skills grow with practice.",
+            "points": [
+              "Pick a number like 60 and build 20%, 30% and 50% of it from 10%s.",
+              "Find 5% of 200 by first finding 10% and then halving it.",
+              "Try the swap trick: work out 8% of 25 by turning it into 25% of 8.",
+              "Challenge a grown-up to a percentage race and see who builds the answer first."
+            ]
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "Your question asks for 30% of the GBP 200 coat.",
+            "note": "30% is three lots of 10%. Find 10% of GBP 200 first, then stack up three copies of it."
+          }
+        ]
+      }
+    },
+    {
+      "id": "q8",
+      "code": "PCT-08",
+      "question": "A football team played 40 matches and won 75% of them. How many matches did the team win?",
+      "options": ["25", "28", "30", "35"],
+      "correctAnswer": "30",
+      "estimatedSeconds": 120,
+      "hint": {
+        "format": "lesson",
+        "title": "Finding a Percentage of an Amount",
+        "subtitle": "The little word 'of' is quietly telling you what to do.",
+        "sections": [
+          {
+            "heading": "The little word that means 'work it out'",
+            "body": [
+              "Most real percentage questions sound like this: '75% OF the matches', '20% OF the price', '30% OF the class'.",
+              "That small word 'of' is the signal. It means: take this percentage, and find that much of the amount. You already own every tool you need to do it."
+            ]
+          },
+          {
+            "heading": "There is always more than one path",
+            "body": "A percentage of an amount can be found in more than one way, and a clever explorer picks whichever path looks easiest for the numbers in front of them. Two trusty paths are the fraction route and the 10% route."
+          },
+          {
+            "heading": "The fraction route",
+            "body": "If the percentage has a famous fraction, use it. Turn the percentage into its fraction, then apply that fraction to the amount.",
+            "steps": [
+              "Find 75% of 20. You know 75% is the fraction 3/4.",
+              "To find 3/4, first find one quarter: divide 20 by 4 to get 5.",
+              "Now take three of those quarters: 5 multiplied by 3 is 15.",
+              "75% of 20 is 15."
+            ],
+            "visual": {
+              "type": "chart",
+              "title": "Three quarters of the number 20",
+              "caption": "One quarter of 20 is 5, so three quarters is three of those 5s.",
+              "values": [
+                { "label": "One quarter", "value": 5, "color": "#a5b4fc" },
+                { "label": "Two quarters", "value": 10, "color": "#818cf8" },
+                { "label": "Three quarters", "value": 15, "color": "#6366f1" },
+                { "label": "The whole amount", "value": 20, "color": "#c8ccd6" }
+              ],
+              "teachingPoint": "Divide by the bottom number of the fraction, then multiply by the top."
+            }
+          },
+          {
+            "heading": "The 10% route",
+            "body": "If the percentage is a tidy stack of tens, build it up instead.",
+            "steps": [
+              "Find 60% of 30. Start with 10% of 30, which is 3.",
+              "60% is six lots of 10%.",
+              "So multiply: 3 multiplied by 6 is 18.",
+              "60% of 30 is 18."
+            ]
+          },
+          {
+            "heading": "Fun fact: percentages measure the planet and you",
+            "body": [
+              "Percentages are large enough to describe the whole world. About 71% of the Earth's surface is covered by ocean - most of our planet is sea.",
+              "And they are personal enough to describe you. Around 60% of the human body is water. One simple idea can size up an entire planet or a single person."
+            ],
+            "note": "Roughly 71% of the Earth is ocean, and roughly 60% of your body is water."
+          },
+          {
+            "heading": "Percentages of amounts, everywhere",
+            "body": "Finding a percentage of an amount is one of the most useful things maths ever asks of you.",
+            "points": [
+              "Sport: matches won, shots on target, the share of possession in a game.",
+              "Surveys: '70% of people questioned preferred...' is a percentage of the group asked.",
+              "School: a test score is the percentage of the marks you managed to collect.",
+              "Shopping: working out how much of your money a purchase will take."
+            ]
+          },
+          {
+            "heading": "Try it yourself: percentage of a pile",
+            "body": "Grab a pile of small objects and make percentages real in your hands.",
+            "points": [
+              "Count out 20 coins or counters. Find 50%, then 25%, then 10% of the pile.",
+              "Look at a shelf of books and work out what percentage of them you have read.",
+              "Find 75% of 12 using the fraction route - quarters of 12.",
+              "Pick any percentage and any amount, and solve it with whichever route looks easier."
+            ]
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "Your question asks for 75% of the 40 matches the team played.",
+            "note": "75% is the fraction 3/4. Split the 40 matches into 4 equal quarters, then gather up three of those quarters."
+          }
+        ]
+      }
+    },
+    {
+      "id": "q9",
+      "code": "PCT-09",
+      "question": "A video game costs GBP 30. In a sale it has 20% off. What is the new sale price?",
+      "options": ["GBP 6", "GBP 10", "GBP 24", "GBP 25"],
+      "correctAnswer": "GBP 24",
+      "estimatedSeconds": 165,
+      "hint": {
+        "format": "lesson",
+        "title": "Sale Time: How Discounts Really Work",
+        "subtitle": "The percentage in a shop window, finally explained.",
+        "sections": [
+          {
+            "heading": "The most exciting % sign of all",
+            "body": [
+              "Of all the places the % sign appears, the shop window might be the most exciting. '20% OFF'. '50% OFF'. 'HALF PRICE'.",
+              "Those signs are a promise to take some money off the price. But exactly how much? Time to find out, so a sale can never trick you again."
+            ]
+          },
+          {
+            "heading": "A discount is a percentage taken OFF",
+            "body": "A discount means a percentage of the price is removed. Finding the new price always takes two steps: first work out how much the discount is worth, then subtract it from the original price.",
+            "visual": {
+              "type": "illustration",
+              "theme": "shop",
+              "title": "Money off at the shop",
+              "caption": "A discount lowers the price you actually have to pay.",
+              "label": "20% OFF"
+            }
+          },
+          {
+            "heading": "Watch a discount work",
+            "body": "Let's take a coat that costs GBP 50 with 10% off - different numbers from your question, so you can watch the method without copying the answer.",
+            "steps": [
+              "Step 1: find the discount. 10% of GBP 50 is GBP 5.",
+              "Step 2: subtract it from the original price. GBP 50 minus GBP 5 is GBP 45.",
+              "The coat now costs GBP 45.",
+              "Notice the new price is smaller than the old one - a discount always shrinks the price."
+            ],
+            "visual": {
+              "type": "chart",
+              "title": "Original price, discount, and sale price",
+              "caption": "The sale price is whatever is left after the discount is removed.",
+              "values": [
+                { "label": "Original price", "value": 50, "prefix": "GBP ", "color": "#6366f1" },
+                { "label": "Discount taken off", "value": 5, "prefix": "GBP ", "color": "#f59e0b" },
+                { "label": "Sale price", "value": 45, "prefix": "GBP ", "color": "#15a34a" }
+              ],
+              "teachingPoint": "Find the discount, then subtract it from the original price."
+            }
+          },
+          {
+            "heading": "Fun fact: two '50% off' signs do not make it free",
+            "body": [
+              "Imagine a shop takes 50% off a price, and then takes 50% off again. Surely that is 100% off - completely free? It is not!",
+              "The first 50% leaves half the price behind. The second 50% takes half of THAT half, leaving a quarter. So two 50%-off cuts come to 75% off in total, not 100%. The price gets tiny, but it never quite reaches free."
+            ],
+            "note": "50% off followed by another 50% off is 75% off altogether - not free. Each cut works on what is left, not the start."
+          },
+          {
+            "heading": "Discounts in the real world",
+            "body": "Discounts are everywhere once you start looking for them.",
+            "points": [
+              "Whole shops fill their windows with sale signs in January and after big holidays.",
+              "Vouchers and discount codes knock a percentage off when you buy something.",
+              "Clearance shelves drop the price further and further to sell the very last items.",
+              "Loyalty cards quietly give regular shoppers a small percentage of their money back."
+            ]
+          },
+          {
+            "heading": "Watch out: common discount mistakes",
+            "body": "A few slip-ups catch people out every single time. Dodge these.",
+            "points": [
+              "Do not give the discount as your final answer - the question wants the price you actually pay.",
+              "Never forget step 2. Finding the discount is only half the job; you must subtract it.",
+              "The sale price is always LESS than the original. If yours came out bigger, something went wrong."
+            ]
+          },
+          {
+            "heading": "Try it yourself: become a sale detective",
+            "body": "Real shops are the perfect practice ground for discounts.",
+            "points": [
+              "Find a price at home or in a shop and work out what it would cost with 10% off.",
+              "Try a tougher one: take 25% off a GBP 40 item.",
+              "Next time you spot a sale sign, work out the new price before you reach the shelf.",
+              "Test the fun fact: take 50% off GBP 80, then 50% off your answer, and see where it lands."
+            ]
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "Your question has a GBP 30 game with 20% off.",
+            "note": "Step 1: find 20% of GBP 30. Step 2: take that amount away from GBP 30. Do not stop after step 1 - the question wants the price you would actually pay."
+          }
+        ]
+      }
+    },
+    {
+      "id": "q10",
+      "code": "PCT-10",
+      "question": "A pair of trainers costs GBP 40. The price goes UP by 25%. What is the new price?",
+      "options": ["GBP 45", "GBP 48", "GBP 50", "GBP 65"],
+      "correctAnswer": "GBP 50",
+      "estimatedSeconds": 150,
+      "hint": {
+        "format": "lesson",
+        "title": "When Prices Climb: Percentage Increase",
+        "subtitle": "Discounts go down - but plenty of things go up.",
+        "sections": [
+          {
+            "heading": "Not everything gets cheaper",
+            "body": [
+              "Sales are lovely, but prices do not only ever fall. Quite often, they climb.",
+              "When something goes UP by a percentage, that is called a percentage increase - and it is the close cousin of the discount you just met."
+            ]
+          },
+          {
+            "heading": "An increase is a percentage ADDED ON",
+            "body": "An increase means a percentage of the amount is added on top. The two steps will feel familiar: first work out how much the increase is worth, then ADD it to the starting amount.",
+            "visual": {
+              "type": "illustration",
+              "theme": "shop",
+              "title": "When the price tag climbs",
+              "caption": "An increase makes the final amount bigger, not smaller.",
+              "label": "PRICE UP 25%"
+            }
+          },
+          {
+            "heading": "Watch an increase work",
+            "body": "Let's take something priced at GBP 80 that goes up by 10% - different numbers from your question, so you can follow the method cleanly.",
+            "steps": [
+              "Step 1: find the increase. 10% of GBP 80 is GBP 8.",
+              "Step 2: add it to the starting price. GBP 80 plus GBP 8 is GBP 88.",
+              "The new price is GBP 88.",
+              "Notice the new price is bigger than the old one - an increase always grows the amount."
+            ],
+            "visual": {
+              "type": "chart",
+              "title": "Starting price, increase, and new price",
+              "caption": "The new price is the starting price with the increase added on top.",
+              "values": [
+                { "label": "Starting price", "value": 80, "prefix": "GBP ", "color": "#6366f1" },
+                { "label": "Increase added on", "value": 8, "prefix": "GBP ", "color": "#f59e0b" },
+                { "label": "New price", "value": 88, "prefix": "GBP ", "color": "#15a34a" }
+              ],
+              "teachingPoint": "Find the increase, then add it to the starting amount."
+            }
+          },
+          {
+            "heading": "Increase and discount are mirror twins",
+            "body": "Look closely and you will see that an increase and a discount are almost the same puzzle. Both start with exactly the same step: find the percentage of the amount. The only difference is the very last move - a discount subtracts, an increase adds. Learn one and you very nearly know the other."
+          },
+          {
+            "heading": "Fun fact: prices quietly creep up over time",
+            "body": [
+              "Things slowly get more expensive year after year. That gentle, never-ending climb in prices has a name: inflation.",
+              "It is why your grandparents can tell you that a loaf of bread, a comic, or a cinema ticket cost just a few pence when they were your age. The price did not jump - it crept upward, a small percentage at a time, for decades."
+            ],
+            "note": "Prices slowly rising over the years is called inflation - a tiny percentage increase, again and again and again."
+          },
+          {
+            "heading": "Where increases show up",
+            "body": "Percentage increases are happening all around you, not only on price tags.",
+            "points": [
+              "Inflation nudges the cost of food and toys a little higher each year.",
+              "A service charge is an increase added on top of a restaurant bill.",
+              "A sunflower can grow taller by a big percentage in a single summer.",
+              "You are doing it too - your own height goes up by a percentage every year."
+            ]
+          },
+          {
+            "heading": "Try it yourself: spot the climb",
+            "body": "Increases are easy to practise once you start hunting for them.",
+            "points": [
+              "Take a price and work out what it becomes after a 10% increase.",
+              "Try a bigger jump: increase a GBP 60 amount by 50%.",
+              "Measure a plant, then work out how tall it would be if it grew 20% more.",
+              "Ask a grown-up what something cost when they were ten, and marvel at the climb."
+            ]
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "Your question has GBP 40 trainers with the price going up by 25%.",
+            "note": "Step 1: find 25% of GBP 40. Step 2: because the price goes UP, add that amount onto the GBP 40."
+          }
+        ]
+      }
+    },
+    {
+      "id": "q11",
+      "code": "PCT-11",
+      "question": "Maya scored 18 out of 25 in her maths test. Sam scored 15 out of 20 in his. Whose score was the higher percentage?",
+      "options": ["Maya", "Sam", "They were exactly equal", "It is impossible to compare them"],
+      "correctAnswer": "Sam",
+      "estimatedSeconds": 180,
+      "hint": {
+        "format": "lesson",
+        "title": "The Real Reason Percentages Exist",
+        "subtitle": "Why humans invented percentages: to compare things fairly.",
+        "sections": [
+          {
+            "heading": "Why did anyone invent percentages?",
+            "body": [
+              "Here is a question worth asking. Why did people bother to invent percentages at all? Fractions already existed. Decimals already existed.",
+              "The answer is one powerful word: comparing. Percentages were built to compare things fairly, even when those things are completely different sizes."
+            ]
+          },
+          {
+            "heading": "Different-sized tests cannot be compared directly",
+            "body": "Suppose one test is marked out of 25 and another out of 20. You cannot simply compare the raw scores, because the tests are not the same size. A score on a short test might be far stronger than a higher-looking score on a long one. The two scores need a level playing field.",
+            "visual": {
+              "type": "illustration",
+              "theme": "balance",
+              "title": "Two scores that need a fair test",
+              "caption": "You cannot tell which score is better until both are measured the same way.",
+              "left": "Score A",
+              "right": "Score B",
+              "callouts": ["Different totals", "Not a fair compare yet"]
+            }
+          },
+          {
+            "heading": "Put everything onto the same scale: out of 100",
+            "body": "The trick is to rebuild every score as a score out of 100 - a percentage. Once both scores are out of 100, they sit on the very same scale, and the comparison is finally fair.",
+            "steps": [
+              "Compare 7 out of 10 with 16 out of 25 - different numbers from your question.",
+              "Turn 7 out of 10 into a percentage: 10 times 10 is 100, so multiply the 7 by 10 as well. That gives 70 out of 100, which is 70%.",
+              "Turn 16 out of 25 into a percentage: 25 times 4 is 100, so multiply the 16 by 4 as well. That gives 64 out of 100, which is 64%.",
+              "Now compare on the level scale: 70% beats 64%, so 7 out of 10 was the stronger score."
+            ],
+            "visual": {
+              "type": "chart",
+              "title": "Two scores rebuilt as percentages",
+              "caption": "Once both are out of 100, the taller bar is clearly the winner.",
+              "values": [
+                { "label": "7 out of 10", "value": 70, "suffix": "%", "color": "#6366f1" },
+                { "label": "16 out of 25", "value": 64, "suffix": "%", "color": "#818cf8" }
+              ],
+              "teachingPoint": "Rebuild every score as a percentage, then the comparison is fair."
+            }
+          },
+          {
+            "heading": "How to rebuild a score as a percentage",
+            "body": "When the total divides neatly into 100, the method is quick.",
+            "steps": [
+              "Find what the total must be multiplied by to reach 100.",
+              "Multiply the score by that very same number.",
+              "The result is your score out of 100 - a percentage."
+            ]
+          },
+          {
+            "heading": "Fun fact: percentages compare the tiny and the giant",
+            "body": [
+              "Percentages have a superpower: they can fairly compare things of wildly different sizes.",
+              "A class of 30 children and a country of 60 million people seem impossible to line up. But put each onto the out-of-100 scale and suddenly you can. Both can score 70%. That is why percentages run through sport, science, and the news - they make almost any two things comparable."
+            ],
+            "note": "Percentages can fairly compare a class of 30 with a country of millions - both can be measured out of 100."
+          },
+          {
+            "heading": "Comparing with percentages everywhere",
+            "body": "Whenever people need to judge fairly, percentages appear.",
+            "points": [
+              "Sports league tables rank teams by their win percentage, not just their total wins.",
+              "Exam results are given as percentages so different tests can be compared.",
+              "Shoppers compare value for money by working out how much they get for each penny.",
+              "Reviews say things like '90% of people liked it' to sum up a whole crowd's opinion."
+            ]
+          },
+          {
+            "heading": "Try it yourself: the fair-comparison challenge",
+            "body": "Comparing is a skill you can practise with things you already do.",
+            "points": [
+              "Take two of your own scores from differently-sized tests or games, and turn each into a percentage.",
+              "Compare two packets of snacks: which one gives you more for each penny?",
+              "Turn 9 out of 10 and 23 out of 25 into percentages, and decide which is higher.",
+              "Find two sports teams and compare them by win percentage instead of total wins."
+            ]
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "Your question asks whose score was the higher percentage: Maya with 18 out of 25, or Sam with 15 out of 20.",
+            "note": "Rebuild both scores as percentages out of 100. For each one, work out what its total must be multiplied by to reach 100, then multiply the score by the same amount. Then simply compare the two."
+          }
+        ]
+      }
+    },
+    {
+      "id": "q12",
+      "code": "PCT-12",
+      "question": "Ben spent 20% of his birthday money. That came to exactly GBP 8. How much birthday money did Ben start with?",
+      "options": ["GBP 16", "GBP 32", "GBP 40", "GBP 48"],
+      "correctAnswer": "GBP 40",
+      "estimatedSeconds": 240,
+      "hint": {
+        "format": "lesson",
+        "title": "Running the Percentage Backwards",
+        "subtitle": "The grand finale: you know the part, now find the whole.",
+        "sections": [
+          {
+            "heading": "Every question so far ran forwards",
+            "body": [
+              "Think back over every percentage question you have met. Each time, you were given the whole thing and asked to find a part of it. That is running forwards.",
+              "This final challenge runs the other way. You are handed a part, and you must track down the whole it came from. This is a reverse percentage - and it is the most powerful trick of all."
+            ]
+          },
+          {
+            "heading": "What you know, and what you want",
+            "body": "In a reverse percentage you are told two things: a percentage, and the actual amount that percentage turned out to be. What you are missing is the original whole - the full 100%. Your mission is to climb all the way back up to that 100%."
+          },
+          {
+            "heading": "Climb back up to 100%",
+            "body": "The way back is a staircase. Get from what you know down to a friendly 10%, then climb from there up to the full 100%.",
+            "steps": [
+              "Suppose 30% of a number is 60 - different numbers from your question.",
+              "First step down to 10%. 30% is three lots of 10%, so 10% is 60 divided by 3, which is 20.",
+              "Now climb to 100%. There are ten 10%s inside 100%, so multiply: 20 times 10 is 200.",
+              "The original whole was 200. Check it: 30% of 200 really is 60."
+            ],
+            "visual": {
+              "type": "chart",
+              "title": "Climbing back from 30% to the whole",
+              "caption": "Step down to 10%, then climb all the way up to 100%.",
+              "values": [
+                { "label": "30% (what you know)", "value": 60, "color": "#818cf8" },
+                { "label": "10% (the step down)", "value": 20, "color": "#a5b4fc" },
+                { "label": "100% (the whole)", "value": 200, "color": "#15a34a" }
+              ],
+              "teachingPoint": "Get down to 10% first - then ten of those 10%s rebuild the whole."
+            }
+          },
+          {
+            "heading": "Fun fact: reverse percentages are detective maths",
+            "body": [
+              "A shop shows you only the sale price. A bill shows you only the total after a charge was added. The original numbers are hidden from view.",
+              "Someone who can run percentages backwards becomes a kind of maths detective - able to uncover the original price, the starting amount, the hidden whole. Working backwards from a clue is exactly what real detectives and scientists do every single day."
+            ],
+            "note": "Reverse percentages are detective maths - they let you uncover an original number that was hidden from view."
+          },
+          {
+            "heading": "Working backwards in the real world",
+            "body": "Reverse percentages quietly solve all sorts of everyday mysteries.",
+            "points": [
+              "Working out the original price of something before its sale discount.",
+              "Finding the cost of a meal before a service charge was added on top.",
+              "Hearing '25% of the class is 7 children' and working out the size of the whole class.",
+              "Scaling a recipe up when you only know how much a single portion needs."
+            ]
+          },
+          {
+            "heading": "Watch out: the whole is bigger than the part",
+            "body": "Reverse percentages trip people up in two main ways. Keep these firmly in mind.",
+            "points": [
+              "The answer is the WHOLE, so it must be bigger than the part you were given.",
+              "Do not just add the percentage back on - that is not how the staircase works.",
+              "Always check: take your percentage of the whole you found, and make sure it matches the part you started with."
+            ]
+          },
+          {
+            "heading": "Try it yourself: uncover the whole",
+            "body": "Be a maths detective and practise working backwards.",
+            "points": [
+              "If 10% of a number is 7, work out the whole number.",
+              "If 50% of a number is 30, work out the whole number.",
+              "If 25% of a bag of marbles is 5 marbles, work out how many marbles fill the whole bag.",
+              "Invent a reverse puzzle of your own and challenge a friend to crack it."
+            ]
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "Your question tells you that 20% of Ben's birthday money is GBP 8, and asks for the whole amount he started with.",
+            "note": "Climb the staircase. From 20% being GBP 8, first work your way down to what 10% must be. Then ask how many 10%s it takes to build a full 100%, and climb up to it."
+          }
+        ]
+      }
+    }
+  ]
+}
