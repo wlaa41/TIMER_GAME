@@ -1206,6 +1206,94 @@ select.time-select {
     letter-spacing: 0.06em;
 }
 
+/* Balance scale */
+.balance-eq {
+    margin-top: 14px;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text);
+}
+
+.balance-svg {
+    display: block;
+    width: min(340px, 100%);
+    height: auto;
+    margin: 6px auto 0;
+}
+
+.balance-fulcrum {
+    fill: var(--text-muted);
+}
+
+.balance-beam {
+    fill: var(--accent);
+}
+
+.balance-svg g {
+    transition: transform 220ms ease;
+}
+
+.balance-pan {
+    fill: var(--text-muted);
+}
+
+.balance-string {
+    stroke: var(--text-muted);
+    stroke-width: 1.5;
+}
+
+.balance-weight {
+    fill: #f59e0b;
+}
+
+.balance-xbox {
+    stroke: #fff;
+    stroke-width: 1.5;
+}
+
+/* Savings jar / changing counter */
+.vcount-head {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.vcount-emoji {
+    font-size: 2.4rem;
+}
+
+.vcount-value {
+    font-size: 2.4rem;
+    font-weight: 800;
+}
+
+.vcount-sub {
+    margin-top: 2px;
+    text-align: center;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.vcount-bar {
+    height: 18px;
+    max-width: 320px;
+    margin: 12px auto 0;
+    border-radius: 9px;
+    background: var(--surface-3);
+    overflow: hidden;
+}
+
+.vcount-fill {
+    height: 100%;
+    width: 0;
+    border-radius: 9px;
+    background: var(--accent);
+    transition: width 200ms ease;
+}
+
 /* Controls popup: inline on desktop; on phones the controls hide behind an
    "Adjust" button and reveal as an elevated in-card panel (so the small screen
    shows just the visual and its numbers). In-flow, so it is robust against any

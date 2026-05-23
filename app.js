@@ -1728,6 +1728,209 @@ function renderFunctionMachine(container, media) {
     container.appendChild(card);
 }
 
+// The Balance Scale: model an equation a*x + b = c as a pan balance. The child
+// slides their guess for x; the beam tips until both sides weigh the same,
+// revealing the value that makes the equation true. Pure SVG + DOM.
+function renderVarBalance(container, media) {
+    const SVG_NS = "http://www.w3.org/2000/svg";
+    const card = makeEl("div", "slices-card balance-card");
+    addMediaText(card, media);
+    const readInt = (v, f) => { const r = Math.round(Number(v)); return Number.isFinite(r) ? r : f; };
+    const a = Math.max(1, readInt(media.coef, 1));
+    const b = readInt(media.add, 3);
+    const c = readInt(media.equals, 8);
+    const name = (typeof media.name === "string" && media.name) || "x";
+    const solution = (c - b) / a;
+    const maxX = Math.max(1, readInt(media.max, Math.max(10, Math.ceil(solution) + 5)));
+    let x = Math.min(maxX, Math.max(0, readInt(media.start, 0)));
+    const color = typeof media.color === "string" ? media.color : "#6366f1";
+    const lhs = `${a === 1 ? "" : a + "·"}${name}${b > 0 ? ` + ${b}` : (b < 0 ? ` − ${Math.abs(b)}` : "")}`;
+
+    card.appendChild(makeEl("div", "balance-eq", `${lhs} = ${c}`));
+
+    const W = 320, H = 200, pivotX = W / 2, pivotY = 66, half = 116, panDrop = 50;
+    const svg = document.createElementNS(SVG_NS, "svg");
+    svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+    svg.setAttribute("class", "balance-svg");
+    const ful = document.createElementNS(SVG_NS, "path");
+    ful.setAttribute("d", `M ${pivotX} ${pivotY} L ${pivotX - 26} ${H - 8} L ${pivotX + 26} ${H - 8} Z`);
+    ful.setAttribute("class", "balance-fulcrum");
+    svg.appendChild(ful);
+    const beamG = document.createElementNS(SVG_NS, "g");
+    svg.appendChild(beamG);
+    const beam = document.createElementNS(SVG_NS, "rect");
+    beam.setAttribute("x", pivotX - half); beam.setAttribute("y", pivotY - 5);
+    beam.setAttribute("width", half * 2); beam.setAttribute("height", 10);
+    beam.setAttribute("rx", 5); beam.setAttribute("class", "balance-beam");
+    beamG.appendChild(beam);
+    const leftPan = document.createElementNS(SVG_NS, "g");
+    const rightPan = document.createElementNS(SVG_NS, "g");
+    beamG.appendChild(leftPan); beamG.appendChild(rightPan);
+    card.appendChild(svg);
+
+    const readout = makeEl("div", "slices-readout");
+    const big = makeEl("span", "slices-pct");
+    const detail = makeEl("span", "slices-detail");
+    readout.appendChild(big); readout.appendChild(detail);
+    card.appendChild(readout);
+
+    const drawPan = (pan, px, boxes, weights) => {
+        clearElement(pan);
+        [-30, 30].forEach((dx) => {
+            const l = document.createElementNS(SVG_NS, "line");
+            l.setAttribute("x1", px); l.setAttribute("y1", pivotY - 2);
+            l.setAttribute("x2", px + dx); l.setAttribute("y2", pivotY - 5 + panDrop);
+            l.setAttribute("class", "balance-string");
+            pan.appendChild(l);
+        });
+        const plat = document.createElementNS(SVG_NS, "rect");
+        plat.setAttribute("x", px - 36); plat.setAttribute("y", pivotY - 5 + panDrop);
+        plat.setAttribute("width", 72); plat.setAttribute("height", 8); plat.setAttribute("rx", 4);
+        plat.setAttribute("class", "balance-pan");
+        pan.appendChild(plat);
+        let slot = 0;
+        const baseY = pivotY - 5 + panDrop - 16;
+        for (let i = 0; i < boxes; i++) {
+            const r = document.createElementNS(SVG_NS, "rect");
+            r.setAttribute("x", px - 32 + slot * 17); r.setAttribute("y", baseY);
+            r.setAttribute("width", 15); r.setAttribute("height", 15); r.setAttribute("rx", 3);
+            r.setAttribute("fill", color); r.setAttribute("class", "balance-xbox");
+            pan.appendChild(r);
+            slot++;
+        }
+        for (let i = 0; i < weights; i++) {
+            const dot = document.createElementNS(SVG_NS, "circle");
+            dot.setAttribute("cx", px - 32 + slot * 17 + 7); dot.setAttribute("cy", baseY + 8);
+            dot.setAttribute("r", 6); dot.setAttribute("class", "balance-weight");
+            pan.appendChild(dot);
+            slot++;
+        }
+    };
+
+    const draw = () => {
+        const left = a * x + b, right = c, diff = left - right;
+        const angle = Math.max(-12, Math.min(12, diff * 3));
+        beamG.setAttribute("transform", `rotate(${angle} ${pivotX} ${pivotY})`);
+        drawPan(leftPan, pivotX - half, a, Math.max(0, b));
+        drawPan(rightPan, pivotX + half, 0, Math.max(0, c));
+        if (diff === 0) {
+            big.textContent = `Balanced!  ${name} = ${x}`;
+            big.style.color = "#16a34a";
+            detail.textContent = `${lhs} = ${c} is true when ${name} = ${x}`;
+        } else {
+            big.textContent = `${name} = ${x}`;
+            big.style.color = "";
+            detail.textContent = diff > 0 ? "Left side is heavier — make x smaller" : "Right side is heavier — make x bigger";
+        }
+    };
+
+    const controls = makeEl("div", "slices-controls");
+    const wrap = makeEl("label", "slices-control");
+    const h = makeEl("span", "slices-control-head");
+    h.appendChild(makeEl("span", "slices-control-name", `What is in the box (${name})?`));
+    const num = document.createElement("input");
+    num.type = "number"; num.min = "0"; num.max = String(maxX); num.value = String(x); num.className = "slices-control-num";
+    h.appendChild(num);
+    const range = document.createElement("input");
+    range.type = "range"; range.min = "0"; range.max = String(maxX); range.value = String(x); range.className = "slices-range";
+    wrap.appendChild(h); wrap.appendChild(range);
+    const apply = (raw, fromNum) => {
+        x = Math.min(maxX, Math.max(0, readInt(raw, x)));
+        range.value = String(x);
+        if (!fromNum) num.value = String(x);
+        draw();
+    };
+    range.addEventListener("input", () => apply(range.value, false));
+    num.addEventListener("input", () => apply(num.value, true));
+    num.addEventListener("change", () => { num.value = String(x); });
+    controls.appendChild(wrap);
+    card.appendChild(controls);
+    card.appendChild(makeEl("p", "slices-tip", media.tip
+        || `Slide what is hidden in the box until the scale balances. The value that makes both sides equal is the answer to ${lhs} = ${c}.`));
+    draw();
+    if (media.teachingPoint) card.appendChild(makeEl("p", "teaching-point", media.teachingPoint));
+    container.appendChild(card);
+}
+
+// The Savings Jar: a variable whose value CHANGES over time. It starts at a
+// value and changes by a fixed amount each step (day/turn/hour). Step through
+// and watch x grow or shrink - score, savings or battery skins. Pure DOM.
+function renderVarCounter(container, media) {
+    const card = makeEl("div", "slices-card vcount-card");
+    addMediaText(card, media);
+    const readInt = (v, f) => { const r = Math.round(Number(v)); return Number.isFinite(r) ? r : f; };
+    const name = (typeof media.name === "string" && media.name) || "x";
+    const start = readInt(media.start, 0);
+    const step = readInt(media.step, 2);
+    const unit = (typeof media.unit === "string" && media.unit) || "day";
+    const maxSteps = Math.max(1, readInt(media.steps, 10));
+    const skins = {
+        savings: { emoji: "🐷", color: "#16a34a", prefix: "$", suffix: "" },
+        score: { emoji: "🎮", color: "#6366f1", prefix: "", suffix: "" },
+        battery: { emoji: "🔋", color: "#0ea5e9", prefix: "", suffix: "%" }
+    };
+    const skin = skins[media.skin] || skins.savings;
+    const valueAt = (k) => start + k * step;
+    const maxVal = Math.max(1, readInt(media.max, Math.max(Math.abs(valueAt(maxSteps)), Math.abs(start), 10)));
+    let n = 0;
+    const fmt = (v) => `${v < 0 ? "−" : ""}${skin.prefix}${Math.abs(v)}${skin.suffix}`;
+
+    const head = makeEl("div", "vcount-head");
+    head.appendChild(makeEl("span", "vcount-emoji", skin.emoji));
+    const big = makeEl("span", "vcount-value");
+    head.appendChild(big);
+    card.appendChild(head);
+    const sub = makeEl("div", "vcount-sub");
+    card.appendChild(sub);
+    const bar = makeEl("div", "vcount-bar");
+    const fill = makeEl("div", "vcount-fill");
+    bar.appendChild(fill);
+    card.appendChild(bar);
+    const formula = makeEl("div", "slices-detail");
+    card.appendChild(formula);
+
+    const controls = makeEl("div", "slices-controls");
+    const wrap = makeEl("label", "slices-control");
+    const hh = makeEl("span", "slices-control-head");
+    hh.appendChild(makeEl("span", "slices-control-name", `Number of ${unit}s`));
+    const numv = makeEl("span", "slices-control-value", "0");
+    hh.appendChild(numv);
+    const range = document.createElement("input");
+    range.type = "range"; range.min = "0"; range.max = String(maxSteps); range.value = "0"; range.className = "slices-range";
+    wrap.appendChild(hh); wrap.appendChild(range);
+    controls.appendChild(wrap);
+
+    const draw = () => {
+        const v = valueAt(n);
+        big.textContent = fmt(v);
+        big.style.color = skin.color;
+        sub.textContent = n === 0 ? `Start` : `After ${n} ${unit}${n > 1 ? "s" : ""}`;
+        fill.style.width = `${Math.max(0, Math.min(100, (v / maxVal) * 100))}%`;
+        fill.style.background = skin.color;
+        setDetail(formula, [`${name} = ${start}`, step >= 0 ? "+" : "−", `${Math.abs(step)} × ${n}`, "=", String(v)]);
+        numv.textContent = String(n);
+        range.value = String(n);
+    };
+    range.addEventListener("input", () => { n = Math.max(0, Math.min(maxSteps, readInt(range.value, n))); draw(); });
+
+    const btnRow = makeEl("div", "var-btn-row");
+    const back = makeEl("button", "var-btn secondary", "◀ Back");
+    back.type = "button";
+    back.addEventListener("click", () => { n = Math.max(0, n - 1); draw(); });
+    const next = makeEl("button", "var-btn", `Next ${unit} ▶`);
+    next.type = "button";
+    next.addEventListener("click", () => { n = Math.min(maxSteps, n + 1); draw(); });
+    btnRow.appendChild(back); btnRow.appendChild(next);
+
+    card.appendChild(controls);
+    card.appendChild(btnRow);
+    card.appendChild(makeEl("p", "slices-tip", media.tip
+        || `${name} starts at ${start} and changes by ${step} each ${unit}. A variable can change its value over time!`));
+    draw();
+    if (media.teachingPoint) card.appendChild(makeEl("p", "teaching-point", media.teachingPoint));
+    container.appendChild(card);
+}
+
 // An interactive 3D volume playground. A real Three.js box (or cylinder) the
 // child can orbit, with sliders for its dimensions; the shape resizes and the
 // volume updates live. Unlike `threejs`, the geometry is parameterised here -
@@ -2089,6 +2292,8 @@ const MEDIA_RENDERERS = {
     percentCompare: renderPercentCompare,
     varBox: renderVarBox,
     functionMachine: renderFunctionMachine,
+    varBalance: renderVarBalance,
+    varCounter: renderVarCounter,
     volume3d: renderVolume3D,
     threejs: (container, media) => initThreeJS(container, media.payload || {}),
     matterjs: (container, media) => initMatterJS(container, media.payload || {})
