@@ -82,20 +82,25 @@ deployment is "serve these files".
 
 ## 4. Screens and user flow
 
-The whole UI lives in `index.html` as three `<section>` "screens" toggled by a
+The whole UI lives in `index.html` as four `<section>` "screens" toggled by a
 `.hidden` CSS class (only one is visible at a time):
 
-1. **Setup** (`#setup-screen`) — pick a built-in pack (`#pack-select`) **or**
+1. **Welcome / playground** (`#welcome-screen`) — shown first on load. A
+   `#playground-grid` is filled at startup with one of every interactive toy
+   (see `PLAYGROUND_SIMS` in `app.js`) so a child can play freely; a
+   **Continue** button (`.welcome-continue-btn`) disposes the playground scenes
+   and reveals the setup screen. None of these toys depend on a loaded pack.
+2. **Setup** (`#setup-screen`) — pick a built-in pack (`#pack-select`) **or**
    upload a JSON file (`#json-upload`), set minutes (`#time-input`), press
    **Start** (`#start-btn`).
-2. **Game** (`#game-screen`) — HUD (timer, pace, score, hints, progress) + the
+3. **Game** (`#game-screen`) — HUD (timer, pace, score, hints, progress) + the
    question panel (code badge, time badge, progress bar, question text, **media
    stage**, answer buttons, the Hint/Lesson button, the hint/lesson box, the
    feedback line) + a pause overlay.
-3. **Result** (`#result-screen`) — final score and hints used; "Play Again" /
+4. **Result** (`#result-screen`) — final score and hints used; "Play Again" /
    "New Pack" both just reload the page.
 
-Flow: `Setup → (Start) → Game → (answers run out / time runs out) → Result`.
+Flow: `Welcome → (Continue) → Setup → (Start) → Game → (answers/time run out) → Result`.
 
 ---
 
@@ -195,7 +200,8 @@ Renderers are registered in a single map keyed by `media.type`:
 
 ```js
 const MEDIA_RENDERERS = { illustration, chart, image, photo, video,
-                          slices, grid, percentOf, volume3d, threejs, matterjs };
+                          slices, grid, percentOf, percentLab, percentPie,
+                          volume3d, threejs, matterjs };
 ```
 
 `renderMedia(container, media, group)` looks up the function, calls it, and if a
@@ -213,6 +219,8 @@ render a visible "Unsupported media type" message rather than throwing.
 | `slices` | none (SVG) | no\* | no | Interactive pie/slices; sliders + live %. |
 | `grid` | none (SVG) | no\* | no | Interactive 10×10 percent grid. |
 | `percentOf` | none (DOM) | no\* | no | Interactive % of an amount (modes of/discount/increase). |
+| `percentLab` | none (SVG) | no\* | no | Percentage Desk: cut a bar into N parts, shade k; fraction/simplified/percent/decimal + same-length equivalence bar + "fraction of a number". |
+| `percentPie` | none (SVG) | no\* | no | Circle twin of `percentLab` (pizza slices). |
 | `volume3d` | Three.js | **yes** | no | Interactive 3D box/cylinder; dimension sliders; live volume; unit-cube lattice. |
 | `threejs` | Three.js + OrbitControls | **yes** | **YES** | Runs `payload.setup`/`update` via `new Function`. |
 | `matterjs` | Matter.js | **yes** | **YES** | Runs `payload.setup` via `new Function`. |

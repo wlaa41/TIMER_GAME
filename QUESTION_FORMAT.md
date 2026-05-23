@@ -285,10 +285,63 @@ JSON** — the shape is built from these safe parameters.
 | `unit`       | string | Unit label, e.g. `"cm"`. Volume is shown as the unit cubed.    |
 | `color`, `interactive`, `tip` | | Same as `slices`.                             |
 
-> **Interactive media** (`slices`, `grid`, `percentOf`, `volume3d`) are safe —
-> they take parameters only and never run code from the JSON. They are designed
-> for **lessons**: set the starting values so the widget's default state does
-> **not** reveal the question's own answer; let the child reach it by playing.
+### 3.11 `percentLab` — the Percentage Desk (bar)
+
+A bar (the "desk") the child cuts into N equal parts and shades; the same amount
+is shown four ways at once (fraction, simplified fraction, percentage, decimal),
+with faint guide lines at the common fractions and a second bar showing the
+**simplified fraction at the same length** (e.g. `2/10` and `1/5`). A panel
+applies that fraction to a number the child types. No code runs from the JSON.
+
+```json
+{
+  "type": "percentLab",
+  "title": "The Percentage Desk",
+  "parts": 10, "shaded": 2,
+  "amount": 40,
+  "maxParts": 100,
+  "tip": "Cut into 4 and shade 3 to see 3/4 = 75%."
+}
+```
+
+| Field      | Type   | Notes                                                       |
+|------------|--------|-------------------------------------------------------------|
+| `parts`    | number | Starting number of equal parts (2–`maxParts`). Default 10.  |
+| `shaded`   | number | Starting shaded parts (0–`parts`). Default 2.               |
+| `amount`   | number | Starting "of a number" amount. Default 40.                  |
+| `maxParts` | number | Max parts the cut slider allows. Default 100.               |
+| `color`, `interactive`, `tip` | | Same as `slices`.                          |
+
+### 3.12 `percentPie` — the Percentage Pizza (circle)
+
+The circle twin of `percentLab`: a pizza cut into N slices with k shaded, the
+same fraction / simplified / percentage / decimal readout, and the same
+"fraction of a number" panel.
+
+```json
+{
+  "type": "percentPie",
+  "title": "The Percentage Pizza",
+  "parts": 8, "shaded": 4,
+  "amount": 40,
+  "maxParts": 24
+}
+```
+
+| Field      | Type   | Notes                                                       |
+|------------|--------|-------------------------------------------------------------|
+| `parts`    | number | Starting slices (2–`maxParts`). Default 8.                  |
+| `shaded`   | number | Starting shaded slices (0–`parts`). Default 4.              |
+| `amount`   | number | Starting "of a number" amount. Default 40.                  |
+| `maxParts` | number | Max slices the cut slider allows. Default 24.               |
+| `color`, `interactive`, `tip` | | Same as `slices`.                          |
+
+> **Interactive media** (`slices`, `grid`, `percentOf`, `percentLab`,
+> `percentPie`, `volume3d`) are safe — they take parameters only and never run
+> code from the JSON. They are designed for **lessons**: set the starting values
+> so the widget's default state does **not** reveal the question's own answer;
+> let the child reach it by playing. These same toys also appear on the welcome
+> playground shown before the quiz.
 
 ---
 
@@ -365,9 +418,10 @@ talking to one curious explorer.
   later lesson lean on an idea an earlier one taught.
 - Give most sections a visual, and mix the types so the lesson stays lively.
 - **Make it hands-on.** Give each lesson an interactive change-it-yourself
-  widget (`slices`, `grid`, `percentOf` or `volume3d`) so the child explores by
-  changing values, and a closing **"Now you teach it: write it and draw it"**
-  section that asks them to write the idea in their own words and draw it.
+  widget (`slices`, `grid`, `percentOf`, `percentLab`, `percentPie` or
+  `volume3d`) so the child explores by changing values, and a closing **"Now you
+  teach it: write it and draw it"** section that asks them to write the idea in
+  their own words and draw it.
 
 ---
 

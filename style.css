@@ -987,6 +987,177 @@ select.time-select {
     cursor: grabbing;
 }
 
+/* ===== Percentage desk (percentLab) ====================================== */
+.plab-stage {
+    display: grid;
+    place-items: center;
+    margin-top: 14px;
+}
+
+.plab-svg {
+    width: min(340px, 98%);
+    height: auto;
+}
+
+.plab-track {
+    fill: var(--surface-3);
+}
+
+.plab-fill {
+    transition: width 120ms ease;
+}
+
+.plab-divider {
+    stroke: var(--text-muted);
+    stroke-width: 1.4;
+    opacity: 0.4;
+}
+
+.plab-guide {
+    stroke: var(--text-muted);
+    stroke-width: 1;
+    stroke-dasharray: 3 3;
+    opacity: 0.3;
+}
+
+.plab-guide-label {
+    fill: var(--text-muted);
+    font-size: 9px;
+    font-weight: 700;
+    opacity: 0.75;
+}
+
+.plab-handle {
+    fill: var(--accent);
+}
+
+.plab-end {
+    fill: var(--text-muted);
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.plab-equiv {
+    display: grid;
+    gap: 2px;
+    justify-items: center;
+    margin-top: 8px;
+}
+
+.plab-equiv-caption {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.plab-equiv-stage {
+    width: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.plab-equiv-svg {
+    width: min(340px, 98%);
+    height: auto;
+}
+
+.plab-ofnum {
+    margin-top: 16px;
+    display: grid;
+    gap: 8px;
+    justify-items: center;
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    background: var(--surface-3);
+}
+
+.plab-ofnum-title {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.plab-ofnum-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.plab-ofnum-frac,
+.plab-ofnum-result {
+    color: var(--accent);
+}
+
+.plab-ofnum-of,
+.plab-ofnum-eq {
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.plab-amount {
+    width: 74px;
+    padding: 5px 8px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text);
+    background: var(--surface-2);
+    border: 1.5px solid var(--accent);
+    border-radius: 8px;
+}
+
+/* ===== Welcome playground ================================================= */
+.welcome-screen {
+    display: grid;
+    gap: 22px;
+    padding: 28px 0 64px;
+}
+
+.welcome-head {
+    display: grid;
+    gap: 10px;
+    justify-items: center;
+    text-align: center;
+}
+
+.welcome-head h1 {
+    margin: 0;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+}
+
+.welcome-head .subtitle {
+    max-width: 560px;
+}
+
+.playground-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+    align-items: start;
+}
+
+.playground-card {
+    padding: 16px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+}
+
+.welcome-foot {
+    display: grid;
+    justify-items: center;
+    margin-top: 4px;
+}
+
+.welcome-head .btn-main,
+.welcome-foot .btn-main {
+    max-width: 320px;
+}
+
 /* ===== Answer choices ===================================================== */
 #input-area {
     margin-top: 22px;

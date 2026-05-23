@@ -39,6 +39,8 @@ let answerLocked = false;
 
 /* ----- 2. DOM references --------------------------------------------------- */
 const els = {
+    welcomeScreen: document.getElementById("welcome-screen"),
+    playgroundGrid: document.getElementById("playground-grid"),
     setupScreen: document.getElementById("setup-screen"),
     gameScreen: document.getElementById("game-screen"),
     resultScreen: document.getElementById("result-screen"),
@@ -249,7 +251,7 @@ const playFeedbackTone = (type) => {
    scene returns a "handle" ({ cleanup, pause, resume }) that is tracked here.
    Handles are grouped so the question scene and the lesson scenes can be
    disposed of independently. */
-const simulationGroups = { question: [], lesson: [] };
+const simulationGroups = { question: [], lesson: [], playground: [] };
 
 const registerSimulation = (group, handle) => {
     if (handle && typeof handle === "object" && simulationGroups[group]) {
@@ -802,6 +804,437 @@ function renderPercentOf(container, media) {
     container.appendChild(card);
 }
 
+// An interactive "percentage desk". One bar (the desk) is cut into N equal
+// parts; the child shades k of them and sees the SAME amount four ways at once:
+// a fraction, its simplified fraction, a percentage and a decimal. Faint guide
+// lines mark the common fractions (1/2, 1/3, 1/4, 1/5 ...). A second panel
+// applies that very fraction to a number the child types (e.g. 3/4 of 40 = 30).
+// Pure SVG + DOM, no animation loop.
+function renderPercentLab(container, media) {
+    const SVG_NS = "http://www.w3.org/2000/svg";
+    const card = makeEl("div", "slices-card");
+    addMediaText(card, media);
+
+    const readInt = (value, fallback) => {
+        const rounded = Math.round(Number(value));
+        return Number.isFinite(rounded) ? rounded : fallback;
+    };
+    const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+    const terminates = (den) => { let d = den; while (d % 2 === 0) d /= 2; while (d % 5 === 0) d /= 5; return d === 1; };
+    const trimNum = (s) => s.replace(/\.?0+$/, "");
+
+    const maxParts = Math.max(2, readInt(media.maxParts, 100));
+    let parts = Math.min(maxParts, Math.max(2, readInt(media.parts, 10)));
+    let shaded = Math.min(parts, Math.max(0, readInt(media.shaded, 2)));
+    let amount = Math.max(0, readInt(media.amount, 40));
+    const color = typeof media.color === "string" ? media.color : "#6366f1";
+    const interactive = media.interactive !== false;
+
+    const simpleFrac = () => {
+        if (shaded === 0) return "0";
+        const g = gcd(shaded, parts);
+        return g > 1 ? `${shaded / g}/${parts / g}` : `${shaded}/${parts}`;
+    };
+    const fracText = () => {
+        if (shaded === 0) return "0";
+        if (shaded === parts) return `${parts}/${parts} = 1 whole`;
+        const g = gcd(shaded, parts);
+        return g > 1 ? `${shaded}/${parts} = ${shaded / g}/${parts / g}` : `${shaded}/${parts}`;
+    };
+    const decText = () => {
+        const dec = shaded / parts;
+        if (dec === 0) return "0";
+        if (Number.isInteger(dec)) return String(dec);
+        const b = parts / gcd(shaded, parts);
+        return terminates(b) ? trimNum(dec.toFixed(6)) : dec.toFixed(2) + "…";
+    };
+    const pctText = () => {
+        const p = (shaded / parts) * 100;
+        if (Math.abs(p - Math.round(p)) < 1e-9) return `${Math.round(p)}%`;
+        const b = parts / gcd(shaded, parts);
+        return terminates(b) ? `${trimNum(p.toFixed(2))}%` : `≈ ${Math.round(p * 10) / 10}%`;
+    };
+    const fmtAmount = (v) => {
+        const r = Math.round(v * 100) / 100;
+        return Number.isInteger(r) ? String(r) : trimNum(r.toFixed(2));
+    };
+
+    // ----- the desk (SVG bar) -----
+    const stage = makeEl("div", "plab-stage");
+    const W = 320, H = 104, bx = 16, by = 26, bw = W - bx * 2, bh = 40;
+    const svg = document.createElementNS(SVG_NS, "svg");
+    svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+    svg.setAttribute("class", "plab-svg");
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", media.alt || "A bar cut into equal parts to show a percentage");
+
+    const mkLine = (x1, y1, x2, y2, cls) => {
+        const l = document.createElementNS(SVG_NS, "line");
+        l.setAttribute("x1", x1.toFixed(2)); l.setAttribute("y1", y1.toFixed(2));
+        l.setAttribute("x2", x2.toFixed(2)); l.setAttribute("y2", y2.toFixed(2));
+        l.setAttribute("class", cls);
+        return l;
+    };
+    const mkText = (x, y, cls, text) => {
+        const t = document.createElementNS(SVG_NS, "text");
+        t.setAttribute("x", x.toFixed(2)); t.setAttribute("y", y.toFixed(2));
+        t.setAttribute("class", cls); t.setAttribute("text-anchor", "middle");
+        t.textContent = text;
+        return t;
+    };
+
+    const track = document.createElementNS(SVG_NS, "rect");
+    track.setAttribute("x", bx); track.setAttribute("y", by);
+    track.setAttribute("width", bw); track.setAttribute("height", bh);
+    track.setAttribute("rx", "8"); track.setAttribute("class", "plab-track");
+    svg.appendChild(track);
+
+    const fill = document.createElementNS(SVG_NS, "rect");
+    fill.setAttribute("x", bx); fill.setAttribute("y", by);
+    fill.setAttribute("height", bh); fill.setAttribute("rx", "8");
+    fill.setAttribute("class", "plab-fill"); fill.setAttribute("fill", color);
+    svg.appendChild(fill);
+
+    // faint, labelled guide lines at the common fractions (constant reference)
+    const guideG = document.createElementNS(SVG_NS, "g");
+    [[1, 5], [1, 4], [1, 3], [1, 2], [2, 3], [3, 4], [4, 5]].forEach(([a, b]) => {
+        const x = bx + (a / b) * bw;
+        guideG.appendChild(mkLine(x, by - 5, x, by + bh + 5, "plab-guide"));
+        guideG.appendChild(mkText(x, by + bh + 16, "plab-guide-label", `${a}/${b}`));
+    });
+    svg.appendChild(guideG);
+
+    // group dividers for the current cut (rebuilt when N changes)
+    const dividerG = document.createElementNS(SVG_NS, "g");
+    svg.appendChild(dividerG);
+
+    const handle = document.createElementNS(SVG_NS, "polygon");
+    handle.setAttribute("class", "plab-handle");
+    svg.appendChild(handle);
+
+    svg.appendChild(mkText(bx, by - 12, "plab-end", "0"));
+    svg.appendChild(mkText(bx + bw, by - 12, "plab-end", "100%"));
+
+    stage.appendChild(svg);
+    card.appendChild(stage);
+
+    // ----- equivalence bar: the same length, written in simplest form -----
+    const equiv = makeEl("div", "plab-equiv");
+    const equivCaption = makeEl("span", "plab-equiv-caption");
+    equiv.appendChild(equivCaption);
+    const eqStage = makeEl("div", "plab-equiv-stage");
+    const eqBx = 16, eqBy = 6, eqBw = bw, eqBh = 24, eqH = 38;
+    const eqsvg = document.createElementNS(SVG_NS, "svg");
+    eqsvg.setAttribute("viewBox", `0 0 ${W} ${eqH}`);
+    eqsvg.setAttribute("class", "plab-equiv-svg");
+    eqsvg.setAttribute("role", "img");
+    eqsvg.setAttribute("aria-label", "The same amount written as its simplest fraction");
+    const eqTrack = document.createElementNS(SVG_NS, "rect");
+    eqTrack.setAttribute("x", eqBx); eqTrack.setAttribute("y", eqBy);
+    eqTrack.setAttribute("width", eqBw); eqTrack.setAttribute("height", eqBh);
+    eqTrack.setAttribute("rx", "6"); eqTrack.setAttribute("class", "plab-track");
+    eqsvg.appendChild(eqTrack);
+    const eqFill = document.createElementNS(SVG_NS, "rect");
+    eqFill.setAttribute("x", eqBx); eqFill.setAttribute("y", eqBy);
+    eqFill.setAttribute("height", eqBh); eqFill.setAttribute("rx", "6");
+    eqFill.setAttribute("class", "plab-fill"); eqFill.setAttribute("fill", color);
+    eqsvg.appendChild(eqFill);
+    const eqDivG = document.createElementNS(SVG_NS, "g");
+    eqsvg.appendChild(eqDivG);
+    eqStage.appendChild(eqsvg);
+    equiv.appendChild(eqStage);
+    card.appendChild(equiv);
+
+    // ----- readout (percent + fraction = decimal) -----
+    const readout = makeEl("div", "slices-readout");
+    const pctEl = makeEl("span", "slices-pct");
+    const detailEl = makeEl("span", "slices-detail");
+    readout.appendChild(pctEl);
+    readout.appendChild(detailEl);
+    card.appendChild(readout);
+
+    // ----- "the same fraction of a number" panel -----
+    const ofnum = makeEl("div", "plab-ofnum");
+    ofnum.appendChild(makeEl("span", "plab-ofnum-title", "The same fraction of a number"));
+    const ofRow = makeEl("div", "plab-ofnum-row");
+    const ofFracEl = makeEl("span", "plab-ofnum-frac");
+    const amountInput = document.createElement("input");
+    amountInput.type = "number"; amountInput.min = "0"; amountInput.value = String(amount);
+    amountInput.className = "plab-amount"; amountInput.setAttribute("aria-label", "Your number");
+    const ofResult = makeEl("span", "plab-ofnum-result");
+    ofRow.appendChild(ofFracEl);
+    ofRow.appendChild(makeEl("span", "plab-ofnum-of", "of"));
+    ofRow.appendChild(amountInput);
+    ofRow.appendChild(makeEl("span", "plab-ofnum-eq", "="));
+    ofRow.appendChild(ofResult);
+    ofnum.appendChild(ofRow);
+    card.appendChild(ofnum);
+
+    const drawDividers = () => {
+        clearElement(dividerG);
+        if (parts <= 60) {
+            for (let i = 1; i < parts; i++) {
+                const x = bx + (i / parts) * bw;
+                dividerG.appendChild(mkLine(x, by, x, by + bh, "plab-divider"));
+            }
+        }
+    };
+
+    const draw = () => {
+        const frac = shaded / parts;
+        fill.setAttribute("width", (frac * bw).toFixed(2));
+        const hx = bx + frac * bw;
+        handle.setAttribute("points", `${(hx - 6).toFixed(1)},${by - 5} ${(hx + 6).toFixed(1)},${by - 5} ${hx.toFixed(1)},${by + 5}`);
+        pctEl.textContent = pctText();
+        detailEl.textContent = `${fracText()}  =  ${decText()}`;
+        ofFracEl.textContent = simpleFrac();
+        ofResult.textContent = fmtAmount(frac * amount);
+
+        // equivalence bar: same fill length, cut into the simplest denominator
+        const g = shaded > 0 ? gcd(shaded, parts) : 1;
+        const a = shaded > 0 ? shaded / g : 0;
+        const b = shaded > 0 ? parts / g : parts;
+        eqFill.setAttribute("width", (frac * eqBw).toFixed(2));
+        clearElement(eqDivG);
+        if (b <= 60) {
+            for (let i = 1; i < b; i++) {
+                const x = eqBx + (i / b) * eqBw;
+                eqDivG.appendChild(mkLine(x, eqBy, x, eqBy + eqBh, "plab-divider"));
+            }
+        }
+        if (shaded === 0) equivCaption.textContent = "Simplest form: 0";
+        else if (shaded === parts) equivCaption.textContent = "Simplest form: 1 whole";
+        else if (g > 1) equivCaption.textContent = `Simplest form: ${a}/${b}  (same length as ${shaded}/${parts})`;
+        else equivCaption.textContent = `${shaded}/${parts} is already in simplest form`;
+    };
+
+    drawDividers();
+    draw();
+
+    if (interactive) {
+        const controls = makeEl("div", "slices-controls");
+        const makeSlider = (labelText, min, max, value) => {
+            const wrap = makeEl("label", "slices-control");
+            const head = makeEl("span", "slices-control-head");
+            head.appendChild(makeEl("span", "slices-control-name", labelText));
+            const valueEl = makeEl("span", "slices-control-value", String(value));
+            head.appendChild(valueEl);
+            const input = document.createElement("input");
+            input.type = "range";
+            input.min = String(min); input.max = String(max); input.value = String(value);
+            input.className = "slices-range";
+            wrap.appendChild(head); wrap.appendChild(input);
+            return { wrap, input, valueEl };
+        };
+
+        const partsCtl = makeSlider("Cut into equal parts", 2, maxParts, parts);
+        const shadedCtl = makeSlider("Shade this many parts", 0, parts, shaded);
+
+        partsCtl.input.addEventListener("input", () => {
+            parts = Math.min(maxParts, Math.max(2, readInt(partsCtl.input.value, parts)));
+            partsCtl.valueEl.textContent = String(parts);
+            if (shaded > parts) shaded = parts;
+            shadedCtl.input.max = String(parts);
+            shadedCtl.input.value = String(shaded);
+            shadedCtl.valueEl.textContent = String(shaded);
+            drawDividers();
+            draw();
+        });
+        shadedCtl.input.addEventListener("input", () => {
+            shaded = Math.min(parts, Math.max(0, readInt(shadedCtl.input.value, shaded)));
+            shadedCtl.valueEl.textContent = String(shaded);
+            draw();
+        });
+        amountInput.addEventListener("input", () => {
+            amount = Math.max(0, readInt(amountInput.value, amount));
+            draw();
+        });
+
+        controls.appendChild(partsCtl.wrap);
+        controls.appendChild(shadedCtl.wrap);
+        card.appendChild(controls);
+        card.appendChild(makeEl("p", "slices-tip", media.tip
+            || "Cut the desk into parts and shade some - the fraction, percentage and decimal always match. Try cutting into 4 and shading 3 to see 3/4 = 75%."));
+    } else {
+        amountInput.disabled = true;
+    }
+
+    if (media.teachingPoint) card.appendChild(makeEl("p", "teaching-point", media.teachingPoint));
+    container.appendChild(card);
+}
+
+// An interactive "percentage pizza" - the circle twin of the Percentage Desk.
+// The child cuts a pizza into N equal slices, shades k of them, and sees the
+// same amount as a fraction, its simplest form, a percentage and a decimal -
+// plus that fraction OF a number they type. Pure SVG + DOM, no animation loop.
+function renderPercentPie(container, media) {
+    const SVG_NS = "http://www.w3.org/2000/svg";
+    const card = makeEl("div", "slices-card");
+    addMediaText(card, media);
+
+    const readInt = (value, fallback) => {
+        const rounded = Math.round(Number(value));
+        return Number.isFinite(rounded) ? rounded : fallback;
+    };
+    const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+    const terminates = (den) => { let d = den; while (d % 2 === 0) d /= 2; while (d % 5 === 0) d /= 5; return d === 1; };
+    const trimNum = (s) => s.replace(/\.?0+$/, "");
+
+    const maxParts = Math.max(2, readInt(media.maxParts, 24));
+    let parts = Math.min(maxParts, Math.max(2, readInt(media.parts, 8)));
+    let shaded = Math.min(parts, Math.max(0, readInt(media.shaded, 4)));
+    let amount = Math.max(0, readInt(media.amount, 40));
+    const color = typeof media.color === "string" ? media.color : "#6366f1";
+    const interactive = media.interactive !== false;
+
+    const simpleFrac = () => {
+        if (shaded === 0) return "0";
+        const g = gcd(shaded, parts);
+        return g > 1 ? `${shaded / g}/${parts / g}` : `${shaded}/${parts}`;
+    };
+    const fracText = () => {
+        if (shaded === 0) return "0";
+        if (shaded === parts) return `${parts}/${parts} = 1 whole`;
+        const g = gcd(shaded, parts);
+        return g > 1 ? `${shaded}/${parts} = ${shaded / g}/${parts / g}` : `${shaded}/${parts}`;
+    };
+    const decText = () => {
+        const dec = shaded / parts;
+        if (dec === 0) return "0";
+        if (Number.isInteger(dec)) return String(dec);
+        const b = parts / gcd(shaded, parts);
+        return terminates(b) ? trimNum(dec.toFixed(6)) : dec.toFixed(2) + "…";
+    };
+    const pctText = () => {
+        const p = (shaded / parts) * 100;
+        if (Math.abs(p - Math.round(p)) < 1e-9) return `${Math.round(p)}%`;
+        const b = parts / gcd(shaded, parts);
+        return terminates(b) ? `${trimNum(p.toFixed(2))}%` : `≈ ${Math.round(p * 10) / 10}%`;
+    };
+    const fmtAmount = (v) => {
+        const r = Math.round(v * 100) / 100;
+        return Number.isInteger(r) ? String(r) : trimNum(r.toFixed(2));
+    };
+
+    // ----- the pizza -----
+    const SIZE = 240, cx = SIZE / 2, cy = SIZE / 2, r = 104;
+    const stage = makeEl("div", "slices-stage");
+    const svg = document.createElementNS(SVG_NS, "svg");
+    svg.setAttribute("viewBox", `0 0 ${SIZE} ${SIZE}`);
+    svg.setAttribute("class", "slices-svg");
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", media.alt || "A pizza cut into equal slices");
+
+    const crust = document.createElementNS(SVG_NS, "circle");
+    crust.setAttribute("cx", cx); crust.setAttribute("cy", cy); crust.setAttribute("r", r + 7);
+    crust.setAttribute("class", "slices-crust");
+    svg.appendChild(crust);
+    const layer = document.createElementNS(SVG_NS, "g");
+    svg.appendChild(layer);
+    stage.appendChild(svg);
+    card.appendChild(stage);
+
+    const slicePath = (a0, a1) => {
+        if (a1 - a0 >= Math.PI * 2 - 1e-6) {
+            return `M ${cx} ${cy - r} A ${r} ${r} 0 1 1 ${cx - 0.01} ${cy - r} Z`;
+        }
+        const x0 = cx + r * Math.cos(a0), y0 = cy + r * Math.sin(a0);
+        const x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
+        const large = a1 - a0 > Math.PI ? 1 : 0;
+        return `M ${cx} ${cy} L ${x0.toFixed(2)} ${y0.toFixed(2)} A ${r} ${r} 0 ${large} 1 ${x1.toFixed(2)} ${y1.toFixed(2)} Z`;
+    };
+
+    // ----- readout -----
+    const readout = makeEl("div", "slices-readout");
+    const pctEl = makeEl("span", "slices-pct");
+    const detailEl = makeEl("span", "slices-detail");
+    readout.appendChild(pctEl); readout.appendChild(detailEl);
+    card.appendChild(readout);
+
+    // ----- "the same fraction of a number" panel -----
+    const ofnum = makeEl("div", "plab-ofnum");
+    ofnum.appendChild(makeEl("span", "plab-ofnum-title", "The same fraction of a number"));
+    const ofRow = makeEl("div", "plab-ofnum-row");
+    const ofFracEl = makeEl("span", "plab-ofnum-frac");
+    const amountInput = document.createElement("input");
+    amountInput.type = "number"; amountInput.min = "0"; amountInput.value = String(amount);
+    amountInput.className = "plab-amount"; amountInput.setAttribute("aria-label", "Your number");
+    const ofResult = makeEl("span", "plab-ofnum-result");
+    ofRow.appendChild(ofFracEl);
+    ofRow.appendChild(makeEl("span", "plab-ofnum-of", "of"));
+    ofRow.appendChild(amountInput);
+    ofRow.appendChild(makeEl("span", "plab-ofnum-eq", "="));
+    ofRow.appendChild(ofResult);
+    ofnum.appendChild(ofRow);
+    card.appendChild(ofnum);
+
+    const draw = () => {
+        clearElement(layer);
+        const seg = (Math.PI * 2) / parts;
+        const start = -Math.PI / 2;
+        for (let i = 0; i < parts; i++) {
+            const piece = document.createElementNS(SVG_NS, "path");
+            piece.setAttribute("d", slicePath(start + i * seg, start + (i + 1) * seg));
+            const isFilled = i < shaded;
+            piece.setAttribute("class", `slice-piece ${isFilled ? "slice-filled" : "slice-empty"}`);
+            if (isFilled) piece.setAttribute("fill", color);
+            layer.appendChild(piece);
+        }
+        pctEl.textContent = pctText();
+        detailEl.textContent = `${fracText()}  =  ${decText()}`;
+        ofFracEl.textContent = simpleFrac();
+        ofResult.textContent = fmtAmount((shaded / parts) * amount);
+    };
+    draw();
+
+    if (interactive) {
+        const controls = makeEl("div", "slices-controls");
+        const makeSlider = (labelText, min, max, value) => {
+            const wrap = makeEl("label", "slices-control");
+            const head = makeEl("span", "slices-control-head");
+            head.appendChild(makeEl("span", "slices-control-name", labelText));
+            const valueEl = makeEl("span", "slices-control-value", String(value));
+            head.appendChild(valueEl);
+            const input = document.createElement("input");
+            input.type = "range";
+            input.min = String(min); input.max = String(max); input.value = String(value);
+            input.className = "slices-range";
+            wrap.appendChild(head); wrap.appendChild(input);
+            return { wrap, input, valueEl };
+        };
+        const partsCtl = makeSlider("Cut into slices", 2, maxParts, parts);
+        const shadedCtl = makeSlider("Shade this many slices", 0, parts, shaded);
+        partsCtl.input.addEventListener("input", () => {
+            parts = Math.min(maxParts, Math.max(2, readInt(partsCtl.input.value, parts)));
+            partsCtl.valueEl.textContent = String(parts);
+            if (shaded > parts) shaded = parts;
+            shadedCtl.input.max = String(parts);
+            shadedCtl.input.value = String(shaded);
+            shadedCtl.valueEl.textContent = String(shaded);
+            draw();
+        });
+        shadedCtl.input.addEventListener("input", () => {
+            shaded = Math.min(parts, Math.max(0, readInt(shadedCtl.input.value, shaded)));
+            shadedCtl.valueEl.textContent = String(shaded);
+            draw();
+        });
+        amountInput.addEventListener("input", () => {
+            amount = Math.max(0, readInt(amountInput.value, amount));
+            draw();
+        });
+        controls.appendChild(partsCtl.wrap);
+        controls.appendChild(shadedCtl.wrap);
+        card.appendChild(controls);
+        card.appendChild(makeEl("p", "slices-tip", media.tip
+            || "Cut the pizza into slices and shade some - the fraction, percentage and decimal always match. Try 4 slices with 1 shaded to see 1/4 = 25%."));
+    } else {
+        amountInput.disabled = true;
+    }
+
+    if (media.teachingPoint) card.appendChild(makeEl("p", "teaching-point", media.teachingPoint));
+    container.appendChild(card);
+}
+
 // An interactive 3D volume playground. A real Three.js box (or cylinder) the
 // child can orbit, with sliders for its dimensions; the shape resizes and the
 // volume updates live. Unlike `threejs`, the geometry is parameterised here -
@@ -1158,6 +1591,8 @@ const MEDIA_RENDERERS = {
     slices: renderSlices,
     grid: renderGrid,
     percentOf: renderPercentOf,
+    percentLab: renderPercentLab,
+    percentPie: renderPercentPie,
     volume3d: renderVolume3D,
     threejs: (container, media) => initThreeJS(container, media.payload || {}),
     matterjs: (container, media) => initMatterJS(container, media.payload || {})
@@ -1594,6 +2029,42 @@ els.packSelect.addEventListener("change", () => {
 if (window.location.protocol !== "file:") {
     loadSelectedBuiltInPack({ silent: true });
 }
+
+/* The welcome playground is shown first (before the quiz). It renders one of
+   every interactive toy under the "playground" group so they are disposed when
+   the explorer presses Continue. None of these depend on a loaded pack. */
+const PLAYGROUND_SIMS = [
+    { type: "percentLab", title: "Percentage Desk", caption: "Cut the desk, shade some parts, and read it as a fraction, a percentage and a decimal - all at once.", parts: 10, shaded: 2, amount: 40, maxParts: 100 },
+    { type: "percentPie", title: "Percentage Pizza", caption: "The same idea on a pizza - shade slices and watch the fraction, percentage and decimal.", parts: 8, shaded: 4, amount: 40 },
+    { type: "slices", title: "Fraction Pizza", caption: "Cut the pizza and colour the slices to build any fraction.", slices: 8, filled: 3 },
+    { type: "grid", title: "Hundred Grid", caption: "Every little square is worth 1%. Colour as many as you like.", filled: 30, showDecimal: true },
+    { type: "percentOf", title: "Percent of a Number", caption: "Slide the percentage and the amount to find the part.", percent: 25, amount: 40 },
+    { type: "volume3d", title: "3D Volume Box", caption: "Spin the see-through block and change its sides to change the volume.", shape: "box", unit: "cm", length: 4, width: 2, height: 3, min: 1, max: 8 }
+];
+
+function renderPlayground() {
+    if (!els.playgroundGrid) return;
+    cleanupSimulations("playground");
+    clearElement(els.playgroundGrid);
+    PLAYGROUND_SIMS.forEach((media) => {
+        const cell = makeEl("div", "playground-card");
+        els.playgroundGrid.appendChild(cell);
+        renderMedia(cell, media, "playground");
+    });
+}
+
+const continueFromWelcome = () => {
+    cleanupSimulations("playground");
+    if (els.welcomeScreen) els.welcomeScreen.classList.add("hidden");
+    els.setupScreen.classList.remove("hidden");
+    window.scrollTo(0, 0);
+};
+
+document.querySelectorAll(".welcome-continue-btn").forEach((btn) => {
+    btn.addEventListener("click", continueFromWelcome);
+});
+
+renderPlayground();
 
 els.startBtn.addEventListener("click", () => {
     if (!quizData) return;
