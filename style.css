@@ -939,6 +939,12 @@ select.time-select {
 }
 
 .compare-verdict {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
     font-size: 1.05rem;
     font-weight: 700;
     color: var(--text-muted);
@@ -979,17 +985,14 @@ select.time-select {
 
 .compare-op-result {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 1px;
+    justify-content: center;
+    gap: 6px;
     font-size: 1.1rem;
     font-weight: 700;
     color: var(--accent);
-}
-
-.compare-op-result .slices-line {
-    color: var(--accent);
-    font-size: 1.05rem;
 }
 
 .compare-op-visual {
@@ -1096,19 +1099,38 @@ select.time-select {
 
 .slices-detail {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 1px;
-    color: var(--text-muted);
-    font-size: 0.96rem;
-    font-weight: 600;
+    justify-content: center;
+    gap: 6px;
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 700;
 }
 
-.slices-line {
-    color: var(--text);
-    font-size: 1.04rem;
-    font-weight: 700;
-    line-height: 1.35;
+.detail-text {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* A fraction written like on paper: numerator over a line over denominator. */
+.frac {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    line-height: 1.05;
+}
+
+.frac-num {
+    padding: 0 5px 1px;
+    border-bottom: 2px solid currentColor;
+}
+
+.frac-den {
+    padding: 1px 5px 0;
 }
 
 .slices-controls {

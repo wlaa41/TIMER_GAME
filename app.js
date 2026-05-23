@@ -98,12 +98,22 @@ const makeEl = (tag, className, text) => {
     return element;
 };
 
-// Renders an "a = b = c" string as stacked lines (each equivalent on its own
-// row), so the fraction, percentage and decimal sit on top of each other.
-const setStackedDetail = (element, text) => {
+// Renders a fraction the way it is written on paper: the numerator above a
+// horizontal line above the denominator (no slash).
+const makeFraction = (numerator, denominator) => {
+    const frac = makeEl("span", "frac");
+    frac.appendChild(makeEl("span", "frac-num", String(numerator)));
+    frac.appendChild(makeEl("span", "frac-den", String(denominator)));
+    return frac;
+};
+
+// Fills `element` inline with a mix of plain strings and [num, den] fractions,
+// e.g. setDetail(el, [[25, 100], "=", [1, 4], "=", "0.25"]).
+const setDetail = (element, segments) => {
     clearElement(element);
-    String(text).split(/\s*=\s*/).forEach((part, index) => {
-        element.appendChild(makeEl("span", "slices-line", index === 0 ? part : "= " + part));
+    segments.forEach((seg) => {
+        if (Array.isArray(seg)) element.appendChild(makeFraction(seg[0], seg[1]));
+        else element.appendChild(makeEl("span", "detail-text", seg));
     });
 };
 
@@ -663,7 +673,7 @@ function renderGrid(container, media) {
             const value = filled / 100;
             let decText = "0";
             if (value !== 0) decText = Number.isInteger(value) ? String(value) : value.toFixed(2).replace(/0+$/, "").replace(/\.$/, "");
-            setStackedDetail(detailEl, `${filled}/100 = ${decText}`);
+            setDetail(detailEl, [[filled, 100], "=", decText]);
         } else {
             const rows = Math.floor(filled / 10);
             const extra = filled % 10;
@@ -997,8 +1007,15 @@ function renderPercentLab(container, media) {
         const hx = bx + frac * bw;
         handle.setAttribute("points", `${(hx - 6).toFixed(1)},${by - 5} ${(hx + 6).toFixed(1)},${by - 5} ${hx.toFixed(1)},${by + 5}`);
         pctEl.textContent = pctText();
-        setStackedDetail(detailEl, `${fracText()} = ${decText()}`);
-        ofFracEl.textContent = simpleFrac();
+        const detG = shaded > 0 ? gcd(shaded, parts) : 1;
+        if (shaded === 0) setDetail(detailEl, ["0"]);
+        else if (shaded === parts) setDetail(detailEl, [[parts, parts], "=", "1 whole"]);
+        else if (detG > 1) setDetail(detailEl, [[shaded, parts], "=", [shaded / detG, parts / detG], "=", decText()]);
+        else setDetail(detailEl, [[shaded, parts], "=", decText()]);
+        clearElement(ofFracEl);
+        if (shaded === 0) ofFracEl.appendChild(makeEl("span", "detail-text", "0"));
+        else if (shaded === parts) ofFracEl.appendChild(makeEl("span", "detail-text", "1"));
+        else { const ofG = gcd(shaded, parts); ofFracEl.appendChild(makeFraction(shaded / ofG, parts / ofG)); }
         ofResult.textContent = fmtAmount(frac * amount);
 
         // equivalence bar: same fill length, cut into the simplest denominator
@@ -1235,8 +1252,15 @@ function renderPercentPie(container, media) {
             }
         }
         pctEl.textContent = pctText();
-        setStackedDetail(detailEl, `${fracText()} = ${decText()}`);
-        ofFracEl.textContent = simpleFrac();
+        const detG = shaded > 0 ? gcd(shaded, parts) : 1;
+        if (shaded === 0) setDetail(detailEl, ["0"]);
+        else if (shaded === parts) setDetail(detailEl, [[parts, parts], "=", "1 whole"]);
+        else if (detG > 1) setDetail(detailEl, [[shaded, parts], "=", [shaded / detG, parts / detG], "=", decText()]);
+        else setDetail(detailEl, [[shaded, parts], "=", decText()]);
+        clearElement(ofFracEl);
+        if (shaded === 0) ofFracEl.appendChild(makeEl("span", "detail-text", "0"));
+        else if (shaded === parts) ofFracEl.appendChild(makeEl("span", "detail-text", "1"));
+        else { const ofG = gcd(shaded, parts); ofFracEl.appendChild(makeFraction(shaded / ofG, parts / ofG)); }
         ofResult.textContent = fmtAmount((shaded / parts) * amount);
         if (typeof media.onChange === "function") media.onChange({ parts, shaded });
     };
@@ -1445,13 +1469,13 @@ function renderPercentCompare(container, media) {
         const equal = Math.abs(vA - vB) < 1e-9;
         if (equal && (A.shaded > 0 || B.shaded > 0)) {
             verdict.className = "compare-verdict is-equal";
-            verdict.textContent = `Same value!  ${A.shaded}/${A.parts} = ${B.shaded}/${B.parts} = ${fmtPct(A.shaded, A.parts)}`;
+            setDetail(verdict, ["Same value!", [A.shaded, A.parts], "=", [B.shaded, B.parts], "=", fmtPct(A.shaded, A.parts)]);
         } else if (equal) {
             verdict.className = "compare-verdict";
-            verdict.textContent = "Shade slices on each pizza to compare them.";
+            setDetail(verdict, ["Shade slices on each pizza to compare them."]);
         } else {
             verdict.className = "compare-verdict";
-            verdict.textContent = `${A.shaded}/${A.parts} (${fmtPct(A.shaded, A.parts)})  vs  ${B.shaded}/${B.parts} (${fmtPct(B.shaded, B.parts)})  —  ${vA > vB ? "left" : "right"} is bigger`;
+            setDetail(verdict, [[A.shaded, A.parts], `(${fmtPct(A.shaded, A.parts)})`, "vs", [B.shaded, B.parts], `(${fmtPct(B.shaded, B.parts)})`, `— ${vA > vB ? "left" : "right"} is bigger`]);
         }
         addBtn.classList.toggle("active", op === "add");
         subBtn.classList.toggle("active", op === "sub");
@@ -1463,7 +1487,14 @@ function renderPercentCompare(container, media) {
             const num = op === "add" ? numA + numB : numA - numB;
             const sign = op === "add" ? "+" : "−";
             opResult.style.display = "";
-            setStackedDetail(opResult, `${A.shaded}/${A.parts} ${sign} ${B.shaded}/${B.parts} = ${fmtFrac(num, L)} = ${fmtPct(num, L)} = ${fmtDec(num, L)}`);
+            const gR = gcd(Math.abs(num), L) || 1;
+            const rN = num / gR, rD = L / gR;
+            const seg = [[A.shaded, A.parts], sign, [B.shaded, B.parts], "="];
+            if (rD === 1) seg.push(String(rN));
+            else if (rN < 0) seg.push("−", [Math.abs(rN), rD]);
+            else seg.push([rN, rD]);
+            seg.push("=", fmtPct(num, L), "=", fmtDec(num, L));
+            setDetail(opResult, seg);
             // Show the answer as pizza(s): one full pizza per whole, plus the
             // leftover - so values over 1 (e.g. 1.6) show two pizzas.
             const g = gcd(Math.abs(num), L) || 1;
