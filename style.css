@@ -1294,6 +1294,129 @@ select.time-select {
     transition: width 200ms ease;
 }
 
+/* Mind-reading trick */
+.vtrick-table {
+    display: grid;
+    gap: 4px;
+    margin-top: 14px;
+}
+
+.vtrick-row {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 6px;
+}
+
+.vtrick-cell {
+    padding: 6px 8px;
+    text-align: center;
+    background: var(--surface-3);
+    border-radius: 6px;
+    font-weight: 700;
+}
+
+.vtrick-head .vtrick-cell {
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.vtrick-label {
+    text-align: left;
+}
+
+.vtrick-alg {
+    color: var(--accent);
+    font-style: italic;
+}
+
+.vtrick-banner {
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    background: #16a34a;
+    color: #fff;
+    font-weight: 800;
+    text-align: center;
+    font-size: 1.05rem;
+}
+
+/* Expression builder */
+.vexpr-line {
+    margin-top: 12px;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 800;
+    font-style: italic;
+    color: var(--accent);
+}
+
+.vexpr-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+.vexpr-box {
+    position: relative;
+    min-width: 54px;
+    min-height: 54px;
+    padding: 14px 8px 8px;
+    border: 2.5px solid var(--accent);
+    border-radius: 10px;
+    background: var(--surface-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vexpr-box-label {
+    position: absolute;
+    top: 2px;
+    left: 6px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    font-style: italic;
+    color: var(--accent);
+}
+
+.vexpr-box-dots {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+}
+
+.vexpr-box-num {
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+.vexpr-plus {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--text-muted);
+}
+
+.vexpr-loose {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    max-width: 120px;
+}
+
+.vexpr-unit {
+    display: block;
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    background: #f59e0b;
+}
+
 /* Controls popup: inline on desktop; on phones the controls hide behind an
    "Adjust" button and reveal as an elevated in-card panel (so the small screen
    shows just the visual and its numbers). In-flow, so it is robust against any

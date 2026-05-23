@@ -1931,6 +1931,168 @@ function renderVarCounter(container, media) {
     container.appendChild(card);
 }
 
+// The Mind-Reading Trick: "think of a number", run the steps, and the answer is
+// always 5 - because the x cancels. Two tracks side by side: the child's actual
+// number and the same steps in algebra (x -> 2x -> 2x+10 -> x+5 -> 5). Pure DOM.
+function renderVarTrick(container, media) {
+    const card = makeEl("div", "slices-card vtrick-card");
+    addMediaText(card, media);
+    const readInt = (v, f) => { const r = Math.round(Number(v)); return Number.isFinite(r) ? r : f; };
+    let secret = readInt(media.secret, 7);
+    const steps = [
+        { label: "Think of a number", algebra: "x", calc: (n) => n },
+        { label: "Double it", algebra: "2x", calc: (n) => 2 * n },
+        { label: "Add 10", algebra: "2x + 10", calc: (n) => 2 * n + 10 },
+        { label: "Halve it", algebra: "x + 5", calc: (n) => (2 * n + 10) / 2 },
+        { label: "Subtract your number", algebra: "5", calc: (n) => (2 * n + 10) / 2 - n }
+    ];
+    let shown = 1;
+
+    const table = makeEl("div", "vtrick-table");
+    card.appendChild(table);
+    const banner = makeEl("div", "vtrick-banner");
+    banner.style.display = "none";
+    card.appendChild(banner);
+
+    const draw = () => {
+        clearElement(table);
+        const head = makeEl("div", "vtrick-row vtrick-head");
+        head.appendChild(makeEl("span", "vtrick-cell", "Step"));
+        head.appendChild(makeEl("span", "vtrick-cell", "Your number"));
+        head.appendChild(makeEl("span", "vtrick-cell", "In algebra"));
+        table.appendChild(head);
+        for (let i = 0; i < shown; i++) {
+            const s = steps[i];
+            const row = makeEl("div", "vtrick-row");
+            row.appendChild(makeEl("span", "vtrick-cell vtrick-label", s.label));
+            row.appendChild(makeEl("span", "vtrick-cell vtrick-numv", String(s.calc(secret))));
+            row.appendChild(makeEl("span", "vtrick-cell vtrick-alg", s.algebra));
+            table.appendChild(row);
+        }
+        if (shown >= steps.length) {
+            banner.style.display = "";
+            banner.textContent = "🔮 Always 5 - whatever you start with! The x cancelled out.";
+        } else {
+            banner.style.display = "none";
+        }
+    };
+
+    const controls = makeEl("div", "slices-controls");
+    const wrap = makeEl("label", "slices-control");
+    const h = makeEl("span", "slices-control-head");
+    h.appendChild(makeEl("span", "slices-control-name", "Your secret number"));
+    const num = document.createElement("input");
+    num.type = "number"; num.value = String(secret); num.className = "slices-control-num";
+    h.appendChild(num);
+    wrap.appendChild(h);
+    num.addEventListener("input", () => { secret = readInt(num.value, secret); draw(); });
+    controls.appendChild(wrap);
+    card.appendChild(controls);
+
+    const btnRow = makeEl("div", "var-btn-row");
+    const nextBtn = makeEl("button", "var-btn", "Next step ▶");
+    nextBtn.type = "button";
+    nextBtn.addEventListener("click", () => { shown = Math.min(steps.length, shown + 1); draw(); });
+    const resetBtn = makeEl("button", "var-btn secondary", "Start over");
+    resetBtn.type = "button";
+    resetBtn.addEventListener("click", () => { shown = 1; draw(); });
+    btnRow.appendChild(nextBtn); btnRow.appendChild(resetBtn);
+    card.appendChild(btnRow);
+    card.appendChild(makeEl("p", "slices-tip", media.tip
+        || "Pick any secret number and step through. The answer is always 5 - because in algebra the steps turn x into 5, no matter what x was."));
+    draw();
+    if (media.teachingPoint) card.appendChild(makeEl("p", "teaching-point", media.teachingPoint));
+    container.appendChild(card);
+}
+
+// The Expression Builder: show m·x + b as m boxes (each holding x objects) plus
+// b loose objects. Slide x and watch every box fill while the total updates -
+// the meaning of an expression and of substitution. Pure DOM.
+function renderVarExpression(container, media) {
+    const card = makeEl("div", "slices-card vexpr-card");
+    addMediaText(card, media);
+    const readInt = (v, f) => { const r = Math.round(Number(v)); return Number.isFinite(r) ? r : f; };
+    const name = (typeof media.name === "string" && media.name) || "x";
+    let m = Math.max(1, readInt(media.coef, 2));
+    let b = Math.max(0, readInt(media.const, 3));
+    const maxX = Math.max(1, readInt(media.max, 10));
+    let x = Math.min(maxX, Math.max(0, readInt(media.value, 4)));
+    const color = typeof media.color === "string" ? media.color : "#6366f1";
+
+    const exprEl = makeEl("div", "vexpr-line");
+    card.appendChild(exprEl);
+    const stage = makeEl("div", "vexpr-stage");
+    card.appendChild(stage);
+    const readout = makeEl("div", "slices-readout");
+    const big = makeEl("span", "slices-pct");
+    const detail = makeEl("span", "slices-detail");
+    readout.appendChild(big); readout.appendChild(detail);
+    card.appendChild(readout);
+
+    const exprText = () => `${m === 1 ? "" : m + "·"}${name}${b > 0 ? ` + ${b}` : ""}`;
+    const draw = () => {
+        clearElement(stage);
+        for (let i = 0; i < m; i++) {
+            const box = makeEl("div", "vexpr-box");
+            box.style.borderColor = color;
+            box.appendChild(makeEl("span", "vexpr-box-label", name));
+            const win = makeEl("div", "vexpr-box-dots");
+            if (x <= 12) {
+                for (let j = 0; j < x; j++) { const d = makeEl("span", "varbox-dot"); d.style.background = color; win.appendChild(d); }
+            } else {
+                win.appendChild(makeEl("span", "vexpr-box-num", String(x)));
+            }
+            box.appendChild(win);
+            stage.appendChild(box);
+            if (i < m - 1 || b > 0) stage.appendChild(makeEl("span", "vexpr-plus", "+"));
+        }
+        if (b > 0) {
+            const loose = makeEl("div", "vexpr-loose");
+            for (let j = 0; j < b; j++) loose.appendChild(makeEl("span", "vexpr-unit"));
+            stage.appendChild(loose);
+        }
+        const total = m * x + b;
+        exprEl.textContent = exprText();
+        big.textContent = `${exprText()} = ${total}`;
+        detail.textContent = `${name} = ${x}:   ${m === 1 ? "" : m + "×"}${x}${b > 0 ? " + " + b : ""} = ${total}`;
+    };
+
+    const controls = makeEl("div", "slices-controls");
+    const xWrap = makeEl("label", "slices-control");
+    const xh = makeEl("span", "slices-control-head");
+    xh.appendChild(makeEl("span", "slices-control-name", `What is ${name}?`));
+    const xnum = document.createElement("input");
+    xnum.type = "number"; xnum.min = "0"; xnum.max = String(maxX); xnum.value = String(x); xnum.className = "slices-control-num";
+    xh.appendChild(xnum);
+    const xr = document.createElement("input");
+    xr.type = "range"; xr.min = "0"; xr.max = String(maxX); xr.value = String(x); xr.className = "slices-range";
+    xWrap.appendChild(xh); xWrap.appendChild(xr);
+    const setX = (raw, fromNum) => { x = Math.min(maxX, Math.max(0, readInt(raw, x))); xr.value = String(x); if (!fromNum) xnum.value = String(x); draw(); };
+    xr.addEventListener("input", () => setX(xr.value, false));
+    xnum.addEventListener("input", () => setX(xnum.value, true));
+    xnum.addEventListener("change", () => { xnum.value = String(x); });
+    controls.appendChild(xWrap);
+    const mkNum = (labelText, val, mn, onCh) => {
+        const wrap = makeEl("label", "slices-control");
+        const hh = makeEl("span", "slices-control-head");
+        hh.appendChild(makeEl("span", "slices-control-name", labelText));
+        const nu = document.createElement("input");
+        nu.type = "number"; nu.min = String(mn); nu.value = String(val); nu.className = "slices-control-num";
+        hh.appendChild(nu);
+        wrap.appendChild(hh);
+        nu.addEventListener("input", () => onCh(Math.max(mn, readInt(nu.value, val))));
+        return wrap;
+    };
+    controls.appendChild(mkNum(`Boxes of ${name}`, m, 1, (v) => { m = v; draw(); }));
+    controls.appendChild(mkNum("Loose ones", b, 0, (v) => { b = v; draw(); }));
+    card.appendChild(controls);
+    card.appendChild(makeEl("p", "slices-tip", media.tip
+        || `An expression is boxes of ${name} plus loose ones. Slide ${name} and watch every box fill and the total change.`));
+    draw();
+    if (media.teachingPoint) card.appendChild(makeEl("p", "teaching-point", media.teachingPoint));
+    container.appendChild(card);
+}
+
 // An interactive 3D volume playground. A real Three.js box (or cylinder) the
 // child can orbit, with sliders for its dimensions; the shape resizes and the
 // volume updates live. Unlike `threejs`, the geometry is parameterised here -
@@ -2294,6 +2456,8 @@ const MEDIA_RENDERERS = {
     functionMachine: renderFunctionMachine,
     varBalance: renderVarBalance,
     varCounter: renderVarCounter,
+    varTrick: renderVarTrick,
+    varExpression: renderVarExpression,
     volume3d: renderVolume3D,
     threejs: (container, media) => initThreeJS(container, media.payload || {}),
     matterjs: (container, media) => initMatterJS(container, media.payload || {})
