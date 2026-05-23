@@ -98,6 +98,15 @@ const makeEl = (tag, className, text) => {
     return element;
 };
 
+// Renders an "a = b = c" string as stacked lines (each equivalent on its own
+// row), so the fraction, percentage and decimal sit on top of each other.
+const setStackedDetail = (element, text) => {
+    clearElement(element);
+    String(text).split(/\s*=\s*/).forEach((part, index) => {
+        element.appendChild(makeEl("span", "slices-line", index === 0 ? part : "= " + part));
+    });
+};
+
 // Appends `body` (a string or array of strings) as one <p> per paragraph.
 const appendParagraphs = (container, body, className) => {
     if (!body) return;
@@ -654,7 +663,7 @@ function renderGrid(container, media) {
             const value = filled / 100;
             let decText = "0";
             if (value !== 0) decText = Number.isInteger(value) ? String(value) : value.toFixed(2).replace(/0+$/, "").replace(/\.$/, "");
-            detailEl.textContent = `${filled}% = ${filled}/100 = ${decText}`;
+            setStackedDetail(detailEl, `${filled}/100 = ${decText}`);
         } else {
             const rows = Math.floor(filled / 10);
             const extra = filled % 10;
@@ -988,7 +997,7 @@ function renderPercentLab(container, media) {
         const hx = bx + frac * bw;
         handle.setAttribute("points", `${(hx - 6).toFixed(1)},${by - 5} ${(hx + 6).toFixed(1)},${by - 5} ${hx.toFixed(1)},${by + 5}`);
         pctEl.textContent = pctText();
-        detailEl.textContent = `${fracText()}  =  ${decText()}`;
+        setStackedDetail(detailEl, `${fracText()} = ${decText()}`);
         ofFracEl.textContent = simpleFrac();
         ofResult.textContent = fmtAmount(frac * amount);
 
@@ -1226,7 +1235,7 @@ function renderPercentPie(container, media) {
             }
         }
         pctEl.textContent = pctText();
-        detailEl.textContent = `${fracText()}  =  ${decText()}`;
+        setStackedDetail(detailEl, `${fracText()} = ${decText()}`);
         ofFracEl.textContent = simpleFrac();
         ofResult.textContent = fmtAmount((shaded / parts) * amount);
         if (typeof media.onChange === "function") media.onChange({ parts, shaded });
@@ -1454,7 +1463,7 @@ function renderPercentCompare(container, media) {
             const num = op === "add" ? numA + numB : numA - numB;
             const sign = op === "add" ? "+" : "−";
             opResult.style.display = "";
-            opResult.textContent = `${A.shaded}/${A.parts} ${sign} ${B.shaded}/${B.parts} = ${fmtFrac(num, L)} = ${fmtPct(num, L)} = ${fmtDec(num, L)}`;
+            setStackedDetail(opResult, `${A.shaded}/${A.parts} ${sign} ${B.shaded}/${B.parts} = ${fmtFrac(num, L)} = ${fmtPct(num, L)} = ${fmtDec(num, L)}`);
             // Show the answer as pizza(s): one full pizza per whole, plus the
             // leftover - so values over 1 (e.g. 1.6) show two pizzas.
             const g = gcd(Math.abs(num), L) || 1;

@@ -978,9 +978,18 @@ select.time-select {
 }
 
 .compare-op-result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
     font-size: 1.1rem;
     font-weight: 700;
     color: var(--accent);
+}
+
+.compare-op-result .slices-line {
+    color: var(--accent);
+    font-size: 1.05rem;
 }
 
 .compare-op-visual {
@@ -1086,9 +1095,20 @@ select.time-select {
 }
 
 .slices-detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
     color: var(--text-muted);
     font-size: 0.96rem;
     font-weight: 600;
+}
+
+.slices-line {
+    color: var(--text);
+    font-size: 1.04rem;
+    font-weight: 700;
+    line-height: 1.35;
 }
 
 .slices-controls {
