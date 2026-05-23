@@ -1781,18 +1781,17 @@ function renderVarBalance(container, media) {
     const drawPan = (pan, px, boxes, weights) => {
         clearElement(pan);
         const platformY = pivotY - 5 + panDrop;
-        [-30, 30].forEach((dx) => {
+        [-40, 40].forEach((dx) => {
             const l = document.createElementNS(SVG_NS, "line");
             l.setAttribute("x1", px); l.setAttribute("y1", pivotY - 2);
             l.setAttribute("x2", px + dx); l.setAttribute("y2", platformY);
             l.setAttribute("class", "balance-string");
             pan.appendChild(l);
         });
-        const plat = document.createElementNS(SVG_NS, "rect");
-        plat.setAttribute("x", px - 38); plat.setAttribute("y", platformY);
-        plat.setAttribute("width", 76); plat.setAttribute("height", 8); plat.setAttribute("rx", 4);
-        plat.setAttribute("class", "balance-pan");
-        pan.appendChild(plat);
+        const dish = document.createElementNS(SVG_NS, "path");
+        dish.setAttribute("d", `M ${px - 44} ${platformY} Q ${px} ${platformY + 18} ${px + 44} ${platformY}`);
+        dish.setAttribute("class", "balance-pan");
+        pan.appendChild(dish);
         // lay items in centred rows (max 4 per row) so a full pan never spills
         // off the side
         const total = boxes + weights;
