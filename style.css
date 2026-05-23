@@ -1235,10 +1235,7 @@ select.time-select {
 }
 
 .balance-pan {
-    fill: none;
-    stroke: var(--text-muted);
-    stroke-width: 3.5;
-    stroke-linecap: round;
+    fill: var(--text-muted);
 }
 
 .balance-string {

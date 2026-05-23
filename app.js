@@ -1781,6 +1781,7 @@ function renderVarBalance(container, media) {
     const drawPan = (pan, px, boxes, weights) => {
         clearElement(pan);
         const platformY = pivotY - 5 + panDrop;
+        // strings from the beam down to the pan rim
         [-40, 40].forEach((dx) => {
             const l = document.createElementNS(SVG_NS, "line");
             l.setAttribute("x1", px); l.setAttribute("y1", pivotY - 2);
@@ -1788,12 +1789,16 @@ function renderVarBalance(container, media) {
             l.setAttribute("class", "balance-string");
             pan.appendChild(l);
         });
+        // The bowl AND the items live in one group anchored at the pan centre, so
+        // they can never drift apart - everything is drawn relative to (0, 0).
+        const tray = document.createElementNS(SVG_NS, "g");
+        tray.setAttribute("transform", `translate(${px} ${platformY})`);
+        pan.appendChild(tray);
         const dish = document.createElementNS(SVG_NS, "path");
-        dish.setAttribute("d", `M ${px - 42} ${platformY} Q ${px} ${platformY + 9} ${px + 42} ${platformY}`);
+        dish.setAttribute("d", "M -42 0 Q 0 14 42 0 Q 0 7 -42 0 Z");
         dish.setAttribute("class", "balance-pan");
-        pan.appendChild(dish);
-        // lay items in centred rows (max 4 per row) so a full pan never spills
-        // off the side
+        tray.appendChild(dish);
+        // lay items in centred rows (max 4 per row) so a full pan never spills off
         const total = boxes + weights;
         const perRow = 4;
         const rows = Math.max(1, Math.ceil(total / perRow));
@@ -1802,19 +1807,19 @@ function renderVarBalance(container, media) {
             const row = Math.floor(i / perRow);
             const colCount = (row < rows - 1) ? perRow : (total - perRow * (rows - 1));
             const col = i - row * perRow;
-            const cx = px - (colCount * step) / 2 + col * step + step / 2;
-            const cy = platformY - 16 - ((rows - 1) - row) * 15;
+            const ix = -(colCount * step) / 2 + col * step + step / 2;
+            const iy = -16 - ((rows - 1) - row) * 15;
             if (i < boxes) {
                 const r = document.createElementNS(SVG_NS, "rect");
-                r.setAttribute("x", cx - 7); r.setAttribute("y", cy);
+                r.setAttribute("x", ix - 7); r.setAttribute("y", iy);
                 r.setAttribute("width", 14); r.setAttribute("height", 14); r.setAttribute("rx", 3);
                 r.setAttribute("fill", color); r.setAttribute("class", "balance-xbox");
-                pan.appendChild(r);
+                tray.appendChild(r);
             } else {
                 const dot = document.createElementNS(SVG_NS, "circle");
-                dot.setAttribute("cx", cx); dot.setAttribute("cy", cy + 7);
+                dot.setAttribute("cx", ix); dot.setAttribute("cy", iy + 7);
                 dot.setAttribute("r", 6); dot.setAttribute("class", "balance-weight");
-                pan.appendChild(dot);
+                tray.appendChild(dot);
             }
         }
     };
