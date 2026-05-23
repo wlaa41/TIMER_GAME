@@ -1763,7 +1763,7 @@ function renderVarBalance(container, media) {
     const beam = document.createElementNS(SVG_NS, "rect");
     beam.setAttribute("x", pivotX - half); beam.setAttribute("y", pivotY - 5);
     beam.setAttribute("width", half * 2); beam.setAttribute("height", 10);
-    beam.setAttribute("rx", 5); beam.setAttribute("class", "balance-beam");
+    beam.setAttribute("rx", 5); beam.setAttribute("class", "balance-bar");
     svg.appendChild(beam);
     // pans are NOT rotated with the beam - they hang level from the beam ends
     const leftPan = document.createElementNS(SVG_NS, "g");
@@ -1793,9 +1793,9 @@ function renderVarBalance(container, media) {
         const tray = document.createElementNS(SVG_NS, "g");
         tray.setAttribute("transform", `translate(${ax.toFixed(1)} ${trayY.toFixed(1)})`);
         pan.appendChild(tray);
-        const dish = document.createElementNS(SVG_NS, "path");
-        dish.setAttribute("d", "M -42 0 Q 0 14 42 0 Q 0 7 -42 0 Z");
-        dish.setAttribute("class", "balance-pan");
+        const dish = document.createElementNS(SVG_NS, "polygon");
+        dish.setAttribute("points", "-42,0 -34,10 34,10 42,0");
+        dish.setAttribute("class", "balance-dish");
         tray.appendChild(dish);
         const total = boxes + weights;
         const perRow = 4;

@@ -1226,11 +1226,11 @@ select.time-select {
     fill: var(--text-muted);
 }
 
-.balance-beam {
+.balance-bar {
     fill: var(--accent);
 }
 
-.balance-pan {
+.balance-dish {
     fill: var(--text-muted);
 }
 
