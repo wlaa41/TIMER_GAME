@@ -880,12 +880,29 @@ select.time-select {
     stroke-width: 1.4;
 }
 
-/* Bold "every ten slices" group lines in a contrasting amber. */
+/* "Every ten slices" group lines in a contrasting amber - thin and subtle. */
 .pie-tens {
     stroke: #f59e0b;
-    stroke-width: 2.6;
+    stroke-width: 1.4;
     stroke-linecap: round;
-    opacity: 0.95;
+    opacity: 0.75;
+}
+
+.plab-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+}
+
+.plab-toggle-input {
+    width: 18px;
+    height: 18px;
+    accent-color: #f59e0b;
+    cursor: pointer;
 }
 
 .playground-grid .playground-card:has(.pie-card) {

@@ -1086,6 +1086,7 @@ function renderPercentPie(container, media) {
     let amount = Math.max(0, readInt(media.amount, 40));
     const color = typeof media.color === "string" ? media.color : "#6366f1";
     const interactive = media.interactive !== false;
+    let showTens = media.showGroups !== false;
 
     const simpleFrac = () => {
         if (shaded === 0) return "0";
@@ -1213,9 +1214,11 @@ function renderPercentPie(container, media) {
             layer.appendChild(piece);
         }
         clearElement(tensLayer);
-        for (let i = 10; i < parts; i += 10) {
-            const ang = start + (i / parts) * Math.PI * 2;
-            tensLayer.appendChild(mkLine(cx, cy, cx + r * Math.cos(ang), cy + r * Math.sin(ang), "pie-tens"));
+        if (showTens && parts > 10) {
+            for (let i = 0; i < parts; i += 10) {
+                const ang = start + (i / parts) * Math.PI * 2;
+                tensLayer.appendChild(mkLine(cx, cy, cx + r * Math.cos(ang), cy + r * Math.sin(ang), "pie-tens"));
+            }
         }
         pctEl.textContent = pctText();
         detailEl.textContent = `${fracText()}  =  ${decText()}`;
@@ -1261,6 +1264,17 @@ function renderPercentPie(container, media) {
         });
         controls.appendChild(partsCtl.wrap);
         controls.appendChild(shadedCtl.wrap);
+
+        const toggleWrap = makeEl("label", "plab-toggle");
+        const tensToggle = document.createElement("input");
+        tensToggle.type = "checkbox";
+        tensToggle.checked = showTens;
+        tensToggle.className = "plab-toggle-input";
+        toggleWrap.appendChild(tensToggle);
+        toggleWrap.appendChild(makeEl("span", "plab-toggle-text", "Group every ten slices"));
+        tensToggle.addEventListener("change", () => { showTens = tensToggle.checked; draw(); });
+        controls.appendChild(toggleWrap);
+
         card.appendChild(controls);
         card.appendChild(makeEl("p", "slices-tip", media.tip
             || "Cut the pizza into slices and shade some - the fraction, percentage and decimal always match. Try 4 slices with 1 shaded to see 1/4 = 25%."));
