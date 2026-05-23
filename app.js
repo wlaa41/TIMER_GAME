@@ -1666,7 +1666,11 @@ function renderFunctionMachine(container, media) {
     const table = makeEl("div", "fmach-table");
     card.appendChild(table);
     const rows = [];
-    const refreshRule = () => { ruleEl.textContent = revealed ? `× ${m}  ${b >= 0 ? "+" : "−"} ${Math.abs(b)}` : "? ? ?"; };
+    const refreshRule = () => {
+        if (!revealed) { ruleEl.textContent = "? ? ?"; return; }
+        const addPart = b === 0 ? "" : (b > 0 ? ` + ${b}` : ` − ${Math.abs(b)}`);
+        ruleEl.textContent = `${m}×${addPart}`;
+    };
     const run = () => {
         const out = compute(input);
         inChip.textContent = String(input);
