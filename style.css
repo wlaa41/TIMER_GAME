@@ -983,6 +983,31 @@ select.time-select {
     color: var(--accent);
 }
 
+.compare-op-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 2px;
+}
+
+.compare-result-pie {
+    width: 116px;
+    height: 116px;
+}
+
+.compare-result-pie .slice-piece {
+    stroke-width: 2;
+}
+
+.compare-result-plus,
+.compare-result-sign {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-muted);
+}
+
 /* Controls popup: inline on desktop; on phones the controls hide behind an
    "Adjust" button and reveal as an elevated in-card panel (so the small screen
    shows just the visual and its numbers). In-flow, so it is robust against any

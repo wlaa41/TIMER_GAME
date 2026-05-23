@@ -1328,6 +1328,7 @@ function renderPercentPie(container, media) {
 // reuses renderPercentPie with its controls collapsed into an "Adjust" popup on
 // phones (so the small screen shows just the two pizzas and their numbers).
 function renderPercentCompare(container, media) {
+    const SVG_NS = "http://www.w3.org/2000/svg";
     const card = makeEl("div", "slices-card compare-card");
     addMediaText(card, media);
 
@@ -1383,7 +1384,40 @@ function renderPercentCompare(container, media) {
     panel.appendChild(verdict);
     panel.appendChild(opRow);
     panel.appendChild(opResult);
+    const opVisual = makeEl("div", "compare-op-visual");
+    opVisual.style.display = "none";
+    panel.appendChild(opVisual);
     card.appendChild(panel);
+
+    // A small display-only pizza for the answer (no controls).
+    const makeResultPizza = (slices, shadedCount, fill) => {
+        const SIZE = 120, c = SIZE / 2, rr = 50;
+        const svg = document.createElementNS(SVG_NS, "svg");
+        svg.setAttribute("viewBox", `0 0 ${SIZE} ${SIZE}`);
+        svg.setAttribute("class", "compare-result-pie");
+        svg.setAttribute("role", "img");
+        const crust = document.createElementNS(SVG_NS, "circle");
+        crust.setAttribute("cx", c); crust.setAttribute("cy", c); crust.setAttribute("r", rr + 5);
+        crust.setAttribute("class", "slices-crust");
+        svg.appendChild(crust);
+        const path = (a0, a1) => {
+            if (a1 - a0 >= Math.PI * 2 - 1e-6) return `M ${c} ${c - rr} A ${rr} ${rr} 0 1 1 ${c - 0.01} ${c - rr} Z`;
+            const x0 = c + rr * Math.cos(a0), y0 = c + rr * Math.sin(a0), x1 = c + rr * Math.cos(a1), y1 = c + rr * Math.sin(a1);
+            const large = a1 - a0 > Math.PI ? 1 : 0;
+            return `M ${c} ${c} L ${x0.toFixed(2)} ${y0.toFixed(2)} A ${rr} ${rr} 0 ${large} 1 ${x1.toFixed(2)} ${y1.toFixed(2)} Z`;
+        };
+        const n = Math.max(1, slices);
+        const seg = (Math.PI * 2) / n, start = -Math.PI / 2;
+        for (let i = 0; i < n; i++) {
+            const p = document.createElementNS(SVG_NS, "path");
+            p.setAttribute("d", path(start + i * seg, start + (i + 1) * seg));
+            const filled = i < shadedCount;
+            p.setAttribute("class", `slice-piece ${filled ? "slice-filled" : "slice-empty"}`);
+            if (filled) p.setAttribute("fill", fill);
+            svg.appendChild(p);
+        }
+        return svg;
+    };
 
     let op = null;
 
@@ -1404,6 +1438,7 @@ function renderPercentCompare(container, media) {
         }
         addBtn.classList.toggle("active", op === "add");
         subBtn.classList.toggle("active", op === "sub");
+        clearElement(opVisual);
         if (op && A.parts && B.parts) {
             const L = lcm(A.parts, B.parts);
             const numA = A.shaded * (L / A.parts);
@@ -1412,9 +1447,28 @@ function renderPercentCompare(container, media) {
             const sign = op === "add" ? "+" : "−";
             opResult.style.display = "";
             opResult.textContent = `${A.shaded}/${A.parts} ${sign} ${B.shaded}/${B.parts} = ${fmtFrac(num, L)} = ${fmtPct(num, L)} = ${fmtDec(num, L)}`;
+            // Show the answer as pizza(s): one full pizza per whole, plus the
+            // leftover - so values over 1 (e.g. 1.6) show two pizzas.
+            const g = gcd(Math.abs(num), L) || 1;
+            const rden = L / g;
+            const absNum = Math.abs(num) / g;
+            const whole = Math.floor(absNum / rden);
+            const remainder = absNum - whole * rden;
+            const fill = num < 0 ? "#dc2626" : "#16a34a";
+            const pies = [];
+            for (let i = 0; i < whole; i++) pies.push(makeResultPizza(rden, rden, fill));
+            if (remainder > 0) pies.push(makeResultPizza(rden, remainder, fill));
+            if (pies.length === 0) pies.push(makeResultPizza(Math.max(1, rden), 0, fill));
+            if (num < 0) opVisual.appendChild(makeEl("span", "compare-result-sign", "−"));
+            pies.forEach((pie, i) => {
+                if (i > 0) opVisual.appendChild(makeEl("span", "compare-result-plus", "+"));
+                opVisual.appendChild(pie);
+            });
+            opVisual.style.display = "";
         } else {
             opResult.style.display = "none";
             opResult.textContent = "";
+            opVisual.style.display = "none";
         }
     };
 

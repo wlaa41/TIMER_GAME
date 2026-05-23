@@ -342,9 +342,11 @@ same fraction / simplified / percentage / decimal readout, and the same
 
 Two pizzas side by side so the child can SEE when two different cuts are the
 same — e.g. `16/40` and `2/5`. Shows a live **"Same value!"** badge when they
-match, and **Add / Subtract** buttons that combine the two (result as a
-fraction, %, and decimal). On phones each pizza's controls collapse behind an
-**Adjust** button so the screen shows just the two pizzas and their numbers.
+match, and **Add / Subtract** buttons that combine the two. The answer is shown
+as a fraction, %, decimal **and as pizza(s)** — two pizzas when it is more than
+one whole (e.g. `1.6`), tinted red with a minus sign when it goes below zero. On
+phones each pizza's controls collapse behind an **Adjust** button so the screen
+shows just the two pizzas and their numbers.
 
 ```json
 {
