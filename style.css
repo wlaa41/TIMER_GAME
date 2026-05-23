@@ -917,6 +917,127 @@ select.time-select {
     border-radius: 6px;
 }
 
+/* ===== Compare two (percentCompare) ====================================== */
+.compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    align-items: start;
+    margin-top: 12px;
+}
+
+.compare-side .slices-card {
+    margin: 0;
+}
+
+.compare-panel {
+    margin-top: 16px;
+    display: grid;
+    gap: 10px;
+    justify-items: center;
+    text-align: center;
+}
+
+.compare-verdict {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.compare-verdict.is-equal {
+    color: #16a34a;
+}
+
+.compare-op-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.compare-op-label {
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.compare-op-btn {
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1.5px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.compare-op-btn.active {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: #fff;
+}
+
+.compare-op-result {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+/* Controls popup: inline on desktop; on phones the controls hide behind an
+   "Adjust" button and reveal as an elevated in-card panel (so the small screen
+   shows just the visual and its numbers). In-flow, so it is robust against any
+   transformed ancestor that would otherwise break position:fixed. */
+.plab-adjust {
+    display: none;
+}
+
+.plab-popup-close {
+    display: none;
+}
+
+@media (max-width: 700px) {
+    .plab-adjust {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 12px;
+        padding: 8px 16px;
+        border-radius: 999px;
+        border: 1.5px solid var(--accent);
+        background: var(--surface-2);
+        color: var(--text);
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .plab-popup {
+        display: none;
+    }
+
+    .plab-popup.open {
+        display: block;
+        margin-top: 12px;
+        padding: 14px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: var(--surface-3);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+    }
+
+    .plab-popup-close {
+        display: block;
+        width: 100%;
+        margin-top: 12px;
+        padding: 10px;
+        border-radius: 10px;
+        border: none;
+        background: var(--accent);
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+    }
+}
+
 .playground-grid .playground-card:has(.pie-card) {
     grid-column: 1 / -1;
 }

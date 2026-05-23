@@ -1090,6 +1090,8 @@ function renderPercentPie(container, media) {
     const interactive = media.interactive !== false;
     let showTens = media.showGroups !== false;
     let groupSize = Math.max(1, readInt(media.groupSize, 10));
+    const showOfNumber = media.showOfNumber !== false;
+    const controlsInPopup = media.controlsInPopup === true;
 
     const simpleFrac = () => {
         if (shaded === 0) return "0";
@@ -1202,7 +1204,7 @@ function renderPercentPie(container, media) {
     ofRow.appendChild(makeEl("span", "plab-ofnum-eq", "="));
     ofRow.appendChild(ofResult);
     ofnum.appendChild(ofRow);
-    card.appendChild(ofnum);
+    if (showOfNumber) card.appendChild(ofnum);
 
     const draw = () => {
         clearElement(layer);
@@ -1227,6 +1229,7 @@ function renderPercentPie(container, media) {
         detailEl.textContent = `${fracText()}  =  ${decText()}`;
         ofFracEl.textContent = simpleFrac();
         ofResult.textContent = fmtAmount((shaded / parts) * amount);
+        if (typeof media.onChange === "function") media.onChange({ parts, shaded });
     };
     draw();
 
@@ -1288,14 +1291,153 @@ function renderPercentPie(container, media) {
         groupInput.addEventListener("input", () => { groupSize = Math.max(1, readInt(groupInput.value, groupSize)); draw(); });
         controls.appendChild(toggleWrap);
 
-        card.appendChild(controls);
-        card.appendChild(makeEl("p", "slices-tip", media.tip
-            || "Cut the pizza into slices and shade some - the fraction, percentage and decimal always match. Try 4 slices with 1 shaded to see 1/4 = 25%."));
+        const tipText = media.tip
+            || "Cut the pizza into slices and shade some - the fraction, percentage and decimal always match. Try 4 slices with 1 shaded to see 1/4 = 25%.";
+        if (controlsInPopup) {
+            const adjustBtn = makeEl("button", "plab-adjust", "Adjust the slices");
+            adjustBtn.type = "button";
+            const popup = makeEl("div", "plab-popup");
+            popup.appendChild(controls);
+            popup.appendChild(makeEl("p", "slices-tip", tipText));
+            const closeBtn = makeEl("button", "plab-popup-close", "Done");
+            closeBtn.type = "button";
+            popup.appendChild(closeBtn);
+            adjustBtn.addEventListener("click", () => {
+                const willOpen = !popup.classList.contains("open");
+                document.querySelectorAll(".plab-popup.open").forEach((p) => p.classList.remove("open"));
+                if (willOpen) popup.classList.add("open");
+            });
+            closeBtn.addEventListener("click", () => popup.classList.remove("open"));
+            card.appendChild(adjustBtn);
+            card.appendChild(popup);
+        } else {
+            card.appendChild(controls);
+            card.appendChild(makeEl("p", "slices-tip", tipText));
+        }
     } else {
         amountInput.disabled = true;
     }
 
     if (media.teachingPoint) card.appendChild(makeEl("p", "teaching-point", media.teachingPoint));
+    container.appendChild(card);
+}
+
+// Compare two pizzas side by side so a child can SEE that two different cuts -
+// e.g. 16/40 and 2/5 - are the same amount. A live badge says "Same value!" when
+// they match, and optional Add / Subtract buttons combine the two. Each pizza
+// reuses renderPercentPie with its controls collapsed into an "Adjust" popup on
+// phones (so the small screen shows just the two pizzas and their numbers).
+function renderPercentCompare(container, media) {
+    const card = makeEl("div", "slices-card compare-card");
+    addMediaText(card, media);
+
+    const gcd = (a, b) => (b ? gcd(b, a % b) : Math.abs(a));
+    const lcm = (a, b) => (a && b) ? Math.abs(a * b) / gcd(a, b) : (Math.abs(a || b) || 1);
+    const trimNum = (s) => s.replace(/\.?0+$/, "");
+    const terminates = (den) => { let d = Math.abs(den); if (!d) return true; while (d % 2 === 0) d /= 2; while (d % 5 === 0) d /= 5; return d === 1; };
+    const fmtFrac = (num, den) => {
+        if (num === 0) return "0";
+        const g = gcd(Math.abs(num), Math.abs(den)) || 1;
+        const a = num / g, b = den / g;
+        return b === 1 ? String(a) : `${a}/${b}`;
+    };
+    const fmtPct = (num, den) => {
+        if (!den) return "0%";
+        const p = (num / den) * 100;
+        if (Math.abs(p - Math.round(p)) < 1e-9) return `${Math.round(p)}%`;
+        const g = gcd(Math.abs(num), Math.abs(den)) || 1;
+        return terminates(Math.abs(den) / g) ? `${trimNum(p.toFixed(2))}%` : `≈ ${Math.round(p * 10) / 10}%`;
+    };
+    const fmtDec = (num, den) => {
+        if (num === 0 || !den) return "0";
+        const dec = num / den;
+        if (Number.isInteger(dec)) return String(dec);
+        const g = gcd(Math.abs(num), Math.abs(den)) || 1;
+        return terminates(Math.abs(den) / g) ? trimNum(dec.toFixed(6)) : dec.toFixed(2) + "…";
+    };
+
+    const seedA = media.left || {};
+    const seedB = media.right || {};
+    const maxParts = Math.max(2, Number(media.maxParts) || 100);
+    const state = {
+        A: { parts: Number(seedA.parts) || 8, shaded: (seedA.shaded != null ? Number(seedA.shaded) : 2) },
+        B: { parts: Number(seedB.parts) || 4, shaded: (seedB.shaded != null ? Number(seedB.shaded) : 1) }
+    };
+
+    const grid = makeEl("div", "compare-grid");
+    const sideA = makeEl("div", "compare-side");
+    const sideB = makeEl("div", "compare-side");
+    grid.appendChild(sideA);
+    grid.appendChild(sideB);
+    card.appendChild(grid);
+
+    const panel = makeEl("div", "compare-panel");
+    const verdict = makeEl("div", "compare-verdict");
+    const opRow = makeEl("div", "compare-op-row");
+    opRow.appendChild(makeEl("span", "compare-op-label", "Combine:"));
+    const addBtn = makeEl("button", "compare-op-btn", "Add +"); addBtn.type = "button";
+    const subBtn = makeEl("button", "compare-op-btn", "Subtract −"); subBtn.type = "button";
+    opRow.appendChild(addBtn);
+    opRow.appendChild(subBtn);
+    const opResult = makeEl("div", "compare-op-result");
+    panel.appendChild(verdict);
+    panel.appendChild(opRow);
+    panel.appendChild(opResult);
+    card.appendChild(panel);
+
+    let op = null;
+
+    const update = () => {
+        const A = state.A, B = state.B;
+        const vA = A.parts ? A.shaded / A.parts : 0;
+        const vB = B.parts ? B.shaded / B.parts : 0;
+        const equal = Math.abs(vA - vB) < 1e-9;
+        if (equal && (A.shaded > 0 || B.shaded > 0)) {
+            verdict.className = "compare-verdict is-equal";
+            verdict.textContent = `Same value!  ${A.shaded}/${A.parts} = ${B.shaded}/${B.parts} = ${fmtPct(A.shaded, A.parts)}`;
+        } else if (equal) {
+            verdict.className = "compare-verdict";
+            verdict.textContent = "Shade slices on each pizza to compare them.";
+        } else {
+            verdict.className = "compare-verdict";
+            verdict.textContent = `${A.shaded}/${A.parts} (${fmtPct(A.shaded, A.parts)})  vs  ${B.shaded}/${B.parts} (${fmtPct(B.shaded, B.parts)})  —  ${vA > vB ? "left" : "right"} is bigger`;
+        }
+        addBtn.classList.toggle("active", op === "add");
+        subBtn.classList.toggle("active", op === "sub");
+        if (op && A.parts && B.parts) {
+            const L = lcm(A.parts, B.parts);
+            const numA = A.shaded * (L / A.parts);
+            const numB = B.shaded * (L / B.parts);
+            const num = op === "add" ? numA + numB : numA - numB;
+            const sign = op === "add" ? "+" : "−";
+            opResult.style.display = "";
+            opResult.textContent = `${A.shaded}/${A.parts} ${sign} ${B.shaded}/${B.parts} = ${fmtFrac(num, L)} = ${fmtPct(num, L)} = ${fmtDec(num, L)}`;
+        } else {
+            opResult.style.display = "none";
+            opResult.textContent = "";
+        }
+    };
+
+    addBtn.addEventListener("click", () => { op = op === "add" ? null : "add"; update(); });
+    subBtn.addEventListener("click", () => { op = op === "sub" ? null : "sub"; update(); });
+
+    const makeOpts = (seed, dflt, color, titleText, onChange) => ({
+        type: "percentPie",
+        title: titleText,
+        parts: Number(seed.parts) || dflt.parts,
+        shaded: seed.shaded != null ? Number(seed.shaded) : dflt.shaded,
+        maxParts: maxParts,
+        color: color,
+        showOfNumber: false,
+        showGroups: media.showGroups === true,
+        controlsInPopup: true,
+        onChange: onChange
+    });
+
+    renderPercentPie(sideA, makeOpts(seedA, { parts: 8, shaded: 2 }, media.leftColor || "#6366f1", media.leftTitle || "Pizza A", (s) => { state.A = s; update(); }));
+    renderPercentPie(sideB, makeOpts(seedB, { parts: 4, shaded: 1 }, media.rightColor || "#0ea5e9", media.rightTitle || "Pizza B", (s) => { state.B = s; update(); }));
+
+    update();
     container.appendChild(card);
 }
 
@@ -1657,6 +1799,7 @@ const MEDIA_RENDERERS = {
     percentOf: renderPercentOf,
     percentLab: renderPercentLab,
     percentPie: renderPercentPie,
+    percentCompare: renderPercentCompare,
     volume3d: renderVolume3D,
     threejs: (container, media) => initThreeJS(container, media.payload || {}),
     matterjs: (container, media) => initMatterJS(container, media.payload || {})
@@ -2108,7 +2251,8 @@ const PLAYGROUND_LIBRARY = {
             { type: "percentLab", title: "Percentage Desk", caption: "Cut the desk, shade some parts, and read it as a fraction, a percentage and a decimal - all at once.", parts: 10, shaded: 2, amount: 40, maxParts: 100 },
             { type: "percentPie", title: "Percentage Pizza", caption: "The same idea on a pizza - shade slices and watch the fraction, percentage and decimal.", parts: 8, shaded: 4, amount: 40 },
             { type: "grid", title: "Hundred Grid", caption: "Every little square is worth 1%. Colour as many as you like.", filled: 30, showDecimal: true },
-            { type: "percentOf", title: "Percent of a Number", caption: "Slide the percentage and the amount to find the part.", percent: 25, amount: 40 }
+            { type: "percentOf", title: "Percent of a Number", caption: "Slide the percentage and the amount to find the part.", percent: 25, amount: 40 },
+            { type: "percentCompare", title: "Compare Two", caption: "Set each pizza, then watch for the green 'Same value!' - or add and subtract them.", left: { parts: 8, shaded: 2 }, right: { parts: 4, shaded: 1 } }
         ]
     }
 };

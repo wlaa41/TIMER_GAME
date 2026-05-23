@@ -83,6 +83,20 @@
             }
           },
           {
+            "heading": "Compare two pizzas",
+            "body": [
+              "Two pizzas can look very different but still be exactly the same amount. Set the left pizza and the right pizza, and watch for the green 'Same value!' message - that is your clue that the two fractions are equal.",
+              "Try the left pizza as 2 out of 8 and the right pizza as 1 out of 4. Different slices, same amount! You can also press Add or Subtract to combine the two."
+            ],
+            "visual": {
+              "type": "percentCompare",
+              "title": "Compare two pizzas",
+              "caption": "Make each pizza, then look for 'Same value!' - or add and subtract them.",
+              "left": { "parts": 8, "shaded": 2 },
+              "right": { "parts": 4, "shaded": 1 }
+            }
+          },
+          {
             "heading": "Every tiny square is worth 1%",
             "body": [
               "Picture that whole grid of 100 squares. The full grid - every single square coloured - is 100%. That means 'all of it'. A grid with nothing coloured at all is 0% - 'none of it'.",

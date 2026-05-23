@@ -338,12 +338,36 @@ same fraction / simplified / percentage / decimal readout, and the same
 | `groupSize`  | number | Starting group size for those lines; the child can edit it live. Default 10. |
 | `color`, `interactive`, `tip` | | Same as `slices`.                          |
 
+### 3.13 `percentCompare` — compare two pizzas
+
+Two pizzas side by side so the child can SEE when two different cuts are the
+same — e.g. `16/40` and `2/5`. Shows a live **"Same value!"** badge when they
+match, and **Add / Subtract** buttons that combine the two (result as a
+fraction, %, and decimal). On phones each pizza's controls collapse behind an
+**Adjust** button so the screen shows just the two pizzas and their numbers.
+
+```json
+{
+  "type": "percentCompare",
+  "title": "Compare two pizzas",
+  "left":  { "parts": 8, "shaded": 2 },
+  "right": { "parts": 4, "shaded": 1 }
+}
+```
+
+| Field      | Type   | Notes                                                       |
+|------------|--------|-------------------------------------------------------------|
+| `left` / `right` | object | Starting `{ parts, shaded }` for each pizza.          |
+| `leftTitle` / `rightTitle` | string | Heading above each pizza.                   |
+| `leftColor` / `rightColor` | string | Fill colour of each pizza.                  |
+| `maxParts` | number | Max slices per pizza. Default 100.                          |
+
 > **Interactive media** (`slices`, `grid`, `percentOf`, `percentLab`,
-> `percentPie`, `volume3d`) are safe — they take parameters only and never run
-> code from the JSON. They are designed for **lessons**: set the starting values
-> so the widget's default state does **not** reveal the question's own answer;
-> let the child reach it by playing. These same toys also appear on the welcome
-> playground shown before the quiz.
+> `percentPie`, `percentCompare`, `volume3d`) are safe — they take parameters
+> only and never run code from the JSON. They are designed for **lessons**: set
+> the starting values so the widget's default state does **not** reveal the
+> question's own answer; let the child reach it by playing. These same toys also
+> appear on the per-pack playground shown after Start.
 
 ---
 
