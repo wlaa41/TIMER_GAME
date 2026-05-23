@@ -85,14 +85,17 @@ deployment is "serve these files".
 The whole UI lives in `index.html` as four `<section>` "screens" toggled by a
 `.hidden` CSS class (only one is visible at a time):
 
-1. **Welcome / playground** (`#welcome-screen`) — shown first on load. A
-   `#playground-grid` is filled at startup with one of every interactive toy
-   (see `PLAYGROUND_SIMS` in `app.js`) so a child can play freely; a
-   **Continue** button (`.welcome-continue-btn`) disposes the playground scenes
-   and reveals the setup screen. None of these toys depend on a loaded pack.
-2. **Setup** (`#setup-screen`) — pick a built-in pack (`#pack-select`) **or**
-   upload a JSON file (`#json-upload`), set minutes (`#time-input`), press
-   **Start** (`#start-btn`).
+1. **Setup** (`#setup-screen`) — shown first on load. Pick a built-in pack
+   (`#pack-select`) **or** upload a JSON file (`#json-upload`), set minutes
+   (`#time-input`), press **Start** (`#start-btn`).
+2. **Playground** (`#playground-screen`) — an **optional, per-pack warm-up**
+   shown after Start, **before** the questions, with the **timer paused**. The
+   `#playground-grid` is filled by `renderPlaygroundFor()` with the tools that
+   match the loaded pack, resolved from an in-code library (`PLAYGROUND_LIBRARY`
+   + `getPlaygroundForPack()` in `app.js`, keyed by pack title — *not* the pack
+   JSON). A **Start the questions** button (`.playground-begin-btn`) runs
+   `beginQuestions()`, which disposes the playground scenes, starts the timer
+   and shows the game. A pack with no matching playground skips this screen.
 3. **Game** (`#game-screen`) — HUD (timer, pace, score, hints, progress) + the
    question panel (code badge, time badge, progress bar, question text, **media
    stage**, answer buttons, the Hint/Lesson button, the hint/lesson box, the
@@ -100,7 +103,12 @@ The whole UI lives in `index.html` as four `<section>` "screens" toggled by a
 4. **Result** (`#result-screen`) — final score and hints used; "Play Again" /
    "New Pack" both just reload the page.
 
-Flow: `Welcome → (Continue) → Setup → (Start) → Game → (answers/time run out) → Result`.
+Flow: `Setup → (Start) → [Playground → (Start questions)] → Game → (answers/time run out) → Result`
+(the playground step is skipped when the pack has no matching entry).
+
+> **Reusable playgrounds.** `PLAYGROUND_LIBRARY` is deliberately an in-code
+> object (not pack JSON) so the tool-sets can become shared, reusable objects
+> used across packs and screens; a later refactor may formalise this.
 
 ---
 

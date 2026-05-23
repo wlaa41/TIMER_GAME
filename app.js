@@ -39,8 +39,10 @@ let answerLocked = false;
 
 /* ----- 2. DOM references --------------------------------------------------- */
 const els = {
-    welcomeScreen: document.getElementById("welcome-screen"),
+    playgroundScreen: document.getElementById("playground-screen"),
     playgroundGrid: document.getElementById("playground-grid"),
+    playgroundTitle: document.getElementById("playground-title"),
+    playgroundSubtitle: document.getElementById("playground-subtitle"),
     setupScreen: document.getElementById("setup-screen"),
     gameScreen: document.getElementById("game-screen"),
     resultScreen: document.getElementById("result-screen"),
@@ -2081,41 +2083,62 @@ if (window.location.protocol !== "file:") {
     loadSelectedBuiltInPack({ silent: true });
 }
 
-/* The welcome playground is shown first (before the quiz). It renders one of
-   every interactive toy under the "playground" group so they are disposed when
-   the explorer presses Continue. None of these depend on a loaded pack. */
-const PLAYGROUND_SIMS = [
-    { type: "percentLab", title: "Percentage Desk", caption: "Cut the desk, shade some parts, and read it as a fraction, a percentage and a decimal - all at once.", parts: 10, shaded: 2, amount: 40, maxParts: 100 },
-    { type: "percentPie", title: "Percentage Pizza", caption: "The same idea on a pizza - shade slices and watch the fraction, percentage and decimal.", parts: 8, shaded: 4, amount: 40 },
-    { type: "slices", title: "Fraction Pizza", caption: "Cut the pizza and colour the slices to build any fraction.", slices: 8, filled: 3 },
-    { type: "grid", title: "Hundred Grid", caption: "Every little square is worth 1%. Colour as many as you like.", filled: 30, showDecimal: true },
-    { type: "percentOf", title: "Percent of a Number", caption: "Slide the percentage and the amount to find the part.", percent: 25, amount: 40 },
-    { type: "volume3d", title: "3D Volume Box", caption: "Spin the see-through block and change its sides to change the volume.", shape: "box", unit: "cm", length: 4, width: 2, height: 3, min: 1, max: 8 }
-];
+/* ----- Pack playground (a warm-up shown after Start, before the questions) ---
+   A reusable, in-code library of concept tool-sets, keyed by topic and resolved
+   from the loaded pack. It is intentionally NOT read from the pack JSON yet -
+   these are meant to become shared, reusable objects we can use across packs and
+   screens later. A pack with no matching playground skips straight to the
+   questions. The timer stays paused until the child presses Start the questions. */
+const PLAYGROUND_LIBRARY = {
+    percentage: {
+        title: "The Percentage Playground",
+        intro: "Warm up with these for a minute - they are the very same tools you will meet inside the lessons. Cut them, shade them, and watch the fraction, percentage and decimal move together.",
+        sims: [
+            { type: "percentLab", title: "Percentage Desk", caption: "Cut the desk, shade some parts, and read it as a fraction, a percentage and a decimal - all at once.", parts: 10, shaded: 2, amount: 40, maxParts: 100 },
+            { type: "percentPie", title: "Percentage Pizza", caption: "The same idea on a pizza - shade slices and watch the fraction, percentage and decimal.", parts: 8, shaded: 4, amount: 40 },
+            { type: "grid", title: "Hundred Grid", caption: "Every little square is worth 1%. Colour as many as you like.", filled: 30, showDecimal: true },
+            { type: "percentOf", title: "Percent of a Number", caption: "Slide the percentage and the amount to find the part.", percent: 25, amount: 40 }
+        ]
+    }
+};
 
-function renderPlayground() {
+// Resolve which playground (if any) to show for the loaded pack. Matched by the
+// pack title for now, so it also works for uploaded packs.
+function getPlaygroundForPack() {
+    const title = (getQuizTitle() || "").toLowerCase();
+    if (title.includes("percent")) return PLAYGROUND_LIBRARY.percentage;
+    return null;
+}
+
+function renderPlaygroundFor(def) {
     if (!els.playgroundGrid) return;
     cleanupSimulations("playground");
     clearElement(els.playgroundGrid);
-    PLAYGROUND_SIMS.forEach((media) => {
+    if (els.playgroundTitle) els.playgroundTitle.textContent = def.title || "The Playground";
+    if (els.playgroundSubtitle && def.intro) els.playgroundSubtitle.textContent = def.intro;
+    (def.sims || []).forEach((media) => {
         const cell = makeEl("div", "playground-card");
         els.playgroundGrid.appendChild(cell);
         renderMedia(cell, media, "playground");
     });
 }
 
-const continueFromWelcome = () => {
+// Leave the playground and start the timed multiple-choice questions.
+function beginQuestions() {
     cleanupSimulations("playground");
-    if (els.welcomeScreen) els.welcomeScreen.classList.add("hidden");
-    els.setupScreen.classList.remove("hidden");
+    if (els.playgroundGrid) clearElement(els.playgroundGrid);
+    if (els.playgroundScreen) els.playgroundScreen.classList.add("hidden");
+    els.setupScreen.classList.add("hidden");
+    els.gameScreen.classList.remove("hidden");
+    els.resultScreen.classList.add("hidden");
+    startTimer();
+    loadQuestion();
     window.scrollTo(0, 0);
-};
+}
 
-document.querySelectorAll(".welcome-continue-btn").forEach((btn) => {
-    btn.addEventListener("click", continueFromWelcome);
+document.querySelectorAll(".playground-begin-btn").forEach((btn) => {
+    btn.addEventListener("click", beginQuestions);
 });
-
-renderPlayground();
 
 els.startBtn.addEventListener("click", () => {
     if (!quizData) return;
@@ -2138,11 +2161,17 @@ els.startBtn.addEventListener("click", () => {
     updatePaceDisplay();
     updateTimerState();
 
-    els.setupScreen.classList.add("hidden");
-    els.gameScreen.classList.remove("hidden");
-    els.resultScreen.classList.add("hidden");
-    startTimer();
-    loadQuestion();
+    // Show the pack's playground first (timer stays paused); if the pack has no
+    // playground, go straight to the questions.
+    const playground = getPlaygroundForPack();
+    if (playground) {
+        renderPlaygroundFor(playground);
+        els.setupScreen.classList.add("hidden");
+        els.playgroundScreen.classList.remove("hidden");
+        window.scrollTo(0, 0);
+    } else {
+        beginQuestions();
+    }
 });
 
 els.pauseBtn.addEventListener("click", () => setPaused(!isPaused));

@@ -871,7 +871,7 @@ select.time-select {
 }
 
 /* Large pizza card (percentPie): bigger circle + thinner cuts so up to 100
-   slices stay readable. On the welcome grid it spans the full width. */
+   slices stay readable. On the playground grid it spans the full width. */
 .pie-card .slices-svg {
     width: min(440px, 100%);
 }
@@ -1149,27 +1149,27 @@ select.time-select {
     border-radius: 8px;
 }
 
-/* ===== Welcome playground ================================================= */
-.welcome-screen {
+/* ===== Pack playground (warm-up after Start) ============================= */
+.playground-screen {
     display: grid;
     gap: 22px;
     padding: 28px 0 64px;
 }
 
-.welcome-head {
+.playground-head {
     display: grid;
     gap: 10px;
     justify-items: center;
     text-align: center;
 }
 
-.welcome-head h1 {
+.playground-head h1 {
     margin: 0;
     font-size: clamp(1.6rem, 4vw, 2.4rem);
 }
 
-.welcome-head .subtitle {
-    max-width: 560px;
+.playground-head .subtitle {
+    max-width: 600px;
 }
 
 .playground-grid {
@@ -1186,14 +1186,14 @@ select.time-select {
     border-radius: 16px;
 }
 
-.welcome-foot {
+.playground-foot {
     display: grid;
     justify-items: center;
     margin-top: 4px;
 }
 
-.welcome-head .btn-main,
-.welcome-foot .btn-main {
+.playground-head .btn-main,
+.playground-foot .btn-main {
     max-width: 320px;
 }
 
