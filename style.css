@@ -870,6 +870,20 @@ select.time-select {
     fill: var(--accent);
 }
 
+/* Large pizza card (percentPie): bigger circle + thinner cuts so up to 100
+   slices stay readable. On the welcome grid it spans the full width. */
+.pie-card .slices-svg {
+    width: min(440px, 100%);
+}
+
+.pie-card .slice-piece {
+    stroke-width: 1.4;
+}
+
+.playground-grid .playground-card:has(.pie-card) {
+    grid-column: 1 / -1;
+}
+
 .slices-readout {
     display: flex;
     flex-direction: column;

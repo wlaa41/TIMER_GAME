@@ -74,12 +74,12 @@
             "visual": {
               "type": "percentPie",
               "title": "The Percentage Pizza",
-              "caption": "Shade pizza slices and read the amount as a fraction, a percentage and a decimal.",
+              "caption": "Shade pizza slices and read the amount as a fraction, a percentage and a decimal. The faint lines show where the well-known fractions sit.",
               "parts": 8,
               "shaded": 4,
               "amount": 40,
-              "maxParts": 24,
-              "tip": "Try 2 slices shaded out of 8: that is 2/8 = 1/4 = 25% = 0.25. Then read 1/4 of 40 = 10 in the box below."
+              "maxParts": 100,
+              "tip": "Try 2 slices shaded out of 8: that is 2/8 = 1/4 = 25% = 0.25. Slide all the way up to 100 slices to see how fine the cuts get."
             }
           },
           {

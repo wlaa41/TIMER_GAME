@@ -1080,7 +1080,7 @@ function renderPercentPie(container, media) {
     const terminates = (den) => { let d = den; while (d % 2 === 0) d /= 2; while (d % 5 === 0) d /= 5; return d === 1; };
     const trimNum = (s) => s.replace(/\.?0+$/, "");
 
-    const maxParts = Math.max(2, readInt(media.maxParts, 24));
+    const maxParts = Math.max(2, readInt(media.maxParts, 100));
     let parts = Math.min(maxParts, Math.max(2, readInt(media.parts, 8)));
     let shaded = Math.min(parts, Math.max(0, readInt(media.shaded, 4)));
     let amount = Math.max(0, readInt(media.amount, 40));
@@ -1116,8 +1116,23 @@ function renderPercentPie(container, media) {
         return Number.isInteger(r) ? String(r) : trimNum(r.toFixed(2));
     };
 
-    // ----- the pizza -----
-    const SIZE = 240, cx = SIZE / 2, cy = SIZE / 2, r = 104;
+    // ----- the pizza (large card) -----
+    card.classList.add("pie-card");
+    const SIZE = 252, cx = SIZE / 2, cy = SIZE / 2, r = 104;
+    const mkLine = (x1, y1, x2, y2, cls) => {
+        const l = document.createElementNS(SVG_NS, "line");
+        l.setAttribute("x1", x1.toFixed(2)); l.setAttribute("y1", y1.toFixed(2));
+        l.setAttribute("x2", x2.toFixed(2)); l.setAttribute("y2", y2.toFixed(2));
+        l.setAttribute("class", cls);
+        return l;
+    };
+    const mkText = (x, y, cls, text) => {
+        const t = document.createElementNS(SVG_NS, "text");
+        t.setAttribute("x", x.toFixed(2)); t.setAttribute("y", y.toFixed(2));
+        t.setAttribute("class", cls); t.setAttribute("text-anchor", "middle");
+        t.textContent = text;
+        return t;
+    };
     const stage = makeEl("div", "slices-stage");
     const svg = document.createElementNS(SVG_NS, "svg");
     svg.setAttribute("viewBox", `0 0 ${SIZE} ${SIZE}`);
@@ -1131,6 +1146,18 @@ function renderPercentPie(container, media) {
     svg.appendChild(crust);
     const layer = document.createElementNS(SVG_NS, "g");
     svg.appendChild(layer);
+
+    // faint radial guides at the well-known fractions (constant reference,
+    // drawn on top of the slices so the child can see where 1/2, 1/4 ... fall)
+    const guideLayer = document.createElementNS(SVG_NS, "g");
+    [[1, 5], [1, 4], [1, 3], [1, 2], [2, 3], [3, 4], [4, 5]].forEach(([a, b]) => {
+        const ang = -Math.PI / 2 + (a / b) * Math.PI * 2;
+        const cosA = Math.cos(ang), sinA = Math.sin(ang);
+        guideLayer.appendChild(mkLine(cx + 0.22 * r * cosA, cy + 0.22 * r * sinA, cx + r * cosA, cy + r * sinA, "plab-guide"));
+        guideLayer.appendChild(mkText(cx + (r + 13) * cosA, cy + (r + 13) * sinA + 3, "plab-guide-label", `${a}/${b}`));
+    });
+    svg.appendChild(guideLayer);
+
     stage.appendChild(svg);
     card.appendChild(stage);
 
