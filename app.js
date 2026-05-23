@@ -439,6 +439,579 @@ function renderIllustration(container, media) {
     container.appendChild(card);
 }
 
+// A clean 2D "slices" pie: a circle cut into equal slices with some coloured in.
+// When `interactive` (the default) it adds two sliders - cut more slices, colour
+// more of them - and a live fraction + percentage readout, so a child can play
+// and watch how slices, fractions and percentages move together. Pure SVG, no
+// animation loop, so it returns no handle.
+function renderSlices(container, media) {
+    const SVG_NS = "http://www.w3.org/2000/svg";
+    const card = makeEl("div", "slices-card");
+    addMediaText(card, media);
+
+    const readInt = (value, fallback) => {
+        const rounded = Math.round(Number(value));
+        return Number.isFinite(rounded) ? rounded : fallback;
+    };
+    const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+
+    const minSlices = Math.max(1, readInt(media.minSlices, 2));
+    const maxSlices = Math.max(minSlices, readInt(media.maxSlices, 12));
+    const clampTotal = (n) => Math.min(maxSlices, Math.max(minSlices, n));
+
+    let total = clampTotal(readInt(media.slices, 8));
+    let filled = Math.min(total, Math.max(0, readInt(media.filled, Math.round(total / 2))));
+    const color = typeof media.color === "string" ? media.color : "#6366f1";
+    const interactive = media.interactive !== false;
+
+    const SIZE = 240;
+    const cx = SIZE / 2;
+    const cy = SIZE / 2;
+    const r = 104;
+
+    const stage = makeEl("div", "slices-stage");
+    const svg = document.createElementNS(SVG_NS, "svg");
+    svg.setAttribute("viewBox", `0 0 ${SIZE} ${SIZE}`);
+    svg.setAttribute("class", "slices-svg");
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", media.alt || "A circle divided into equal slices");
+
+    const crust = document.createElementNS(SVG_NS, "circle");
+    crust.setAttribute("cx", cx);
+    crust.setAttribute("cy", cy);
+    crust.setAttribute("r", r + 7);
+    crust.setAttribute("class", "slices-crust");
+    svg.appendChild(crust);
+
+    const layer = document.createElementNS(SVG_NS, "g");
+    svg.appendChild(layer);
+    stage.appendChild(svg);
+    card.appendChild(stage);
+
+    const readout = makeEl("div", "slices-readout");
+    const pctEl = makeEl("span", "slices-pct");
+    const detailEl = makeEl("span", "slices-detail");
+    readout.appendChild(pctEl);
+    readout.appendChild(detailEl);
+    card.appendChild(readout);
+
+    const slicePath = (a0, a1) => {
+        if (a1 - a0 >= Math.PI * 2 - 1e-6) {
+            return `M ${cx} ${cy - r} A ${r} ${r} 0 1 1 ${cx - 0.01} ${cy - r} Z`;
+        }
+        const x0 = cx + r * Math.cos(a0);
+        const y0 = cy + r * Math.sin(a0);
+        const x1 = cx + r * Math.cos(a1);
+        const y1 = cy + r * Math.sin(a1);
+        const large = a1 - a0 > Math.PI ? 1 : 0;
+        return `M ${cx} ${cy} L ${x0.toFixed(2)} ${y0.toFixed(2)} A ${r} ${r} 0 ${large} 1 ${x1.toFixed(2)} ${y1.toFixed(2)} Z`;
+    };
+
+    const updateReadout = () => {
+        const raw = total > 0 ? (filled / total) * 100 : 0;
+        const whole = Math.abs(raw - Math.round(raw)) < 1e-9;
+        pctEl.textContent = `${whole ? Math.round(raw) : "≈ " + (Math.round(raw * 10) / 10)}%`;
+        if (filled === 0) {
+            detailEl.textContent = `0 of ${total} slices coloured`;
+        } else if (filled === total) {
+            detailEl.textContent = `${total}/${total} = one whole circle`;
+        } else {
+            const divisor = gcd(filled, total);
+            const simplified = divisor > 1 ? ` = ${filled / divisor}/${total / divisor}` : "";
+            detailEl.textContent = `${filled}/${total}${simplified} of the circle`;
+        }
+    };
+
+    const draw = () => {
+        clearElement(layer);
+        const seg = (Math.PI * 2) / total;
+        const start = -Math.PI / 2;
+        for (let i = 0; i < total; i++) {
+            const piece = document.createElementNS(SVG_NS, "path");
+            piece.setAttribute("d", slicePath(start + i * seg, start + (i + 1) * seg));
+            const isFilled = i < filled;
+            piece.setAttribute("class", `slice-piece ${isFilled ? "slice-filled" : "slice-empty"}`);
+            if (isFilled) piece.setAttribute("fill", color);
+            layer.appendChild(piece);
+        }
+        updateReadout();
+    };
+
+    draw();
+
+    if (interactive) {
+        const controls = makeEl("div", "slices-controls");
+        const makeSlider = (labelText, min, max, value) => {
+            const wrap = makeEl("label", "slices-control");
+            const head = makeEl("span", "slices-control-head");
+            head.appendChild(makeEl("span", "slices-control-name", labelText));
+            const valueEl = makeEl("span", "slices-control-value", String(value));
+            head.appendChild(valueEl);
+            const input = document.createElement("input");
+            input.type = "range";
+            input.min = String(min);
+            input.max = String(max);
+            input.value = String(value);
+            input.className = "slices-range";
+            wrap.appendChild(head);
+            wrap.appendChild(input);
+            return { wrap, input, valueEl };
+        };
+
+        const slicesCtl = makeSlider("Number of slices", minSlices, maxSlices, total);
+        const filledCtl = makeSlider("Coloured slices", 0, total, filled);
+
+        slicesCtl.input.addEventListener("input", () => {
+            total = clampTotal(readInt(slicesCtl.input.value, total));
+            slicesCtl.valueEl.textContent = String(total);
+            if (filled > total) filled = total;
+            filledCtl.input.max = String(total);
+            filledCtl.input.value = String(filled);
+            filledCtl.valueEl.textContent = String(filled);
+            draw();
+        });
+        filledCtl.input.addEventListener("input", () => {
+            filled = Math.min(total, Math.max(0, readInt(filledCtl.input.value, filled)));
+            filledCtl.valueEl.textContent = String(filled);
+            draw();
+        });
+
+        controls.appendChild(slicesCtl.wrap);
+        controls.appendChild(filledCtl.wrap);
+        card.appendChild(controls);
+        card.appendChild(makeEl("p", "slices-tip", media.tip
+            || "Drag the sliders to cut the circle and colour the slices. Watch the fraction and percentage change!"));
+    }
+
+    if (media.teachingPoint) card.appendChild(makeEl("p", "teaching-point", media.teachingPoint));
+    container.appendChild(card);
+}
+
+// An interactive 10x10 percent grid. A slider colours squares in (filling by
+// rows so a full row of ten reads as 10%), with a live percentage readout. Pure
+// SVG, no animation loop.
+function renderGrid(container, media) {
+    const SVG_NS = "http://www.w3.org/2000/svg";
+    const card = makeEl("div", "slices-card");
+    addMediaText(card, media);
+
+    const readInt = (value, fallback) => {
+        const rounded = Math.round(Number(value));
+        return Number.isFinite(rounded) ? rounded : fallback;
+    };
+
+    let filled = Math.min(100, Math.max(0, readInt(media.filled, 30)));
+    const color = typeof media.color === "string" ? media.color : "#6366f1";
+    const interactive = media.interactive !== false;
+    const showDecimal = media.showDecimal === true;
+
+    const stage = makeEl("div", "slices-stage");
+    const SIZE = 240;
+    const pad = 6;
+    const cell = (SIZE - pad * 2) / 10;
+    const svg = document.createElementNS(SVG_NS, "svg");
+    svg.setAttribute("viewBox", `0 0 ${SIZE} ${SIZE}`);
+    svg.setAttribute("class", "grid-svg");
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", media.alt || "A 10 by 10 grid of 100 squares");
+
+    const rects = [];
+    for (let i = 0; i < 100; i++) {
+        const row = Math.floor(i / 10);
+        const col = i % 10;
+        const rect = document.createElementNS(SVG_NS, "rect");
+        rect.setAttribute("x", (pad + col * cell + 1).toFixed(2));
+        rect.setAttribute("y", (pad + row * cell + 1).toFixed(2));
+        rect.setAttribute("width", (cell - 2).toFixed(2));
+        rect.setAttribute("height", (cell - 2).toFixed(2));
+        rect.setAttribute("rx", "2.5");
+        svg.appendChild(rect);
+        rects.push(rect);
+    }
+    stage.appendChild(svg);
+    card.appendChild(stage);
+
+    const readout = makeEl("div", "slices-readout");
+    const pctEl = makeEl("span", "slices-pct");
+    const detailEl = makeEl("span", "slices-detail");
+    readout.appendChild(pctEl);
+    readout.appendChild(detailEl);
+    card.appendChild(readout);
+
+    const draw = () => {
+        for (let i = 0; i < 100; i++) {
+            const isFilled = i < filled;
+            rects[i].setAttribute("class", `grid-cell ${isFilled ? "grid-filled" : "grid-empty"}`);
+            if (isFilled) rects[i].setAttribute("fill", color);
+            else rects[i].removeAttribute("fill");
+        }
+        pctEl.textContent = `${filled}%`;
+        if (showDecimal) {
+            const value = filled / 100;
+            let decText = "0";
+            if (value !== 0) decText = Number.isInteger(value) ? String(value) : value.toFixed(2).replace(/0+$/, "").replace(/\.$/, "");
+            detailEl.textContent = `${filled}% = ${filled}/100 = ${decText}`;
+        } else {
+            const rows = Math.floor(filled / 10);
+            const extra = filled % 10;
+            if (filled < 10) {
+                detailEl.textContent = `${filled} of 100 squares`;
+            } else if (extra === 0) {
+                detailEl.textContent = `${rows} full ${rows === 1 ? "row" : "rows"} of ten = ${filled}%`;
+            } else {
+                detailEl.textContent = `${rows} ${rows === 1 ? "row" : "rows"} of ten + ${extra} = ${filled}%`;
+            }
+        }
+    };
+    draw();
+
+    if (interactive) {
+        const controls = makeEl("div", "slices-controls");
+        const wrap = makeEl("label", "slices-control");
+        const head = makeEl("span", "slices-control-head");
+        head.appendChild(makeEl("span", "slices-control-name", "Coloured squares"));
+        const valueEl = makeEl("span", "slices-control-value", String(filled));
+        head.appendChild(valueEl);
+        const input = document.createElement("input");
+        input.type = "range";
+        input.min = "0";
+        input.max = "100";
+        input.value = String(filled);
+        input.className = "slices-range";
+        input.addEventListener("input", () => {
+            filled = Math.min(100, Math.max(0, readInt(input.value, filled)));
+            valueEl.textContent = String(filled);
+            draw();
+        });
+        wrap.appendChild(head);
+        wrap.appendChild(input);
+        controls.appendChild(wrap);
+        card.appendChild(controls);
+        card.appendChild(makeEl("p", "slices-tip", media.tip
+            || "Drag the slider to colour squares. Every square is 1%, and every full row of ten is 10%."));
+    }
+
+    if (media.teachingPoint) card.appendChild(makeEl("p", "teaching-point", media.teachingPoint));
+    container.appendChild(card);
+}
+
+// An interactive "percentage of an amount" playground. Two sliders set the
+// percentage and the whole amount; a bar and a live working line show the
+// result. `mode` reshapes the answer: "of" (the part), "discount" (amount minus
+// the part) or "increase" (amount plus the part). Pure DOM, no animation loop.
+function renderPercentOf(container, media) {
+    const card = makeEl("div", "slices-card");
+    addMediaText(card, media);
+
+    const readNum = (value, fallback) => {
+        const num = Number(value);
+        return Number.isFinite(num) ? num : fallback;
+    };
+
+    const maxPercent = Math.max(1, readNum(media.maxPercent, 100));
+    const maxAmount = Math.max(1, readNum(media.maxAmount, 100));
+    let percent = Math.min(maxPercent, Math.max(0, readNum(media.percent, 30)));
+    let amount = Math.min(maxAmount, Math.max(0, readNum(media.amount, maxAmount)));
+    const prefix = typeof media.prefix === "string" ? media.prefix : "";
+    const suffix = typeof media.suffix === "string" ? media.suffix : "";
+    const mode = ["of", "discount", "increase"].includes(media.mode) ? media.mode : "of";
+    const color = typeof media.color === "string" ? media.color : "#6366f1";
+    const interactive = media.interactive !== false;
+    const stepPercent = Math.max(1, readNum(media.stepPercent, 1));
+    const stepAmount = Math.max(1, readNum(media.stepAmount, 1));
+
+    const fmt = (value) => {
+        const rounded = Math.round(value * 100) / 100;
+        const text = Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(2).replace(/\.?0+$/, "");
+        return `${prefix}${text}${suffix}`;
+    };
+
+    const bar = makeEl("div", "percentof-bar");
+    const barFill = makeEl("div", "percentof-fill");
+    bar.appendChild(barFill);
+    card.appendChild(bar);
+
+    const readout = makeEl("div", "slices-readout");
+    const bigEl = makeEl("span", "slices-pct");
+    const detailEl = makeEl("span", "slices-detail");
+    readout.appendChild(bigEl);
+    readout.appendChild(detailEl);
+    card.appendChild(readout);
+
+    const draw = () => {
+        const part = (percent / 100) * amount;
+        if (mode === "discount") {
+            const result = amount - part;
+            bigEl.textContent = fmt(result);
+            detailEl.textContent = `${fmt(amount)} − ${fmt(part)} = ${fmt(result)}  ·  ${percent}% off`;
+        } else if (mode === "increase") {
+            const result = amount + part;
+            bigEl.textContent = fmt(result);
+            detailEl.textContent = `${fmt(amount)} + ${fmt(part)} = ${fmt(result)}  ·  ${percent}% up`;
+        } else {
+            bigEl.textContent = fmt(part);
+            detailEl.textContent = `${percent}% of ${fmt(amount)} = ${fmt(part)}`;
+        }
+        barFill.style.width = `${Math.max(0, Math.min(100, percent))}%`;
+        barFill.style.background = color;
+    };
+    draw();
+
+    if (interactive) {
+        const controls = makeEl("div", "slices-controls");
+        const makeSlider = (labelText, min, max, value, step, label) => {
+            const wrap = makeEl("label", "slices-control");
+            const head = makeEl("span", "slices-control-head");
+            head.appendChild(makeEl("span", "slices-control-name", labelText));
+            const valueEl = makeEl("span", "slices-control-value", label(value));
+            head.appendChild(valueEl);
+            const input = document.createElement("input");
+            input.type = "range";
+            input.min = String(min);
+            input.max = String(max);
+            input.step = String(step);
+            input.value = String(value);
+            input.className = "slices-range";
+            wrap.appendChild(head);
+            wrap.appendChild(input);
+            return { wrap, input, valueEl };
+        };
+
+        const percentCtl = makeSlider("Percentage", 0, maxPercent, percent, stepPercent, (v) => `${v}%`);
+        const amountCtl = makeSlider("Whole amount", 0, maxAmount, amount, stepAmount, (v) => fmt(v));
+
+        percentCtl.input.addEventListener("input", () => {
+            percent = Math.min(maxPercent, Math.max(0, readNum(percentCtl.input.value, percent)));
+            percentCtl.valueEl.textContent = `${percent}%`;
+            draw();
+        });
+        amountCtl.input.addEventListener("input", () => {
+            amount = Math.min(maxAmount, Math.max(0, readNum(amountCtl.input.value, amount)));
+            amountCtl.valueEl.textContent = fmt(amount);
+            draw();
+        });
+
+        controls.appendChild(percentCtl.wrap);
+        controls.appendChild(amountCtl.wrap);
+        card.appendChild(controls);
+        card.appendChild(makeEl("p", "slices-tip", media.tip
+            || "Slide the percentage and the amount and watch the answer change. Try making the percentage 10% and reading the answer."));
+    }
+
+    if (media.teachingPoint) card.appendChild(makeEl("p", "teaching-point", media.teachingPoint));
+    container.appendChild(card);
+}
+
+// An interactive 3D volume playground. A real Three.js box (or cylinder) the
+// child can orbit, with sliders for its dimensions; the shape resizes and the
+// volume updates live. Unlike `threejs`, the geometry is parameterised here -
+// no code runs from the JSON. Returns a live handle for cleanup.
+function renderVolume3D(container, media) {
+    const card = makeEl("div", "slices-card");
+    addMediaText(card, media);
+    container.appendChild(card);
+
+    const stage = makeEl("div", "volume-stage");
+    card.appendChild(stage);
+
+    const readout = makeEl("div", "slices-readout");
+    const bigEl = makeEl("span", "slices-pct");
+    const detailEl = makeEl("span", "slices-detail");
+    readout.appendChild(bigEl);
+    readout.appendChild(detailEl);
+    card.appendChild(readout);
+
+    const readNum = (value, fallback) => {
+        const num = Math.round(Number(value));
+        return Number.isFinite(num) ? num : fallback;
+    };
+    const shape = media.shape === "cylinder" ? "cylinder" : "box";
+    const unit = typeof media.unit === "string" ? media.unit : "cm";
+    const colorHex = typeof media.color === "string" ? media.color : "#6366f1";
+    const minD = Math.max(1, readNum(media.min, 1));
+    const maxD = Math.max(minD + 1, readNum(media.max, 6));
+    const clampD = (n) => Math.min(maxD, Math.max(minD, Math.round(n)));
+    let L = clampD(readNum(media.length, 4));
+    let W = clampD(readNum(media.width, 2));
+    let H = clampD(readNum(media.height, 3));
+    let R = clampD(readNum(media.radius, 2));
+    const interactive = media.interactive !== false;
+
+    const width = stage.clientWidth || container.clientWidth || 400;
+    const height = 240;
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 100);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setSize(width, height);
+    stage.appendChild(renderer.domElement);
+
+    scene.add(new THREE.AmbientLight(0xffffff, 0.92));
+    const keyLight = new THREE.DirectionalLight(0xffffff, 1.0);
+    keyLight.position.set(5, 8, 6);
+    const fillLight = new THREE.PointLight(0xffc857, 0.55, 60);
+    fillLight.position.set(-6, -3, 5);
+    scene.add(keyLight, fillLight);
+    camera.position.set(7, 6, 11);
+    camera.lookAt(0, 0, 0);
+
+    let orbit = null;
+    if (THREE.OrbitControls) {
+        orbit = new THREE.OrbitControls(camera, renderer.domElement);
+        orbit.enableDamping = true;
+        orbit.dampingFactor = 0.08;
+        orbit.enablePan = false;
+        orbit.minDistance = 7;
+        orbit.maxDistance = 26;
+    }
+
+    const SCALE = 0.85;
+    const material = new THREE.MeshStandardMaterial({ color: new THREE.Color(colorHex), metalness: 0.0, roughness: 0.5, transparent: true, opacity: 0.22, depthWrite: false, side: THREE.DoubleSide });
+    const edgeMaterial = new THREE.LineBasicMaterial({ color: 0xffffff });
+    const latticeMaterial = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.5 });
+    let mesh = null;
+    let edges = null;
+    let lattice = null;
+    let spin = 0;
+
+    // Builds the wireframe of every 1-unit cube inside an lx by ly by lz block,
+    // centred on the origin to match the box mesh - so the child can see the
+    // block is made of unit cubes.
+    const buildLattice = (lx, ly, lz) => {
+        const hx = lx * SCALE / 2;
+        const hy = ly * SCALE / 2;
+        const hz = lz * SCALE / 2;
+        const xAt = (i) => -hx + i * SCALE;
+        const yAt = (j) => -hy + j * SCALE;
+        const zAt = (k) => -hz + k * SCALE;
+        const pts = [];
+        for (let j = 0; j <= ly; j++) for (let k = 0; k <= lz; k++) pts.push(xAt(0), yAt(j), zAt(k), xAt(lx), yAt(j), zAt(k));
+        for (let i = 0; i <= lx; i++) for (let k = 0; k <= lz; k++) pts.push(xAt(i), yAt(0), zAt(k), xAt(i), yAt(ly), zAt(k));
+        for (let i = 0; i <= lx; i++) for (let j = 0; j <= ly; j++) pts.push(xAt(i), yAt(j), zAt(0), xAt(i), yAt(j), zAt(lz));
+        const geo = new THREE.BufferGeometry();
+        geo.setAttribute("position", new THREE.Float32BufferAttribute(pts, 3));
+        return geo;
+    };
+
+    const buildMesh = () => {
+        if (mesh) { scene.remove(mesh); mesh.geometry.dispose(); }
+        if (edges) { scene.remove(edges); edges.geometry.dispose(); }
+        if (lattice) { scene.remove(lattice); lattice.geometry.dispose(); lattice = null; }
+        const geo = shape === "cylinder"
+            ? new THREE.CylinderGeometry(R * SCALE * 0.7, R * SCALE * 0.7, H * SCALE, 44)
+            : new THREE.BoxGeometry(L * SCALE, H * SCALE, W * SCALE);
+        mesh = new THREE.Mesh(geo, material);
+        edges = new THREE.LineSegments(new THREE.EdgesGeometry(geo), edgeMaterial);
+        mesh.rotation.y = spin;
+        edges.rotation.y = spin;
+        scene.add(mesh, edges);
+        if (shape !== "cylinder") {
+            lattice = new THREE.LineSegments(buildLattice(L, H, W), latticeMaterial);
+            lattice.rotation.y = spin;
+            scene.add(lattice);
+        }
+    };
+
+    const updateReadout = () => {
+        if (shape === "cylinder") {
+            const volume = Math.round(Math.PI * R * R * H * 10) / 10;
+            bigEl.textContent = `${volume} ${unit}³`;
+            detailEl.textContent = `π × ${R}² × ${H} = ${volume} ${unit}³`;
+        } else {
+            const volume = L * W * H;
+            bigEl.textContent = `${volume} ${unit}³`;
+            detailEl.textContent = `${L} × ${W} × ${H} = ${volume} ${unit}³`;
+        }
+    };
+
+    buildMesh();
+    updateReadout();
+
+    const handleResize = () => {
+        const nextWidth = stage.clientWidth || width;
+        camera.aspect = nextWidth / height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(nextWidth, height);
+    };
+    window.addEventListener("resize", handleResize);
+
+    let active = true;
+    let frameId = null;
+    const animate = () => {
+        if (!active) return;
+        frameId = requestAnimationFrame(animate);
+        if (!isPaused && mesh) {
+            spin += 0.006;
+            mesh.rotation.y = spin;
+            if (edges) edges.rotation.y = spin;
+            if (lattice) lattice.rotation.y = spin;
+        }
+        if (orbit) orbit.update();
+        renderer.render(scene, camera);
+    };
+    animate();
+
+    if (interactive) {
+        const controls = makeEl("div", "slices-controls");
+        const makeSlider = (labelText, value, onChange) => {
+            const wrap = makeEl("label", "slices-control");
+            const head = makeEl("span", "slices-control-head");
+            head.appendChild(makeEl("span", "slices-control-name", labelText));
+            const valueEl = makeEl("span", "slices-control-value", `${value} ${unit}`);
+            head.appendChild(valueEl);
+            const input = document.createElement("input");
+            input.type = "range";
+            input.min = String(minD);
+            input.max = String(maxD);
+            input.value = String(value);
+            input.className = "slices-range";
+            input.addEventListener("input", () => {
+                const next = clampD(readNum(input.value, value));
+                valueEl.textContent = `${next} ${unit}`;
+                onChange(next);
+                buildMesh();
+                updateReadout();
+            });
+            wrap.appendChild(head);
+            wrap.appendChild(input);
+            return wrap;
+        };
+
+        if (shape === "cylinder") {
+            controls.appendChild(makeSlider("Radius", R, (v) => { R = v; }));
+            controls.appendChild(makeSlider("Height", H, (v) => { H = v; }));
+        } else {
+            controls.appendChild(makeSlider("Length", L, (v) => { L = v; }));
+            controls.appendChild(makeSlider("Width", W, (v) => { W = v; }));
+            controls.appendChild(makeSlider("Height", H, (v) => { H = v; }));
+        }
+        card.appendChild(controls);
+        card.appendChild(makeEl("p", "slices-tip", media.tip
+            || "Drag a slider to grow or shrink a side, and spin the shape with your mouse. What happens to the volume if you double one side?"));
+    }
+
+    if (media.teachingPoint) card.appendChild(makeEl("p", "teaching-point", media.teachingPoint));
+
+    return {
+        pause: null,
+        resume: null,
+        cleanup: () => {
+            active = false;
+            if (frameId) cancelAnimationFrame(frameId);
+            window.removeEventListener("resize", handleResize);
+            if (orbit) orbit.dispose();
+            if (mesh) mesh.geometry.dispose();
+            if (edges) edges.geometry.dispose();
+            if (lattice) lattice.geometry.dispose();
+            material.dispose();
+            edgeMaterial.dispose();
+            latticeMaterial.dispose();
+            renderer.dispose();
+            if (renderer.domElement.parentNode === stage) stage.removeChild(renderer.domElement);
+        }
+    };
+}
+
 function initThreeJS(container, payload) {
     const viewportWidth = container.clientWidth || container.offsetWidth || 640;
     const viewportHeight = container.clientHeight || 320;
@@ -582,6 +1155,10 @@ const MEDIA_RENDERERS = {
     image: renderImage,
     photo: renderImage,
     video: renderVideo,
+    slices: renderSlices,
+    grid: renderGrid,
+    percentOf: renderPercentOf,
+    volume3d: renderVolume3D,
     threejs: (container, media) => initThreeJS(container, media.payload || {}),
     matterjs: (container, media) => initMatterJS(container, media.payload || {})
 };

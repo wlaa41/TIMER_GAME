@@ -185,6 +185,92 @@
       }
     },
     {
+      "id": "q2b",
+      "code": "GEO-3D-VOL",
+      "question": "A box is 5 cm long, 3 cm wide and 2 cm tall. What is its volume?",
+      "options": ["10 cm^3", "15 cm^3", "30 cm^3", "32 cm^3"],
+      "correctAnswer": "30 cm^3",
+      "hint": {
+        "format": "lesson",
+        "title": "Volume of a Box",
+        "subtitle": "How much space fits inside a 3D box, found by multiplying its three sides.",
+        "sections": [
+          {
+            "heading": "What volume means",
+            "body": [
+              "Volume is the amount of space inside a 3D shape - how much it could hold if you filled it right up.",
+              "Surface area was about the flat skin on the outside. Volume is about the inside. It is always measured in cubic units, like cubic centimetres."
+            ]
+          },
+          {
+            "heading": "Filling the box with unit cubes",
+            "body": "Imagine packing the box with tiny 1 cm cubes, with no gaps. The volume is simply how many of those little cubes fit inside. To count them quickly you multiply the three sides: length times width times height."
+          },
+          {
+            "heading": "Play with it: build a box",
+            "body": "Spin the box with your mouse, then drag the sliders to change its length, width and height. Watch the volume change as the box grows and shrinks.",
+            "visual": {
+              "type": "volume3d",
+              "title": "Your own resizable box",
+              "caption": "A see-through block built from 1 cm cubes - spin it and count the little cubes, or change a side and watch the volume.",
+              "shape": "box",
+              "unit": "cm",
+              "length": 4,
+              "width": 2,
+              "height": 3,
+              "min": 1,
+              "max": 8,
+              "tip": "Set the box to 2 by 2 by 2 and count the 8 little cubes inside. Then double just the height to 4 and watch the volume double."
+            }
+          },
+          {
+            "heading": "Watch it work on different numbers",
+            "body": "Let's find the volume of a box that is 2 cm by 3 cm by 4 cm (not the box in your question).",
+            "steps": [
+              "Multiply the first two sides: 2 x 3 = 6. That covers the bottom layer.",
+              "Multiply by the height: 6 x 4 = 24.",
+              "So the volume is 24 cubic centimetres.",
+              "The order does not matter - multiplying the three sides always gives the same answer."
+            ]
+          },
+          {
+            "heading": "Fun fact: a litre is a cube of water",
+            "body": [
+              "Volume is how we measure liquids too. A litre of water is exactly 1000 cubic centimetres.",
+              "That is the space inside a cube measuring 10 cm on every side: 10 x 10 x 10 = 1000. So a one-litre carton is really just a 10 cm cube of space."
+            ],
+            "note": "1 litre = 1000 cubic centimetres = a cube 10 cm on each side. Volume and the liquid you drink are measured the same way."
+          },
+          {
+            "heading": "Volume all around you",
+            "body": "Once you know what volume is, you spot it everywhere something is filled or packed.",
+            "points": [
+              "A fish tank's size is its volume - how much water it holds.",
+              "Juice and milk cartons are sized by volume, in litres or millilitres.",
+              "Moving house means working out how many boxes will fit in the van.",
+              "A fridge or an oven is described by the volume of space inside it."
+            ]
+          },
+          {
+            "heading": "Now you teach it: write it and draw it",
+            "body": "Make volume real with your own hand.",
+            "points": [
+              "Write the rule: 'Volume of a box = ___ x ___ x ___.'",
+              "Draw a box and label its length, width and height, then work out its volume.",
+              "Find a real box at home, measure its three sides, and work out its volume.",
+              "Explain to someone why volume uses cubic units but area uses square units."
+            ],
+            "note": "Measuring and drawing a real box, then multiplying its sides, makes the formula something you truly understand."
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "Your box is 5 cm long, 3 cm wide and 2 cm tall.",
+            "note": "Multiply the three sides together: length times width times height. The order you multiply them in does not change the answer."
+          }
+        ]
+      }
+    },
+    {
       "id": "q3",
       "code": "PHY-2D-03",
       "question": "How many boxes are currently being affected by gravity in this simulation?",

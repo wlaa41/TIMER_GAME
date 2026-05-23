@@ -41,10 +41,11 @@
               "So 'per cent' simply means 'for every hundred'. A percentage is a way of counting that always imagines you have exactly 100 things. Colour in 1 square out of 100 and that is 1 percent. Colour 25 of them and that is 25 percent."
             ],
             "visual": {
-              "type": "image",
-              "src": "assets/percent-grid-seventy.svg",
-              "alt": "A 10 by 10 grid of 100 squares with 70 of them coloured in",
-              "caption": "70 squares out of 100 are coloured - that is 70 percent, written 70%."
+              "type": "grid",
+              "title": "Colour the hundred squares",
+              "caption": "Each little square is worth 1% - drag the slider to colour as many as you like.",
+              "filled": 70,
+              "tip": "Try colouring exactly one full row. How many squares is that, and what percentage?"
             }
           },
           {
@@ -97,6 +98,17 @@
             ]
           },
           {
+            "heading": "Now you teach it: write it and draw it",
+            "body": "Ideas stick when you make them with your own hand. Grab a notebook and a pen for this part.",
+            "points": [
+              "Write, in your own words: 'Per cent means for every ___.'",
+              "Rule a 10-by-10 grid of 100 squares, colour any amount, and write the percentage beside it.",
+              "Colour one whole row and label it, then one single square and label that too.",
+              "Show someone your grid and tell them why each square is worth 1%."
+            ],
+            "note": "Drawing the grid and colouring it yourself fixes the idea in your memory far better than only reading about it."
+          },
+          {
             "heading": "Now back to your question",
             "body": "Look at the grid of 100 squares on your question screen. Some squares are coloured in, and your job is to say what percentage of the whole grid that is.",
             "note": "Count the coloured squares - each one is worth 1%. Quick shortcut: see how many full rows of ten are coloured, because every full row of ten squares is worth ten percent."
@@ -130,13 +142,15 @@
               "A percentage works in exactly the same way - it just always imagines the whole has been cut into 100 equal slices. So to turn a percentage into a fraction, write the number on top and put 100 underneath: 50% becomes 50/100, and 7% becomes 7/100."
             ],
             "visual": {
-              "type": "threejs",
+              "type": "slices",
               "title": "A pizza cut into equal slices",
-              "caption": "Drag to spin the pizza - each slice is one equal piece of the whole.",
-              "payload": {
-                "setup": "const g = new THREE.Group(); g.name = 'quizShape'; const cheese = new THREE.MeshStandardMaterial({ color: 0xf2b73d, roughness: 0.7 }); const pep = new THREE.MeshStandardMaterial({ color: 0xc0392b, roughness: 0.5 }); const N = 8; const present = 6; const seg = Math.PI * 2 / N; const gap = 0.06; for (let i = 0; i < present; i++) { const a0 = i * seg + gap / 2; const len = seg - gap; const slice = new THREE.Mesh(new THREE.CylinderGeometry(2.1, 2.1, 0.36, 20, 1, false, a0, len), cheese); g.add(slice); const mid = a0 + len / 2; for (let k = 0; k < 2; k++) { const r = 0.8 + k * 0.7; const dot = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.14, 16), pep); dot.position.set(Math.cos(mid) * r, 0.26, Math.sin(mid) * r); g.add(dot); } } scene.add(g); camera.position.set(0, 4.2, 5.2);",
-                "update": "const g = scene.getObjectByName('quizShape'); if (g) { g.rotation.y += 0.006; }"
-              }
+              "caption": "Cut the pizza into equal slices and colour some in - each slice is one equal piece of the whole.",
+              "slices": 8,
+              "filled": 4,
+              "minSlices": 2,
+              "maxSlices": 12,
+              "color": "#f2b73d",
+              "tip": "Try it: drag the top slider to cut more slices, then colour some in. See how the same pizza can be one half, three quarters or three eighths - and what percentage each one makes."
             }
           },
           {
@@ -200,9 +214,101 @@
             ]
           },
           {
+            "heading": "Now you teach it: write it and draw it",
+            "body": "You understand an idea best when you put it in your own words. Grab a notebook and a pen for this part - it works better by hand than on a screen.",
+            "points": [
+              "Write one sentence in your own words: 'A percentage is a fraction out of ___.'",
+              "Draw a circle, cut it into 4 equal slices, and colour 1 slice. Write the fraction and the percentage beside it.",
+              "Draw the circle again cut into 8 slices and colour 2 of them. Is that more or less than your first picture?",
+              "Show your drawing to someone and explain what 'per cent' really means."
+            ],
+            "note": "Writing and drawing an idea in your own hand helps your brain remember it far better than only reading it."
+          },
+          {
             "heading": "Now back to your question",
             "body": "Your question says 25% of the pizza is left, and asks for that amount as a fraction.",
             "note": "Start by writing 25 over 100, exactly as the rule says. Then hunt for a number that divides into both 25 and 100, and use it to shrink the fraction down to its simplest form."
+          }
+        ]
+      }
+    },
+    {
+      "id": "q2b",
+      "code": "PCT-2B",
+      "question": "A pizza is cut into 5 equal slices. 2 of the slices have been eaten. What percentage of the pizza has been eaten?",
+      "options": ["20%", "25%", "40%", "52%"],
+      "correctAnswer": "40%",
+      "estimatedSeconds": 90,
+      "hint": {
+        "format": "lesson",
+        "title": "Reading a Percentage Straight Off the Slices",
+        "subtitle": "When something is cut into equal slices, the percentage is hiding in plain sight.",
+        "sections": [
+          {
+            "heading": "A percentage you can see",
+            "body": [
+              "When a pizza, a cake or a pie is cut into equal slices, you are looking at a percentage already - you just have to read it.",
+              "Every equal slice is the same share of the whole. Count how many slices there are, count how many you care about, and the percentage is waiting for you."
+            ]
+          },
+          {
+            "heading": "Turn 'slices out of slices' into 'out of 100'",
+            "body": "A percentage is always a score out of 100. So to read slices as a percentage, share 100% out equally between all the slices, then add up the ones you want.",
+            "steps": [
+              "Take a pizza cut into 4 equal slices - different numbers from your question.",
+              "Share 100% between the 4 slices: 100 divided by 4 is 25. Each slice is 25%.",
+              "Now colour 3 of those slices: 25% + 25% + 25% = 75%.",
+              "So 3 out of 4 slices is 75% of the pizza."
+            ]
+          },
+          {
+            "heading": "Play with it: cut and colour",
+            "body": "Cut the circle into the number of slices you like, colour some in, and watch the percentage appear. Try to match your question's pizza.",
+            "visual": {
+              "type": "slices",
+              "title": "Read the percentage off the slices",
+              "caption": "Cut the circle into equal slices, colour some, and the percentage shows itself.",
+              "slices": 4,
+              "filled": 1,
+              "minSlices": 2,
+              "maxSlices": 12,
+              "color": "#f2b73d",
+              "tip": "Cut into 5 slices like the question. How much is one slice worth? Now colour 2 slices and read the percentage."
+            }
+          },
+          {
+            "heading": "Fun fact: every slice is really an angle",
+            "body": [
+              "A full circle turns all the way around - that is 360 degrees. So when you cut a pizza into equal slices, you are really sharing out 360 degrees.",
+              "Cut it into 8 slices and each slice opens to a 45-degree angle. There is a neat partner fact for percentages too: 1% of a circle is exactly 3.6 degrees."
+            ],
+            "note": "A whole circle is 360 degrees, so 1% of it is 3.6 degrees - a percentage and an angle are two ways to measure the same slice."
+          },
+          {
+            "heading": "Slices and percentages in the real world",
+            "body": "Once you spot it, the slice-percentage idea is everywhere a circle is split up.",
+            "points": [
+              "A pie chart slices a circle so each slice shows a percentage of the whole.",
+              "The ring around a battery or a download fills up like coloured slices.",
+              "Sports shows split a circle to show each team's percentage of possession.",
+              "A clock face is a circle cut into parts - quarter past is 25% of the way round."
+            ]
+          },
+          {
+            "heading": "Now you teach it: write it and draw it",
+            "body": "Make slice-percentages your own, by hand.",
+            "points": [
+              "Write the rule: 'Each slice is worth 100% divided by the ___ of slices.'",
+              "Draw a circle, cut it into 5 equal slices, and colour 2. Write the percentage beside it.",
+              "Work out what one slice is worth when a pizza is cut into 10, and write it down.",
+              "Show your drawing to someone and explain how you read the percentage."
+            ],
+            "note": "Drawing the slices and labelling each one's percentage makes the whole idea click."
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "Your pizza is cut into 5 equal slices and 2 have been eaten.",
+            "note": "First work out what a single slice is worth: share 100% between the 5 slices. Then add up the 2 slices that are gone."
           }
         ]
       }
@@ -298,6 +404,29 @@
             ]
           },
           {
+            "heading": "Play with it: percent, fraction and decimal together",
+            "body": "Here is the same number wearing all three costumes at once. Drag the slider and watch the percentage, the fraction and the decimal change together.",
+            "visual": {
+              "type": "grid",
+              "title": "One value, three costumes",
+              "caption": "Colour the squares and read off the percentage, the fraction out of 100, and the decimal.",
+              "filled": 60,
+              "showDecimal": true,
+              "tip": "Set it to 60 squares. What decimal appears? Now try just 5 squares and watch the decimal become a tiny 0.05."
+            }
+          },
+          {
+            "heading": "Now you teach it: write it and draw it",
+            "body": "Grab a notebook and lock this in by hand.",
+            "points": [
+              "Write one number three ways, like this: 40% = 40/100 = 0.4.",
+              "Do the same for 25% and for 9%.",
+              "Draw a number line from 0 to 1 and mark where 0.5 and 0.25 sit.",
+              "Tell someone the rule for hopping from a percentage to a decimal."
+            ],
+            "note": "Writing all three costumes side by side in your own hand is the fastest way to stop them ever fooling you."
+          },
+          {
             "heading": "Now back to your question",
             "body": "Your question asks which decimal is the same as 60%.",
             "note": "Use the two-place hop: divide 60 by 100 by moving the decimal point two places to the left. Watch carefully where the dot finally settles."
@@ -386,6 +515,33 @@
             ]
           },
           {
+            "heading": "Play with it: go past 100%",
+            "body": "Slide the percentage all the way past 100 and watch what happens. More than 100% simply means more than one whole.",
+            "visual": {
+              "type": "percentOf",
+              "title": "How big can a percentage get?",
+              "caption": "Drag the percentage above 100% and see the answer grow past the whole amount.",
+              "mode": "of",
+              "percent": 150,
+              "amount": 200,
+              "maxPercent": 200,
+              "maxAmount": 300,
+              "stepAmount": 10,
+              "tip": "Set the percentage to 100% - the answer equals the whole. Now push past it and watch the answer get bigger than the whole."
+            }
+          },
+          {
+            "heading": "Now you teach it: write it and draw it",
+            "body": "Make the idea of 'more than one whole' real on paper.",
+            "points": [
+              "Write what 100%, 150% and 200% each mean in your own words.",
+              "Draw one full bar for 100%, then draw 150% and 200% beside it.",
+              "List two things that CAN go past 100% and one thing that cannot.",
+              "Explain to someone why a phone battery can never reach 110%."
+            ],
+            "note": "Drawing 150% as one full bar plus half of another shows instantly why going past 100% needs more than one whole."
+          },
+          {
             "heading": "Now back to your question",
             "body": "Your question is about a cereal that gives 150% of a daily amount of vitamin C.",
             "note": "Remember that 100% would be exactly one full day's worth. Now compare: is 150 smaller than 100, equal to 100, or larger than 100?"
@@ -410,7 +566,19 @@
             "body": [
               "If you learn only one percentage trick in your whole life, make it this one: finding 10%.",
               "10% is small, friendly, and astonishingly powerful. Once you can find 10% of a number in a heartbeat, you are halfway to finding almost any percentage at all."
-            ]
+            ],
+            "visual": {
+              "type": "percentOf",
+              "title": "Play with 10% of any number",
+              "caption": "Set the percentage to 10 and slide the amount - the answer is always one tenth.",
+              "mode": "of",
+              "percent": 10,
+              "amount": 60,
+              "maxPercent": 100,
+              "maxAmount": 200,
+              "stepAmount": 5,
+              "tip": "Keep the percentage on 10% and change the amount. Notice the answer is always the number with its last digit chopped off."
+            }
           },
           {
             "heading": "10% means one tenth",
@@ -473,9 +641,97 @@
             ]
           },
           {
+            "heading": "Now you teach it: write it and draw it",
+            "body": "Make this trick your own - on paper, in your own handwriting.",
+            "points": [
+              "Write the rule in your own words: 'To find 10%, I ___ by 10.'",
+              "Pick three numbers of your own and write down 10% of each one.",
+              "Draw a bar, split it into ten equal parts, and shade one part to show 10%.",
+              "Teach the trick to someone and time how fast they can find 10% of 50."
+            ],
+            "note": "Writing the rule in your own words and drawing the ten parts makes the idea truly yours."
+          },
+          {
             "heading": "Now back to your question",
             "body": "Your question asks for 10% of the 80 sweets in the jar.",
             "note": "10% means one tenth. Share the 80 sweets equally into ten groups - or simply divide 80 by 10 - and see how big a single group turns out to be."
+          }
+        ]
+      }
+    },
+    {
+      "id": "q5b",
+      "code": "PCT-5B",
+      "question": "A birthday cake is cut into 10 equal slices. You take 1 slice. What percentage of the cake is that?",
+      "options": ["1%", "10%", "15%", "90%"],
+      "correctAnswer": "10%",
+      "estimatedSeconds": 75,
+      "hint": {
+        "format": "lesson",
+        "title": "Slices and the Magic 10%",
+        "subtitle": "Cut a whole into ten equal slices and every slice is a neat 10%.",
+        "sections": [
+          {
+            "heading": "Ten slices make a tidy whole",
+            "body": [
+              "Some numbers of slices are friendlier than others. Cut anything into ten equal slices and the percentages come out beautifully tidy.",
+              "That is because ten is the number our whole counting system is built on - and it turns slices into percentages you can read in a heartbeat."
+            ]
+          },
+          {
+            "heading": "One of ten equal slices is 10%",
+            "body": "Share 100% equally between ten slices and each slice gets the same amount.",
+            "steps": [
+              "Take a cake cut into 10 equal slices - the same as your question.",
+              "Share 100% between the 10 slices: 100 divided by 10 is 10. Each slice is 10%.",
+              "Colour 3 of those slices: 10% + 10% + 10% = 30%.",
+              "So 3 out of 10 slices is 30% of the cake."
+            ],
+            "visual": {
+              "type": "slices",
+              "title": "Ten tidy slices",
+              "caption": "Cut the circle into ten and each slice is a neat 10%.",
+              "slices": 10,
+              "filled": 3,
+              "minSlices": 2,
+              "maxSlices": 12,
+              "color": "#f2b73d",
+              "tip": "Cut into 10 slices and colour just 1. What percentage is a single slice? Now colour 3 and check."
+            }
+          },
+          {
+            "heading": "Fun fact: ten slices, ten fingers",
+            "body": [
+              "We count in tens for a very human reason - we have ten fingers. A circle shared into ten equal slices fits that idea perfectly.",
+              "And here is the angle hiding inside: a full circle is 360 degrees, so each of the ten slices opens to exactly 36 degrees."
+            ],
+            "note": "Ten equal slices means 10% and 36 degrees each - one of the tidiest cuts in all of maths."
+          },
+          {
+            "heading": "Tenths are everywhere",
+            "body": "Because tens are so easy, the world leans on tenths all the time.",
+            "points": [
+              "A 10% tip in a restaurant is one tenth of the bill.",
+              "A '10% off' sale takes one tenth of the price away.",
+              "Sharing a pizza or cake equally between ten people gives each one 10%.",
+              "Money is built on tenths - ten 10p coins make one pound."
+            ]
+          },
+          {
+            "heading": "Now you teach it: write it and draw it",
+            "body": "Make the tidy tenth your own, by hand.",
+            "points": [
+              "Write the rule: 'One slice out of ten equal slices is ___%.'",
+              "Draw a circle, cut it into 10 equal slices, and colour 3. Write the percentage beside it.",
+              "Work out what 2 slices and 5 slices are worth, and write them down.",
+              "Show someone your cake and explain why each slice is 10%."
+            ],
+            "note": "Drawing the ten slices and labelling each as 10% makes tenths instant for you."
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "Your cake is cut into 10 equal slices and you take 1 slice.",
+            "note": "Share 100% between the 10 equal slices to see what a single slice is worth."
           }
         ]
       }
@@ -546,6 +802,33 @@
               "Find 1% of the number of pages in a thick book.",
               "Look for the % sign on a food label and find 1% of the amount printed beside it."
             ]
+          },
+          {
+            "heading": "Play with it: find 1% of anything",
+            "body": "Keep the percentage tiny - just 1% - and slide the amount. The answer is always one hundredth of it.",
+            "visual": {
+              "type": "percentOf",
+              "title": "1% of any number",
+              "caption": "Set the percentage to 1 and change the amount to see one hundredth of it.",
+              "mode": "of",
+              "percent": 1,
+              "amount": 600,
+              "maxPercent": 50,
+              "maxAmount": 1000,
+              "stepAmount": 50,
+              "tip": "Hold the percentage on 1% and slide the amount. 1% of 600, of 800, of 1000 - what do you get each time?"
+            }
+          },
+          {
+            "heading": "Now you teach it: write it and draw it",
+            "body": "Pin down the 1% trick with your own pen.",
+            "points": [
+              "Write the rule: 'To find 1%, I ___ by 100.'",
+              "Find 1% of 100, of 500 and of 2000, and write each answer down.",
+              "Draw a single tiny square inside a 10-by-10 grid to show how small 1% is.",
+              "Teach someone the link: 1% is just 10% of the 10%."
+            ],
+            "note": "Writing the divide-by-100 rule and drawing that one tiny square makes 1% impossible to forget."
           },
           {
             "heading": "Now back to your question",
@@ -639,6 +922,35 @@
             ]
           },
           {
+            "heading": "Play with it: build any percentage",
+            "body": "Slide the percentage and the price and watch the money answer build up. Try stacking up tens.",
+            "visual": {
+              "type": "percentOf",
+              "title": "Any percentage of a price",
+              "caption": "Change the percentage and the price to see how much money that percentage is worth.",
+              "mode": "of",
+              "percent": 30,
+              "amount": 200,
+              "maxPercent": 100,
+              "maxAmount": 200,
+              "prefix": "GBP ",
+              "stepPercent": 5,
+              "stepAmount": 5,
+              "tip": "Find 10% first, then try 20%, 30% and 40% - notice each extra 10% adds the same amount again."
+            }
+          },
+          {
+            "heading": "Now you teach it: write it and draw it",
+            "body": "Become a percentage builder on paper.",
+            "points": [
+              "Pick a number like 60 and write 10%, then build 20%, 30% and 50% of it.",
+              "Find 5% of 200 by finding 10% and halving it - write each step.",
+              "Try the swap trick: turn 8% of 25 into 25% of 8 and solve the easy one.",
+              "Challenge a grown-up to a percentage race and write down who built it first."
+            ],
+            "note": "Writing each 10% as you stack it up turns a scary percentage into a few easy steps you can see."
+          },
+          {
             "heading": "Now back to your question",
             "body": "Your question asks for 30% of the GBP 200 coat.",
             "note": "30% is three lots of 10%. Find 10% of GBP 200 first, then stack up three copies of it."
@@ -730,9 +1042,190 @@
             ]
           },
           {
+            "heading": "Play with it: see the fraction in the slices",
+            "body": "Cut the circle into four equal slices and colour three of them. That is three quarters - and three quarters is 75%.",
+            "visual": {
+              "type": "slices",
+              "title": "Three quarters of a whole",
+              "caption": "Cut into four slices and colour three to see 3/4, or try other cuts.",
+              "slices": 4,
+              "filled": 3,
+              "minSlices": 2,
+              "maxSlices": 10,
+              "tip": "Cut into 4 and colour 3 to see 75%. Now cut into 8 and colour 6 - is it the same amount of circle?"
+            }
+          },
+          {
+            "heading": "Now you teach it: write it and draw it",
+            "body": "Put the 'of' idea into your notebook.",
+            "points": [
+              "Write what the word 'of' tells you to do in a percentage question.",
+              "Find 75% of 12 by quarters, writing each step.",
+              "Draw a circle, cut it into quarters and colour three to show 3/4 = 75%.",
+              "Explain to someone two different ways to find 50% of a number."
+            ],
+            "note": "Drawing the quarters and shading three of them shows why 75% and 3/4 are the very same thing."
+          },
+          {
             "heading": "Now back to your question",
             "body": "Your question asks for 75% of the 40 matches the team played.",
             "note": "75% is the fraction 3/4. Split the 40 matches into 4 equal quarters, then gather up three of those quarters."
+          }
+        ]
+      }
+    },
+    {
+      "id": "q8b",
+      "code": "PCT-8B",
+      "question": "A pie is cut into 4 equal slices. How many slices do you need to make 75% of the whole pie?",
+      "options": ["1 slice", "2 slices", "3 slices", "4 slices"],
+      "correctAnswer": "3 slices",
+      "estimatedSeconds": 90,
+      "hint": {
+        "format": "lesson",
+        "title": "Working Backwards: From Percentage to Slices",
+        "subtitle": "Sometimes you know the percentage you want - and you have to find the slices.",
+        "sections": [
+          {
+            "heading": "Run the slice idea in reverse",
+            "body": [
+              "So far you have looked at slices and read off the percentage. This time you are told the percentage and have to find the slices.",
+              "It is the same idea running backwards - and it is exactly how you would share a pie out fairly."
+            ]
+          },
+          {
+            "heading": "Find one slice, then count up",
+            "body": "First work out what a single slice is worth. Then count how many of those slices you need to reach your target percentage.",
+            "steps": [
+              "Take a pie cut into 5 equal slices - different numbers from your question.",
+              "Share 100% between the 5 slices: each slice is 20%.",
+              "You want 40%. Count up in 20s: 20%, 40% - that is 2 slices.",
+              "So 40% of a 5-slice pie is 2 slices."
+            ],
+            "visual": {
+              "type": "slices",
+              "title": "From percentage back to slices",
+              "caption": "Decide the percentage you want, then colour slices until you reach it.",
+              "slices": 5,
+              "filled": 2,
+              "minSlices": 2,
+              "maxSlices": 12,
+              "color": "#f2b73d",
+              "tip": "Cut into 5 and colour 2 to make 40%. Now cut into 4 slices and see how many you colour to land on 75%."
+            }
+          },
+          {
+            "heading": "Fun fact: the pie chart is a sliced pie",
+            "body": [
+              "A pie chart really is named after a pie, because it is a circle cut into slices that each show a percentage.",
+              "The very first pie chart was drawn back in 1801 by a Scottish writer called William Playfair - people have been slicing circles to show percentages for over 200 years."
+            ],
+            "note": "A pie chart is just a pie cut into percentage slices - an idea more than 200 years old."
+          },
+          {
+            "heading": "Slicing to a target in real life",
+            "body": "Working backwards from a percentage to slices happens whenever something is shared.",
+            "points": [
+              "Ordering a pizza 'half cheese, quarter veggie' is choosing slices by fraction.",
+              "A pie chart is built by deciding what slice each percentage needs.",
+              "Sharing a cake so everyone gets a fair percentage means counting slices.",
+              "Cutting a chocolate bar to give someone exactly 25% means finding the right pieces."
+            ]
+          },
+          {
+            "heading": "Now you teach it: write it and draw it",
+            "body": "Practise the backwards step on paper.",
+            "points": [
+              "Write the rule: 'Each slice is 100% divided by the number of slices.'",
+              "Draw a pie cut into 4, and colour enough slices to show 75%.",
+              "Work out how many slices of a 10-slice pie make 30%, and write it down.",
+              "Invent your own 'how many slices make this percentage?' puzzle for a friend."
+            ],
+            "note": "Drawing the pie and colouring up to your target shows the backwards step at a glance."
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "Your pie is cut into 4 equal slices, and you want 75% of it.",
+            "note": "Work out what one slice of four is worth, then count up in those steps until you reach 75%."
+          }
+        ]
+      }
+    },
+    {
+      "id": "q8c",
+      "code": "PCT-8C",
+      "question": "A party pizza is cut into 20 equal slices. 25% of the slices have pineapple on them. How many slices have pineapple?",
+      "options": ["4 slices", "5 slices", "6 slices", "10 slices"],
+      "correctAnswer": "5 slices",
+      "estimatedSeconds": 120,
+      "hint": {
+        "format": "lesson",
+        "title": "Finding a Percentage of the Slices",
+        "subtitle": "When you know the percentage and the total slices, you can find the exact number.",
+        "sections": [
+          {
+            "heading": "A percentage can count slices for you",
+            "body": [
+              "Here the pizza already has lots of slices, and a percentage tells you about some of them. Your job is to turn that percentage into an exact number of slices.",
+              "This is the same 'percentage of an amount' skill you have been building - the amount just happens to be slices."
+            ]
+          },
+          {
+            "heading": "Use the friendly fraction, or build from 10%",
+            "body": "If the percentage hides a famous fraction, use it. Otherwise build it up from 10%.",
+            "steps": [
+              "Take a pizza of 16 slices, and find 50% of them - different numbers from your question.",
+              "50% is the fraction one half.",
+              "Half of 16 is 8.",
+              "So 50% of 16 slices is 8 slices."
+            ],
+            "visual": {
+              "type": "percentOf",
+              "title": "Percentage of the slices",
+              "caption": "Set the percentage and the number of slices to see how many slices that is.",
+              "mode": "of",
+              "percent": 50,
+              "amount": 16,
+              "maxPercent": 100,
+              "maxAmount": 24,
+              "suffix": " slices",
+              "stepPercent": 5,
+              "tip": "Try 10% of 20 slices, then 50% - how many slices each time? Then see if you can find 25% of 20."
+            }
+          },
+          {
+            "heading": "Fun fact: there is a real Pizza Theorem",
+            "body": [
+              "Sharing a pizza fairly is such a good puzzle that mathematicians gave it a name: the Pizza Theorem.",
+              "It proves a clever way to cut a pizza with straight cuts through a single point so that two people still get exactly equal amounts - even when the cuts miss the middle."
+            ],
+            "note": "The Pizza Theorem is real maths - proof that sharing pizza fairly is a proper puzzle worth solving."
+          },
+          {
+            "heading": "Percentages of a group, everywhere",
+            "body": "Finding a percentage of a number of things is one of the most useful maths skills there is.",
+            "points": [
+              "'25% of the class walk to school' tells you how many children out of the whole class.",
+              "A recipe scaled up uses a percentage more of every ingredient.",
+              "Shops work out how many items in a delivery are damaged as a percentage.",
+              "A poll says what percentage of the people questioned chose each answer."
+            ]
+          },
+          {
+            "heading": "Now you teach it: write it and draw it",
+            "body": "Turn percentages into counts in your notebook.",
+            "points": [
+              "Write the rule: '25% is the fraction ___, so I divide by 4.'",
+              "Draw 20 small circles for slices, and ring 25% of them.",
+              "Find 50% and 10% of 20 slices, and write both answers.",
+              "Make up your own pizza-slice question and solve it."
+            ],
+            "note": "Drawing the slices and ringing a percentage of them turns an abstract sum into something you can see and count."
+          },
+          {
+            "heading": "Now back to your question",
+            "body": "Your party pizza has 20 equal slices, and 25% of them have pineapple.",
+            "note": "25% is the fraction one quarter. Split the 20 slices into four equal groups and take just one group."
           }
         ]
       }
@@ -826,6 +1319,34 @@
             ]
           },
           {
+            "heading": "Play with it: watch a discount work",
+            "body": "Slide the discount and the price. The answer is the sale price - what you really pay after the money comes off.",
+            "visual": {
+              "type": "percentOf",
+              "title": "Sale price calculator",
+              "caption": "Choose a discount and a price to see the new sale price.",
+              "mode": "discount",
+              "percent": 20,
+              "amount": 30,
+              "maxPercent": 90,
+              "maxAmount": 100,
+              "prefix": "GBP ",
+              "stepPercent": 5,
+              "tip": "Try 50% off - the sale price should be exactly half. Now try 10% off a price of your choice."
+            }
+          },
+          {
+            "heading": "Now you teach it: write it and draw it",
+            "body": "Be a sale detective in your notebook.",
+            "points": [
+              "Write the two steps of a discount in your own words.",
+              "Take 25% off a GBP 40 item, writing step 1 and step 2.",
+              "Draw a price tag with the old price crossed out and the new price below.",
+              "Test the trick: 50% off, then 50% off again - is it free? Write what you find."
+            ],
+            "note": "Always write step 2. Finding the discount is only half the job - you must subtract it to get the price you pay."
+          },
+          {
             "heading": "Now back to your question",
             "body": "Your question has a GBP 30 game with 20% off.",
             "note": "Step 1: find 20% of GBP 30. Step 2: take that amount away from GBP 30. Do not stop after step 1 - the question wants the price you would actually pay."
@@ -915,6 +1436,34 @@
               "Measure a plant, then work out how tall it would be if it grew 20% more.",
               "Ask a grown-up what something cost when they were ten, and marvel at the climb."
             ]
+          },
+          {
+            "heading": "Play with it: watch a price climb",
+            "body": "Slide the increase and the starting price. This time the answer grows, because the percentage is added on top.",
+            "visual": {
+              "type": "percentOf",
+              "title": "Price increase calculator",
+              "caption": "Choose how much the price goes up by and see the new, bigger price.",
+              "mode": "increase",
+              "percent": 25,
+              "amount": 40,
+              "maxPercent": 100,
+              "maxAmount": 100,
+              "prefix": "GBP ",
+              "stepPercent": 5,
+              "tip": "Increase a price by 100% and watch it double. Then try a gentle 10% rise."
+            }
+          },
+          {
+            "heading": "Now you teach it: write it and draw it",
+            "body": "Catch the climb on paper.",
+            "points": [
+              "Write how an increase is different from a discount in the very last step.",
+              "Increase a GBP 60 amount by 50%, writing each step.",
+              "Draw a short bar for the start and a taller bar for the new amount.",
+              "Ask a grown-up what something cost when they were ten and write down the climb."
+            ],
+            "note": "A discount subtracts and an increase adds - but both start by finding the percentage of the amount."
           },
           {
             "heading": "Now back to your question",
@@ -1014,6 +1563,28 @@
             ]
           },
           {
+            "heading": "Play with it: put a score out of 100",
+            "body": "A percentage is a score out of 100. Colour the grid to model a percentage, then picture a second one beside it.",
+            "visual": {
+              "type": "grid",
+              "title": "Every score on the same scale",
+              "caption": "Colour the grid to show a percentage out of 100 - the fair scale for comparing.",
+              "filled": 72,
+              "tip": "Make the grid show 72%, then 80%. Which is the taller, stronger score?"
+            }
+          },
+          {
+            "heading": "Now you teach it: write it and draw it",
+            "body": "Practise fair comparing with your own pen.",
+            "points": [
+              "Turn 9 out of 10 and 23 out of 25 into percentages and write them down.",
+              "Write which is higher, and how you know.",
+              "Draw two bars out of 100 side by side to compare two scores.",
+              "Explain why you cannot fairly compare 18 out of 25 with 15 out of 20 until both are percentages."
+            ],
+            "note": "Rebuilding both scores out of 100 first is the secret to comparing them fairly."
+          },
+          {
             "heading": "Now back to your question",
             "body": "Your question asks whose score was the higher percentage: Maya with 18 out of 25, or Sam with 15 out of 20.",
             "note": "Rebuild both scores as percentages out of 100. For each one, work out what its total must be multiplied by to reach 100, then multiply the score by the same amount. Then simply compare the two."
@@ -1101,6 +1672,34 @@
               "If 25% of a bag of marbles is 5 marbles, work out how many marbles fill the whole bag.",
               "Invent a reverse puzzle of your own and challenge a friend to crack it."
             ]
+          },
+          {
+            "heading": "Play with it: be a percentage detective",
+            "body": "Here you know the part, not the whole. Keep the percentage fixed and slide the whole amount until the answer matches your clue.",
+            "visual": {
+              "type": "percentOf",
+              "title": "Hunt for the hidden whole",
+              "caption": "Fix the percentage, then slide the amount until the answer matches the part you were given.",
+              "mode": "of",
+              "percent": 20,
+              "amount": 40,
+              "maxPercent": 100,
+              "maxAmount": 100,
+              "prefix": "GBP ",
+              "stepAmount": 1,
+              "tip": "Keep the percentage on 20% and slide the amount until the answer reads GBP 8. The amount you land on is the hidden whole!"
+            }
+          },
+          {
+            "heading": "Now you teach it: write it and draw it",
+            "body": "Crack a reverse puzzle on paper.",
+            "points": [
+              "If 10% of a number is 7, write the whole number.",
+              "If 25% of a bag of marbles is 5, work out and write the whole bag.",
+              "Draw the staircase: from your known percentage, step down to 10%, then up to 100%.",
+              "Invent your own reverse puzzle and challenge a friend to solve it."
+            ],
+            "note": "The answer is the WHOLE, so it must be bigger than the part - always check by taking your percentage of it."
           },
           {
             "heading": "Now back to your question",

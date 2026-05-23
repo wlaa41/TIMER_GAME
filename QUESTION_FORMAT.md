@@ -192,6 +192,104 @@ Two ways to provide a video. Use **one** of `src` or `embed`.
   `height`. Outer walls and a floor are added automatically.
 - The player can drag bodies with the mouse.
 
+### 3.7 `slices` — interactive 2D pie / slices
+
+```json
+{
+  "type": "slices",
+  "title": "A pizza cut into equal slices",
+  "caption": "Cut the circle and colour some slices.",
+  "slices": 8,
+  "filled": 4,
+  "minSlices": 2,
+  "maxSlices": 12,
+  "color": "#f2b73d",
+  "tip": "Drag the sliders and watch the percentage change."
+}
+```
+
+A clean SVG circle cut into equal slices. When `interactive` (default `true`),
+two sliders let the child change the number of slices and how many are coloured,
+with a live fraction + percentage readout (fractions auto-simplify).
+
+| Field                  | Type   | Notes                                              |
+|------------------------|--------|----------------------------------------------------|
+| `slices`               | number | Starting number of slices. Default 8.              |
+| `filled`               | number | Starting coloured slices (0–`slices`). Default half.|
+| `minSlices`/`maxSlices`| number | Slider range. Default 2–12.                        |
+| `color`                | string | Fill colour of the coloured slices.                |
+| `interactive`          | bool   | Show the sliders. Default `true`.                  |
+| `tip`                  | string | One-line prompt shown under the widget.            |
+
+### 3.8 `grid` — interactive 100-square percent grid
+
+A 10×10 grid of 100 squares with a slider for how many are coloured and a live
+percentage readout (it fills by rows, so a full row reads as 10%).
+
+| Field         | Type   | Notes                                                       |
+|---------------|--------|-------------------------------------------------------------|
+| `filled`      | number | Starting coloured squares (0–100). Default 30.              |
+| `showDecimal` | bool   | If `true`, the readout reads `N% = N/100 = 0.NN`. Default `false`. |
+| `color`, `interactive`, `tip` | | Same as `slices`.                           |
+
+### 3.9 `percentOf` — interactive "percentage of an amount"
+
+Two sliders (the percentage and the whole amount), a bar, and a live working
+line. `mode` reshapes the result.
+
+```json
+{
+  "type": "percentOf",
+  "mode": "discount",
+  "percent": 20,
+  "amount": 30,
+  "maxPercent": 90,
+  "maxAmount": 100,
+  "prefix": "GBP ",
+  "stepPercent": 5,
+  "tip": "Try 50% off."
+}
+```
+
+| Field                    | Type   | Notes                                                            |
+|--------------------------|--------|------------------------------------------------------------------|
+| `mode`                   | string | `of` (the part), `discount` (amount − part), `increase` (amount + part). Default `of`. |
+| `percent`/`amount`       | number | Starting values.                                                 |
+| `maxPercent`/`maxAmount` | number | Slider maxima. Default 100.                                      |
+| `stepPercent`/`stepAmount`| number| Slider steps. Default 1.                                         |
+| `prefix`/`suffix`        | string | Wraps the amount, e.g. `"GBP "` or `" slices"`.                  |
+| `color`, `interactive`, `tip` | | Same as `slices`.                                          |
+
+### 3.10 `volume3d` — interactive 3D volume
+
+A real Three.js box (or cylinder) the child can orbit, with sliders for its
+dimensions and a live volume readout. Unlike `threejs`, **no code runs from the
+JSON** — the shape is built from these safe parameters.
+
+```json
+{
+  "type": "volume3d",
+  "shape": "box",
+  "unit": "cm",
+  "length": 4, "width": 2, "height": 3,
+  "min": 1, "max": 8,
+  "tip": "Double one side and watch the volume."
+}
+```
+
+| Field        | Type   | Notes                                                          |
+|--------------|--------|----------------------------------------------------------------|
+| `shape`      | string | `box` (uses length/width/height) or `cylinder` (uses radius/height). Default `box`. |
+| `length`/`width`/`height`/`radius` | number | Starting dimensions.                     |
+| `min`/`max`  | number | Slider range applied to every dimension. Default 1–6.          |
+| `unit`       | string | Unit label, e.g. `"cm"`. Volume is shown as the unit cubed.    |
+| `color`, `interactive`, `tip` | | Same as `slices`.                             |
+
+> **Interactive media** (`slices`, `grid`, `percentOf`, `volume3d`) are safe —
+> they take parameters only and never run code from the JSON. They are designed
+> for **lessons**: set the starting values so the widget's default state does
+> **not** reveal the question's own answer; let the child reach it by playing.
+
 ---
 
 ## 4. Lesson hint (recommended)
@@ -266,6 +364,10 @@ talking to one curious explorer.
 - **Build knowledge across the pack.** Order questions easy → hard, and let a
   later lesson lean on an idea an earlier one taught.
 - Give most sections a visual, and mix the types so the lesson stays lively.
+- **Make it hands-on.** Give each lesson an interactive change-it-yourself
+  widget (`slices`, `grid`, `percentOf` or `volume3d`) so the child explores by
+  changing values, and a closing **"Now you teach it: write it and draw it"**
+  section that asks them to write the idea in their own words and draw it.
 
 ---
 

@@ -28,22 +28,21 @@ Live site: <https://aiedu41.netlify.app/>
 ## Project Structure
 
 ```text
-TIMER_GAME/
+web_game/
 ├── app.js
 ├── index.html
 ├── style.css
 ├── favicon.svg
 ├── site.webmanifest
 ├── README.md
-├── QUESTION_FORMAT.md
-├── assets/
-│   ├── balance-scale.svg
-│   ├── reading-window.svg
-│   └── shape-gallery.svg
+├── QUESTION_FORMAT.md       # question-pack JSON spec
+├── ARCHITECTURE.md          # full architecture & porting guide
+├── assets/                  # SVGs used by `image` media
 └── questions/
-    ├── 1.json
-    ├── 2.json
-    └── percentage_5apr.json
+    ├── 1.json                   # Maths, Shapes, and Motion
+    ├── percentages.json         # Percentage Power (interactive)
+    ├── 2.json                   # Word Explorer and Shape Studio
+    └── percentage_5apr.json     # retired / unused
 ```
 
 ## Run Locally
@@ -59,6 +58,13 @@ Then open:
 ```text
 http://localhost:8000
 ```
+
+## Architecture
+
+For a full description of how the game is built — modules, state, the media
+renderer system, subsystems, and a **guide to changing the technology** (e.g. a
+framework rewrite or swapping the 3D/physics engine) — see
+[ARCHITECTURE.md](ARCHITECTURE.md).
 
 ## Question JSON Format
 

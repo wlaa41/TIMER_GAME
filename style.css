@@ -836,6 +836,157 @@ select.time-select {
     font-weight: 500;
 }
 
+/* ===== Slices (2D pie) ==================================================== */
+.slices-card {
+    margin: 0;
+}
+
+.slices-stage {
+    display: grid;
+    place-items: center;
+    margin-top: 14px;
+}
+
+.slices-svg {
+    width: min(240px, 78%);
+    height: auto;
+}
+
+.slices-crust {
+    fill: var(--surface-3);
+}
+
+.slice-piece {
+    stroke: var(--surface-2);
+    stroke-width: 3;
+    stroke-linejoin: round;
+}
+
+.slice-empty {
+    fill: var(--surface-3);
+}
+
+.slice-filled {
+    fill: var(--accent);
+}
+
+.slices-readout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    margin-top: 12px;
+}
+
+.slices-pct {
+    font-size: 2.1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.slices-detail {
+    color: var(--text-muted);
+    font-size: 0.96rem;
+    font-weight: 600;
+}
+
+.slices-controls {
+    display: grid;
+    gap: 14px;
+    margin-top: 18px;
+}
+
+.slices-control {
+    display: grid;
+    gap: 7px;
+}
+
+.slices-control-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.slices-control-name {
+    color: var(--text-muted);
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.slices-control-value {
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.slices-range {
+    width: 100%;
+    height: 28px;
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
+.slices-tip {
+    margin: 14px 0 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.grid-svg {
+    width: min(240px, 80%);
+    height: auto;
+}
+
+.grid-cell {
+    stroke: var(--surface-2);
+    stroke-width: 1.5;
+}
+
+.grid-empty {
+    fill: var(--surface-3);
+}
+
+.grid-filled {
+    fill: var(--accent);
+}
+
+.percentof-bar {
+    height: 26px;
+    margin-top: 16px;
+    overflow: hidden;
+    border-radius: 8px;
+    background: var(--surface-3);
+}
+
+.percentof-fill {
+    height: 100%;
+    width: 0;
+    border-radius: 8px;
+    background: var(--accent);
+    transition: width 120ms ease;
+}
+
+.volume-stage {
+    height: 240px;
+    margin-top: 6px;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    background: var(--surface-3);
+}
+
+.volume-stage canvas {
+    display: block;
+    cursor: grab;
+}
+
+.volume-stage canvas:active {
+    cursor: grabbing;
+}
+
 /* ===== Answer choices ===================================================== */
 #input-area {
     margin-top: 22px;
