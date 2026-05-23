@@ -209,7 +209,9 @@ Renderers are registered in a single map keyed by `media.type`:
 ```js
 const MEDIA_RENDERERS = { illustration, chart, image, photo, video,
                           slices, grid, percentOf, percentLab, percentPie,
-                          percentCompare, volume3d, threejs, matterjs };
+                          percentCompare, varBox, functionMachine, varExpression,
+                          varBalance, varCounter, varTrick, volume3d,
+                          threejs, matterjs };
 ```
 
 `renderMedia(container, media, group)` looks up the function, calls it, and if a
@@ -230,6 +232,7 @@ render a visible "Unsupported media type" message rather than throwing.
 | `percentLab` | none (SVG) | no\* | no | Percentage Desk: cut a bar into N parts, shade k; fraction/simplified/percent/decimal + same-length equivalence bar + "fraction of a number". |
 | `percentPie` | none (SVG) | no\* | no | Circle twin of `percentLab` (pizza slices); editable "group every N" lines. |
 | `percentCompare` | none (SVG) | no\* | no | Two pizzas side by side (reuses `percentPie` via an `onChange` hook); "Same value!" badge + add/subtract; controls collapse to an "Adjust" panel on phones. |
+| `varBox`, `functionMachine`, `varExpression`, `varBalance`, `varCounter`, `varTrick` | none (DOM/SVG) | no\* | no | The Variables playground: mystery box, function machine (+ guess-my-rule), expression builder, pan balance (solve x), changing counter (savings/score/battery), and the "think of a number" trick. |
 | `volume3d` | Three.js | **yes** | no | Interactive 3D box/cylinder; dimension sliders; live volume; unit-cube lattice. |
 | `threejs` | Three.js + OrbitControls | **yes** | **YES** | Runs `payload.setup`/`update` via `new Function`. |
 | `matterjs` | Matter.js | **yes** | **YES** | Runs `payload.setup` via `new Function`. |

@@ -364,12 +364,41 @@ shows just the two pizzas and their numbers.
 | `leftColor` / `rightColor` | string | Fill colour of each pizza.                  |
 | `maxParts` | number | Max slices per pizza. Default 100.                          |
 
+### 3.14 Variable widgets ("what's in the box?")
+
+Six parameterised widgets for introducing variables and algebra. All are pure
+DOM/SVG and run no code from the JSON.
+
+- **`varBox`** — a named box (`x`) you fill and peek into; set `boxes` > 1 to show
+  several identical boxes that share one value (same name = same value).
+  Fields: `name`, `value`, `min`, `max`, `boxes`, `open`, `color`.
+- **`functionMachine`** — a number goes in, the rule `× multiply + add` transforms
+  it, the output comes out, with an in/out table. Set `hideRule: true` for a
+  "guess my rule" challenge. Fields: `multiply`, `add`, `input`, `hideRule`.
+- **`varExpression`** — shows `coef·x + const` as `coef` boxes (each holding `x`
+  objects) plus `const` loose ones; slide `x` to see the total.
+  Fields: `name`, `coef`, `const`, `value`, `max`, `color`.
+- **`varBalance`** — model `coef·x + add = equals` as a pan balance; slide what's
+  in the box until the beam is level. Fields: `name`, `coef`, `add`, `equals`,
+  `start`, `max`, `color`.
+- **`varCounter`** — a variable that changes over time, `x = start + step·n`, with
+  `skin` `"savings"` / `"score"` / `"battery"`. Fields: `name`, `start`, `step`,
+  `unit`, `steps`, `max`, `skin`.
+- **`varTrick`** — the "think of a number" trick; steps through both the child's
+  number and the algebra (`x → 2x → 2x+10 → x+5 → 5`) so they see the `x` cancel.
+  Field: `secret`.
+
+```json
+{ "type": "functionMachine", "multiply": 3, "add": 1, "input": 4 }
+```
+
 > **Interactive media** (`slices`, `grid`, `percentOf`, `percentLab`,
-> `percentPie`, `percentCompare`, `volume3d`) are safe — they take parameters
-> only and never run code from the JSON. They are designed for **lessons**: set
-> the starting values so the widget's default state does **not** reveal the
-> question's own answer; let the child reach it by playing. These same toys also
-> appear on the per-pack playground shown after Start.
+> `percentPie`, `percentCompare`, `volume3d`, `varBox`, `functionMachine`,
+> `varExpression`, `varBalance`, `varCounter`, `varTrick`) are safe — they take
+> parameters only and never run code from the JSON. They are designed for
+> **lessons**: set the starting values so the widget's default state does **not**
+> reveal the question's own answer; let the child reach it by playing. These same
+> toys also appear on the per-pack playground shown after Start.
 
 ---
 

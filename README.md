@@ -41,6 +41,7 @@ web_game/
 └── questions/
     ├── 1.json                   # Maths, Shapes, and Motion
     ├── percentages.json         # Percentage Power (interactive)
+    ├── variables.json           # Variable Quest (interactive algebra)
     ├── 2.json                   # Word Explorer and Shape Studio
     └── percentage_5apr.json     # retired / unused
 ```

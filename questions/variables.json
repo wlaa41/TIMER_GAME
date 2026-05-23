@@ -1,0 +1,328 @@
+{
+  "quizTitle": "Variable Quest: What's in the Box?",
+  "description": "A 6-question introduction to variables and algebra for explorers around age 11-13. It builds the idea that a variable is a named box holding a number you can change, then climbs through expressions and substitution, building any expression, solving an equation by keeping a balance level, variables that change over time, and a 'think of a number' magic trick that shows why algebra works. Every question carries a full 'Let's Learn' mini-lesson with a hands-on interactive widget and a 'now you teach it' write-and-draw prompt.",
+  "questions": [
+    {
+      "id": "v1",
+      "code": "VAR-01",
+      "question": "A variable is a box that holds a number. The box x is holding 6 right now. What is x + 4?",
+      "options": ["10", "6", "24", "46"],
+      "correctAnswer": "10",
+      "estimatedSeconds": 50,
+      "media": {
+        "type": "varBox",
+        "title": "Peek in the box",
+        "caption": "x is holding 6. So x + 4 means 6 + 4.",
+        "name": "x",
+        "value": 6,
+        "open": true,
+        "max": 12
+      },
+      "hint": {
+        "format": "lesson",
+        "title": "What Is a Variable?",
+        "subtitle": "The big idea: a variable is a named box that holds a number.",
+        "sections": [
+          {
+            "heading": "A letter that stands for a number",
+            "body": [
+              "In algebra a letter like x is not a mystery code - it is just a box with a number hiding inside. The letter is the box's name, and the number it holds is its value.",
+              "Once you know what is in the box, you can use it. If the box x holds 4, then 'x + 5' simply means '4 + 5', which is 9. The letter saved us from writing the number until we were ready."
+            ],
+            "visual": {
+              "type": "varBox",
+              "title": "Put a number in the box",
+              "caption": "Change what x holds and peek inside. Whatever the box holds, that is the value of x.",
+              "name": "x",
+              "value": 4,
+              "max": 12,
+              "tip": "Set x to 4, then work out x + 5 in your head. Peek to check you agree the box holds 4."
+            }
+          },
+          {
+            "heading": "Why bother with a letter?",
+            "body": "A variable lets us talk about a number before we know it, or one that can change. 'You are x years old' works for everybody - we just put a different number in the box for each person.",
+            "points": [
+              "Your age is a variable: this year it is one number, next year it is one more.",
+              "A game score is a variable: it changes every time you score.",
+              "Money in your pocket is a variable: it goes up and down through the day."
+            ]
+          },
+          {
+            "heading": "Now you teach it: write it and draw it",
+            "body": "Lock the idea in by explaining it yourself.",
+            "points": [
+              "Write one sentence: 'A variable is ...' in your own words.",
+              "Draw a box, label it y, and draw 7 dots inside. Then write 'y = 7' next to it.",
+              "Tell someone what 'y + 2' would be when your box holds 7."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "v2",
+      "code": "VAR-02",
+      "question": "Every x is the SAME box, so it holds the same number everywhere. If x = 5, what is x + x + x?",
+      "options": ["15", "8", "53", "555"],
+      "correctAnswer": "15",
+      "estimatedSeconds": 55,
+      "media": {
+        "type": "varBox",
+        "title": "Three boxes, one value",
+        "caption": "All three x boxes hold the same number, because x is one box.",
+        "name": "x",
+        "value": 5,
+        "boxes": 3,
+        "open": true,
+        "max": 12
+      },
+      "hint": {
+        "format": "lesson",
+        "title": "Same Name, Same Number",
+        "subtitle": "Why x + x + x is the same as 3x.",
+        "sections": [
+          {
+            "heading": "One box, used three times",
+            "body": [
+              "If you see x more than once in the same problem, every x is the identical box holding the identical number. Change it in one place and it changes in all of them.",
+              "So x + x + x is three copies of the same number. We write that short as 3x, which means '3 lots of x'. If x = 2, then x + x + x = 2 + 2 + 2 = 6, and 3x = 3 x 2 = 6 too."
+            ],
+            "visual": {
+              "type": "varExpression",
+              "title": "Build 3 boxes of x",
+              "caption": "Set 3 boxes and 0 loose ones. Slide x and watch all three boxes fill the same.",
+              "coef": 3,
+              "const": 0,
+              "value": 2,
+              "max": 10,
+              "tip": "Slide x. Notice every box always holds the same amount - that is what 'same variable' means."
+            }
+          },
+          {
+            "heading": "A real shorthand",
+            "body": "Writing 3x instead of x + x + x is like writing 'three coffees' instead of 'a coffee and a coffee and a coffee'. Mathematicians are happily lazy - the short form means exactly the same thing."
+          },
+          {
+            "heading": "Now you teach it: write it and draw it",
+            "body": "Make the idea your own.",
+            "points": [
+              "Draw three identical boxes labelled n, each holding 4 dots. Write 'n + n + n = 3n = 12'.",
+              "Write in words why all three boxes must hold the same number.",
+              "Try x = 10 in your head: what is x + x + x, and what is 3x?"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "v3",
+      "code": "VAR-03",
+      "question": "A function machine has the rule: multiply by 3, then add 1. You drop in the number 4. What comes out?",
+      "options": ["13", "12", "7", "15"],
+      "correctAnswer": "13",
+      "estimatedSeconds": 60,
+      "media": {
+        "type": "functionMachine",
+        "title": "Run the machine",
+        "caption": "Drop a number in, the rule changes it, the answer drops out.",
+        "multiply": 3,
+        "add": 1,
+        "input": 4
+      },
+      "hint": {
+        "format": "lesson",
+        "title": "The Function Machine",
+        "subtitle": "A rule that turns an input into an output.",
+        "sections": [
+          {
+            "heading": "Numbers go in, numbers come out",
+            "body": [
+              "A function machine takes a number in, does the same rule to it every time, and sends a new number out. The input is a variable - you can put in anything you like.",
+              "If the rule is 'multiply by 3, then add 1', the machine is really doing 3 x (your number) + 1. Put in 2 and you get 7. Put in 5 and you get 16. The rule never changes - only the number you feed it."
+            ],
+            "visual": {
+              "type": "functionMachine",
+              "title": "Set the rule, feed it numbers",
+              "caption": "Set the rule, type a number, and press Run. Watch the in/out table fill up.",
+              "multiply": 3,
+              "add": 1,
+              "input": 2,
+              "tip": "Feed it 1, 2 then 3 and watch the outputs. Can you predict the next one before pressing Run?"
+            }
+          },
+          {
+            "heading": "Machines are everywhere",
+            "body": "A vending machine takes coins in and gives a snack out. A 'double your money' deal is a machine with the rule x times 2. A taxi fare is a machine: a fixed charge plus a rule for each mile.",
+            "note": "Detective mode: in 'Guess my rule', you only see the inputs and outputs. Spotting the hidden rule is exactly what scientists do with data."
+          },
+          {
+            "heading": "Now you teach it: write it and draw it",
+            "body": "Become the machine inventor.",
+            "points": [
+              "Draw a machine box. Write your own rule on it, like 'x 2 + 5'.",
+              "Make an in/out table for the inputs 1, 2, 3 using your rule.",
+              "Challenge someone: give them three in/out pairs and see if they can guess your rule."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "v4",
+      "code": "VAR-04",
+      "question": "An equation is a balance that must stay level. Solve x + 3 = 8. What is x?",
+      "options": ["5", "11", "3", "8"],
+      "correctAnswer": "5",
+      "estimatedSeconds": 65,
+      "media": {
+        "type": "varBalance",
+        "title": "Balance the scale",
+        "caption": "Slide what is in the box until both pans weigh the same.",
+        "coef": 1,
+        "add": 3,
+        "equals": 8
+      },
+      "hint": {
+        "format": "lesson",
+        "title": "Solving by Balancing",
+        "subtitle": "Keep both sides equal and the unknown reveals itself.",
+        "sections": [
+          {
+            "heading": "An equals sign is a balance point",
+            "body": [
+              "The equals sign in x + 3 = 8 means the two sides weigh exactly the same. The box x is a hidden weight, and we want to know how heavy it is.",
+              "The golden rule: whatever you do to one side, do to the other, and it stays balanced. Take 3 away from both sides of x + 3 = 8 and you are left with x = 5. The scale never tipped, so the answer is safe."
+            ],
+            "visual": {
+              "type": "varBalance",
+              "title": "Try a different one",
+              "caption": "Here is x + 2 = 6. Slide the box until it balances to find x.",
+              "coef": 1,
+              "add": 2,
+              "equals": 6,
+              "tip": "Slide slowly. When the beam is level, the number in the box is your answer."
+            }
+          },
+          {
+            "heading": "Where balancing shows up",
+            "body": "Sharing a bill fairly, balancing a seesaw, mixing a recipe so both batches match - any time two things must come out equal, you are really solving an equation."
+          },
+          {
+            "heading": "Now you teach it: write it and draw it",
+            "body": "Show the method on paper.",
+            "points": [
+              "Draw a balance. Put a box and 2 weights on the left, 6 weights on the right.",
+              "Cross off 2 weights from BOTH sides and write what is left.",
+              "Write the answer: 'the box weighs ___', then check it by putting it back in x + 2 = 6."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "v5",
+      "code": "VAR-05",
+      "question": "You have $5 and save $2 every day. Using the variable d for days, how much will you have after 4 days?",
+      "options": ["$13", "$8", "$20", "$7"],
+      "correctAnswer": "$13",
+      "estimatedSeconds": 60,
+      "media": {
+        "type": "varCounter",
+        "title": "Watch your savings grow",
+        "caption": "Start at $5 and add $2 each day. Step to day 4.",
+        "skin": "savings",
+        "start": 5,
+        "step": 2,
+        "unit": "day",
+        "steps": 10
+      },
+      "hint": {
+        "format": "lesson",
+        "title": "Variables That Change",
+        "subtitle": "A box whose value grows step by step.",
+        "sections": [
+          {
+            "heading": "A variable can change over time",
+            "body": [
+              "Some variables hold still, and some change. Your savings change every day: they start somewhere and grow by a fixed amount each time.",
+              "We can capture the whole pattern in one rule: total = start + (amount each day) x (number of days). With $5 to start and $3 a day, after d days you have 5 + 3d. That single rule works for day 1, day 2, or day 100."
+            ],
+            "visual": {
+              "type": "varCounter",
+              "title": "Step through the days",
+              "caption": "This jar starts at $3 and adds $3 a day. Step forward and read the rule as it updates.",
+              "skin": "savings",
+              "start": 3,
+              "step": 3,
+              "unit": "day",
+              "steps": 10,
+              "tip": "Notice the rule x = start + step x days. Predict day 5 before you slide to it."
+            }
+          },
+          {
+            "heading": "Changing variables are everywhere",
+            "body": "A game score climbs as you play, a phone battery falls each hour, your height grows each year. Each is a variable with a starting value and a rule for how it changes."
+          },
+          {
+            "heading": "Now you teach it: write it and draw it",
+            "body": "Capture your own pattern.",
+            "points": [
+              "Write the rule for $5 start and $2 a day: 'total = 5 + 2d'.",
+              "Make a small table: day 1, 2, 3, 4 and the total for each.",
+              "Invent your own: pick a start and a daily amount, and write its rule."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "v6",
+      "code": "VAR-06",
+      "question": "Think of any number. Double it, add 10, halve the result, then subtract your starting number. What do you ALWAYS get?",
+      "options": ["5", "10", "Your number", "0"],
+      "correctAnswer": "5",
+      "estimatedSeconds": 70,
+      "media": {
+        "type": "varTrick",
+        "title": "The mind-reading trick",
+        "caption": "Pick a secret number and step through - the answer is always the same.",
+        "secret": 7
+      },
+      "hint": {
+        "format": "lesson",
+        "title": "Why the Magic Always Works",
+        "subtitle": "Let x be any number and watch it cancel out.",
+        "sections": [
+          {
+            "heading": "Let x be your secret number",
+            "body": [
+              "The trick feels like mind-reading, but it is pure algebra. Instead of testing every number, we let one box, x, stand for ALL of them at once.",
+              "Follow the steps in algebra: start with x, double it to get 2x, add 10 to get 2x + 10, halve it to get x + 5, then subtract your number x. The x's cancel and you are left with just 5 - no matter what you started with."
+            ],
+            "visual": {
+              "type": "varTrick",
+              "title": "Run both tracks together",
+              "caption": "Step through and watch your number and the secret x side by side. See where the x disappears.",
+              "secret": 4,
+              "tip": "Try a few different secret numbers. The 'your number' column changes every time, but the last row is always 5."
+            }
+          },
+          {
+            "heading": "This is the superpower of variables",
+            "body": "One letter let us prove something about every number in the universe in four short lines. That is why algebra is so powerful: a variable says 'this works for anything'."
+          },
+          {
+            "heading": "Now you teach it: write it and draw it",
+            "body": "Perform it, then prove it.",
+            "points": [
+              "Write the four steps next to the algebra: x, 2x, 2x + 10, x + 5, then 5.",
+              "Circle the moment the x cancels when you subtract your number.",
+              "Perform the trick on a family member, then show them why it works."
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

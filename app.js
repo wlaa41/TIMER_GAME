@@ -2912,6 +2912,18 @@ const PLAYGROUND_LIBRARY = {
             { type: "percentOf", title: "Percent of a Number", caption: "Slide the percentage and the amount to find the part.", percent: 25, amount: 40 },
             { type: "percentCompare", title: "Compare Two", caption: "Set each pizza, then watch for the green 'Same value!' - or add and subtract them.", left: { parts: 8, shaded: 2 }, right: { parts: 4, shaded: 1 } }
         ]
+    },
+    variables: {
+        title: "The Variables Playground",
+        intro: "A variable is just a named box that holds a number you can change. Play with these to see what is in the box, how it changes, and a little bit of algebra magic.",
+        sims: [
+            { type: "varBox", title: "The Mystery Box", caption: "x is a box that holds a number. Peek inside, and change what it holds - every x box is the same box.", name: "x", value: 5, boxes: 3, max: 12 },
+            { type: "functionMachine", title: "The Function Machine", caption: "Put a number in, a rule changes it, out comes the answer. Try to predict the output!", multiply: 2, add: 1, input: 3 },
+            { type: "varExpression", title: "Box + Stuff", caption: "2x + 3 means two boxes of x plus 3 loose ones. Slide x and watch the total.", coef: 2, const: 3, value: 4, max: 10 },
+            { type: "varBalance", title: "The Balance Scale", caption: "Slide what is in the box until the scale is level - that solves the equation.", coef: 1, add: 3, equals: 8 },
+            { type: "varCounter", title: "The Savings Jar", caption: "A variable can change over time. Step through the days and watch it grow.", skin: "savings", start: 5, step: 2, unit: "day", steps: 10 },
+            { type: "varTrick", title: "The Mind-Reading Trick", caption: "Think of any number, follow the steps - the answer is always 5. Find out why!", secret: 7 }
+        ]
     }
 };
 
@@ -2920,6 +2932,7 @@ const PLAYGROUND_LIBRARY = {
 function getPlaygroundForPack() {
     const title = (getQuizTitle() || "").toLowerCase();
     if (title.includes("percent")) return PLAYGROUND_LIBRARY.percentage;
+    if (title.includes("variable") || title.includes("algebra")) return PLAYGROUND_LIBRARY.variables;
     return null;
 }
 
