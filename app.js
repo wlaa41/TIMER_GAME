@@ -1752,7 +1752,7 @@ function renderVarBalance(container, media) {
 
     card.appendChild(makeEl("div", "balance-eq", `${lhs} = ${c}`));
 
-    const W = 320, H = 200, pivotX = W / 2, pivotY = 66, half = 116, panDrop = 50;
+    const W = 360, H = 200, pivotX = W / 2, pivotY = 66, half = 120, panDrop = 50;
     const svg = document.createElementNS(SVG_NS, "svg");
     svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
     svg.setAttribute("class", "balance-svg");
@@ -1780,34 +1780,43 @@ function renderVarBalance(container, media) {
 
     const drawPan = (pan, px, boxes, weights) => {
         clearElement(pan);
+        const platformY = pivotY - 5 + panDrop;
         [-30, 30].forEach((dx) => {
             const l = document.createElementNS(SVG_NS, "line");
             l.setAttribute("x1", px); l.setAttribute("y1", pivotY - 2);
-            l.setAttribute("x2", px + dx); l.setAttribute("y2", pivotY - 5 + panDrop);
+            l.setAttribute("x2", px + dx); l.setAttribute("y2", platformY);
             l.setAttribute("class", "balance-string");
             pan.appendChild(l);
         });
         const plat = document.createElementNS(SVG_NS, "rect");
-        plat.setAttribute("x", px - 36); plat.setAttribute("y", pivotY - 5 + panDrop);
-        plat.setAttribute("width", 72); plat.setAttribute("height", 8); plat.setAttribute("rx", 4);
+        plat.setAttribute("x", px - 38); plat.setAttribute("y", platformY);
+        plat.setAttribute("width", 76); plat.setAttribute("height", 8); plat.setAttribute("rx", 4);
         plat.setAttribute("class", "balance-pan");
         pan.appendChild(plat);
-        let slot = 0;
-        const baseY = pivotY - 5 + panDrop - 16;
-        for (let i = 0; i < boxes; i++) {
-            const r = document.createElementNS(SVG_NS, "rect");
-            r.setAttribute("x", px - 32 + slot * 17); r.setAttribute("y", baseY);
-            r.setAttribute("width", 15); r.setAttribute("height", 15); r.setAttribute("rx", 3);
-            r.setAttribute("fill", color); r.setAttribute("class", "balance-xbox");
-            pan.appendChild(r);
-            slot++;
-        }
-        for (let i = 0; i < weights; i++) {
-            const dot = document.createElementNS(SVG_NS, "circle");
-            dot.setAttribute("cx", px - 32 + slot * 17 + 7); dot.setAttribute("cy", baseY + 8);
-            dot.setAttribute("r", 6); dot.setAttribute("class", "balance-weight");
-            pan.appendChild(dot);
-            slot++;
+        // lay items in centred rows (max 4 per row) so a full pan never spills
+        // off the side
+        const total = boxes + weights;
+        const perRow = 4;
+        const rows = Math.max(1, Math.ceil(total / perRow));
+        const step = 16;
+        for (let i = 0; i < total; i++) {
+            const row = Math.floor(i / perRow);
+            const colCount = (row < rows - 1) ? perRow : (total - perRow * (rows - 1));
+            const col = i - row * perRow;
+            const cx = px - (colCount * step) / 2 + col * step + step / 2;
+            const cy = platformY - 3 - (rows - row) * 15;
+            if (i < boxes) {
+                const r = document.createElementNS(SVG_NS, "rect");
+                r.setAttribute("x", cx - 7); r.setAttribute("y", cy);
+                r.setAttribute("width", 14); r.setAttribute("height", 14); r.setAttribute("rx", 3);
+                r.setAttribute("fill", color); r.setAttribute("class", "balance-xbox");
+                pan.appendChild(r);
+            } else {
+                const dot = document.createElementNS(SVG_NS, "circle");
+                dot.setAttribute("cx", cx); dot.setAttribute("cy", cy + 7);
+                dot.setAttribute("r", 6); dot.setAttribute("class", "balance-weight");
+                pan.appendChild(dot);
+            }
         }
     };
 
