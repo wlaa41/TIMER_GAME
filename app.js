@@ -1789,7 +1789,7 @@ function renderVarBalance(container, media) {
             pan.appendChild(l);
         });
         const dish = document.createElementNS(SVG_NS, "path");
-        dish.setAttribute("d", `M ${px - 44} ${platformY} Q ${px} ${platformY + 18} ${px + 44} ${platformY}`);
+        dish.setAttribute("d", `M ${px - 42} ${platformY} Q ${px} ${platformY + 9} ${px + 42} ${platformY}`);
         dish.setAttribute("class", "balance-pan");
         pan.appendChild(dish);
         // lay items in centred rows (max 4 per row) so a full pan never spills
@@ -1803,7 +1803,7 @@ function renderVarBalance(container, media) {
             const colCount = (row < rows - 1) ? perRow : (total - perRow * (rows - 1));
             const col = i - row * perRow;
             const cx = px - (colCount * step) / 2 + col * step + step / 2;
-            const cy = platformY - 3 - (rows - row) * 15;
+            const cy = platformY - 16 - ((rows - 1) - row) * 15;
             if (i < boxes) {
                 const r = document.createElementNS(SVG_NS, "rect");
                 r.setAttribute("x", cx - 7); r.setAttribute("y", cy);
