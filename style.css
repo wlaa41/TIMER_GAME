@@ -1230,10 +1230,6 @@ select.time-select {
     fill: var(--accent);
 }
 
-.balance-svg g {
-    transition: transform 220ms ease;
-}
-
 .balance-pan {
     fill: var(--text-muted);
 }

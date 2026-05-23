@@ -1760,16 +1760,15 @@ function renderVarBalance(container, media) {
     ful.setAttribute("d", `M ${pivotX} ${pivotY} L ${pivotX - 26} ${H - 8} L ${pivotX + 26} ${H - 8} Z`);
     ful.setAttribute("class", "balance-fulcrum");
     svg.appendChild(ful);
-    const beamG = document.createElementNS(SVG_NS, "g");
-    svg.appendChild(beamG);
     const beam = document.createElementNS(SVG_NS, "rect");
     beam.setAttribute("x", pivotX - half); beam.setAttribute("y", pivotY - 5);
     beam.setAttribute("width", half * 2); beam.setAttribute("height", 10);
     beam.setAttribute("rx", 5); beam.setAttribute("class", "balance-beam");
-    beamG.appendChild(beam);
+    svg.appendChild(beam);
+    // pans are NOT rotated with the beam - they hang level from the beam ends
     const leftPan = document.createElementNS(SVG_NS, "g");
     const rightPan = document.createElementNS(SVG_NS, "g");
-    beamG.appendChild(leftPan); beamG.appendChild(rightPan);
+    svg.appendChild(leftPan); svg.appendChild(rightPan);
     card.appendChild(svg);
 
     const readout = makeEl("div", "slices-readout");
@@ -1778,27 +1777,26 @@ function renderVarBalance(container, media) {
     readout.appendChild(big); readout.appendChild(detail);
     card.appendChild(readout);
 
-    const drawPan = (pan, px, boxes, weights) => {
+    // Draw a LEVEL pan hanging from a beam end at (ax, ay): two strings down to a
+    // horizontal tray, with the bowl and items in one group anchored at the tray
+    // centre (so they can never drift apart).
+    const drawPan = (pan, ax, ay, boxes, weights) => {
         clearElement(pan);
-        const platformY = pivotY - 5 + panDrop;
-        // strings from the beam down to the pan rim
+        const trayY = ay + panDrop;
         [-40, 40].forEach((dx) => {
             const l = document.createElementNS(SVG_NS, "line");
-            l.setAttribute("x1", px); l.setAttribute("y1", pivotY - 2);
-            l.setAttribute("x2", px + dx); l.setAttribute("y2", platformY);
+            l.setAttribute("x1", ax.toFixed(1)); l.setAttribute("y1", ay.toFixed(1));
+            l.setAttribute("x2", (ax + dx).toFixed(1)); l.setAttribute("y2", trayY.toFixed(1));
             l.setAttribute("class", "balance-string");
             pan.appendChild(l);
         });
-        // The bowl AND the items live in one group anchored at the pan centre, so
-        // they can never drift apart - everything is drawn relative to (0, 0).
         const tray = document.createElementNS(SVG_NS, "g");
-        tray.setAttribute("transform", `translate(${px} ${platformY})`);
+        tray.setAttribute("transform", `translate(${ax.toFixed(1)} ${trayY.toFixed(1)})`);
         pan.appendChild(tray);
         const dish = document.createElementNS(SVG_NS, "path");
         dish.setAttribute("d", "M -42 0 Q 0 14 42 0 Q 0 7 -42 0 Z");
         dish.setAttribute("class", "balance-pan");
         tray.appendChild(dish);
-        // lay items in centred rows (max 4 per row) so a full pan never spills off
         const total = boxes + weights;
         const perRow = 4;
         const rows = Math.max(1, Math.ceil(total / perRow));
@@ -1826,10 +1824,12 @@ function renderVarBalance(container, media) {
 
     const draw = () => {
         const left = a * x + b, right = c, diff = left - right;
-        const angle = Math.max(-12, Math.min(12, diff * 3));
-        beamG.setAttribute("transform", `rotate(${angle} ${pivotX} ${pivotY})`);
-        drawPan(leftPan, pivotX - half, a, Math.max(0, b));
-        drawPan(rightPan, pivotX + half, 0, Math.max(0, c));
+        // the heavier side sinks: tilt so the bigger total goes DOWN
+        const deg = Math.max(-12, Math.min(12, -diff * 3));
+        const t = deg * Math.PI / 180, cosT = Math.cos(t), sinT = Math.sin(t);
+        beam.setAttribute("transform", `rotate(${deg} ${pivotX} ${pivotY})`);
+        drawPan(leftPan, pivotX - half * cosT, pivotY - half * sinT, a, Math.max(0, b));
+        drawPan(rightPan, pivotX + half * cosT, pivotY + half * sinT, 0, Math.max(0, c));
         if (diff === 0) {
             big.textContent = `Balanced!  ${name} = ${x}`;
             big.style.color = "#16a34a";
