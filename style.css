@@ -1021,6 +1021,10 @@ select.time-select {
 }
 
 @media (max-width: 700px) {
+    .compare-grid {
+        grid-template-columns: 1fr;
+    }
+
     .plab-adjust {
         display: inline-flex;
         align-items: center;
@@ -1115,6 +1119,18 @@ select.time-select {
 .slices-control-value {
     font-size: 1.05rem;
     font-weight: 700;
+}
+
+.slices-control-num {
+    width: 58px;
+    padding: 3px 6px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text);
+    background: var(--surface-2);
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
 }
 
 .slices-range {

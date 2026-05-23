@@ -1235,35 +1235,43 @@ function renderPercentPie(container, media) {
 
     if (interactive) {
         const controls = makeEl("div", "slices-controls");
-        const makeSlider = (labelText, min, max, value) => {
+        // A slider paired with a typeable number box, kept in sync. While the
+        // child is typing in the box we leave it alone (only the slider tracks);
+        // on blur the box snaps to the clamped value.
+        const makeSlider = (labelText, min, max, value, clamp, onChange) => {
             const wrap = makeEl("label", "slices-control");
             const head = makeEl("span", "slices-control-head");
             head.appendChild(makeEl("span", "slices-control-name", labelText));
-            const valueEl = makeEl("span", "slices-control-value", String(value));
-            head.appendChild(valueEl);
-            const input = document.createElement("input");
-            input.type = "range";
-            input.min = String(min); input.max = String(max); input.value = String(value);
-            input.className = "slices-range";
-            wrap.appendChild(head); wrap.appendChild(input);
-            return { wrap, input, valueEl };
+            const num = document.createElement("input");
+            num.type = "number"; num.min = String(min); num.max = String(max); num.value = String(value);
+            num.className = "slices-control-num"; num.setAttribute("aria-label", labelText);
+            head.appendChild(num);
+            const range = document.createElement("input");
+            range.type = "range"; range.min = String(min); range.max = String(max); range.value = String(value);
+            range.className = "slices-range"; range.setAttribute("aria-label", labelText);
+            wrap.appendChild(head); wrap.appendChild(range);
+            let cur = value;
+            const apply = (raw, fromNum) => {
+                cur = clamp(Number.isFinite(raw) ? raw : cur);
+                range.value = String(cur);
+                if (!fromNum) num.value = String(cur);
+                onChange(cur);
+            };
+            range.addEventListener("input", () => apply(readInt(range.value, cur), false));
+            num.addEventListener("input", () => apply(readInt(num.value, cur), true));
+            num.addEventListener("change", () => { num.value = String(cur); });
+            return {
+                wrap, range, num,
+                setMax: (m) => { range.max = String(m); num.max = String(m); },
+                setValue: (v) => { cur = clamp(v); range.value = String(cur); num.value = String(cur); }
+            };
         };
-        const partsCtl = makeSlider("Cut into slices", 2, maxParts, parts);
-        const shadedCtl = makeSlider("Shade this many slices", 0, parts, shaded);
-        partsCtl.input.addEventListener("input", () => {
-            parts = Math.min(maxParts, Math.max(2, readInt(partsCtl.input.value, parts)));
-            partsCtl.valueEl.textContent = String(parts);
-            if (shaded > parts) shaded = parts;
-            shadedCtl.input.max = String(parts);
-            shadedCtl.input.value = String(shaded);
-            shadedCtl.valueEl.textContent = String(shaded);
-            draw();
-        });
-        shadedCtl.input.addEventListener("input", () => {
-            shaded = Math.min(parts, Math.max(0, readInt(shadedCtl.input.value, shaded)));
-            shadedCtl.valueEl.textContent = String(shaded);
-            draw();
-        });
+        const shadedCtl = makeSlider("Shade this many slices", 0, parts, shaded,
+            (v) => Math.min(parts, Math.max(0, v)),
+            (v) => { shaded = v; draw(); });
+        const partsCtl = makeSlider("Cut into slices", 2, maxParts, parts,
+            (v) => Math.min(maxParts, Math.max(2, v)),
+            (v) => { parts = v; if (shaded > parts) shaded = parts; shadedCtl.setMax(parts); shadedCtl.setValue(shaded); draw(); });
         amountInput.addEventListener("input", () => {
             amount = Math.max(0, readInt(amountInput.value, amount));
             draw();
