@@ -1020,6 +1020,192 @@ select.time-select {
     color: var(--text-muted);
 }
 
+/* ===== Variable widgets ================================================== */
+.var-btn {
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1.5px solid var(--accent);
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    justify-self: center;
+}
+
+.var-btn.secondary {
+    background: var(--surface-2);
+    color: var(--text);
+}
+
+.var-btn-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 14px;
+}
+
+.varbox-row {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+.varbox {
+    position: relative;
+    width: 96px;
+    height: 104px;
+    border: 3px solid var(--accent);
+    border-radius: 14px;
+    background: var(--surface-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.varbox-label {
+    position: absolute;
+    top: 5px;
+    left: 9px;
+    font-size: 1.15rem;
+    font-weight: 800;
+    font-style: italic;
+    color: var(--accent);
+}
+
+.varbox-window {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 66px;
+}
+
+.varbox-q {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: var(--text-muted);
+}
+
+.varbox-num {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text);
+}
+
+.varbox-dots {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+}
+
+.varbox-dot {
+    display: block;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+.fmach-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+.fmach-chip {
+    min-width: 44px;
+    height: 44px;
+    padding: 0 10px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    font-weight: 800;
+    background: var(--surface-3);
+    color: var(--text);
+}
+
+.fmach-out {
+    background: #16a34a;
+    color: #fff;
+}
+
+.fmach-arrow {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.fmach-box {
+    width: 120px;
+    height: 86px;
+    border-radius: 14px;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+}
+
+.fmach-gear {
+    font-size: 1.6rem;
+    line-height: 1;
+}
+
+.fmach-rule {
+    font-size: 1.05rem;
+    font-weight: 800;
+}
+
+.fmach-run {
+    animation: fmach-pulse 360ms ease;
+}
+
+@keyframes fmach-pulse {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.08) rotate(-1deg); }
+    100% { transform: scale(1); }
+}
+
+.fmach-table {
+    display: grid;
+    gap: 3px;
+    justify-content: center;
+    margin-top: 14px;
+}
+
+.fmach-trow {
+    display: grid;
+    grid-template-columns: 60px 60px;
+    gap: 3px;
+}
+
+.fmach-tcell {
+    padding: 4px 8px;
+    text-align: center;
+    background: var(--surface-3);
+    border-radius: 6px;
+    font-weight: 700;
+}
+
+.fmach-thead .fmach-tcell {
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
 /* Controls popup: inline on desktop; on phones the controls hide behind an
    "Adjust" button and reveal as an elevated in-card panel (so the small screen
    shows just the visual and its numbers). In-flow, so it is robust against any

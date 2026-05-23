@@ -1543,6 +1543,191 @@ function renderPercentCompare(container, media) {
     container.appendChild(card);
 }
 
+// ----- Variable widgets ("what's in the box?") --------------------------------
+
+// The Mystery Box: a named box (x) that holds a number you can change and peek
+// at. Show several identical boxes to teach that every x is the SAME box, so
+// they always hold the same value. Pure DOM, no animation loop.
+function renderVarBox(container, media) {
+    const card = makeEl("div", "slices-card varbox-card");
+    addMediaText(card, media);
+    const readInt = (v, f) => { const r = Math.round(Number(v)); return Number.isFinite(r) ? r : f; };
+    const name = (typeof media.name === "string" && media.name) || "x";
+    const min = readInt(media.min, 0);
+    const max = Math.max(min + 1, readInt(media.max, 12));
+    let value = Math.min(max, Math.max(min, readInt(media.value, 5)));
+    const count = Math.min(4, Math.max(1, readInt(media.boxes, 1)));
+    const color = typeof media.color === "string" ? media.color : "#6366f1";
+    const interactive = media.interactive !== false;
+    let open = media.open === true;
+
+    const row = makeEl("div", "varbox-row");
+    const windows = [];
+    for (let i = 0; i < count; i++) {
+        const box = makeEl("div", "varbox");
+        box.style.borderColor = color;
+        box.appendChild(makeEl("span", "varbox-label", name));
+        const win = makeEl("div", "varbox-window");
+        box.appendChild(win);
+        row.appendChild(box);
+        windows.push(win);
+    }
+    card.appendChild(row);
+
+    const readout = makeEl("div", "slices-readout");
+    const big = makeEl("span", "slices-pct");
+    readout.appendChild(big);
+    card.appendChild(readout);
+
+    const draw = () => {
+        windows.forEach((win) => {
+            clearElement(win);
+            if (!open) {
+                win.appendChild(makeEl("span", "varbox-q", "?"));
+            } else if (value <= 12) {
+                const dots = makeEl("div", "varbox-dots");
+                for (let i = 0; i < value; i++) {
+                    const d = makeEl("span", "varbox-dot");
+                    d.style.background = color;
+                    dots.appendChild(d);
+                }
+                win.appendChild(dots);
+            } else {
+                win.appendChild(makeEl("span", "varbox-num", String(value)));
+            }
+        });
+        big.textContent = open ? `${name} = ${value}` : `${name} = ?`;
+    };
+    draw();
+
+    if (interactive) {
+        const controls = makeEl("div", "slices-controls");
+        const peek = makeEl("button", "var-btn", open ? "Close the box" : "Peek inside");
+        peek.type = "button";
+        peek.addEventListener("click", () => { open = !open; peek.textContent = open ? "Close the box" : "Peek inside"; draw(); });
+        controls.appendChild(peek);
+
+        const wrap = makeEl("label", "slices-control");
+        const head = makeEl("span", "slices-control-head");
+        head.appendChild(makeEl("span", "slices-control-name", `Put a number in ${name}`));
+        const num = document.createElement("input");
+        num.type = "number"; num.min = String(min); num.max = String(max); num.value = String(value); num.className = "slices-control-num";
+        head.appendChild(num);
+        const range = document.createElement("input");
+        range.type = "range"; range.min = String(min); range.max = String(max); range.value = String(value); range.className = "slices-range";
+        wrap.appendChild(head); wrap.appendChild(range);
+        const apply = (raw, fromNum) => {
+            value = Math.min(max, Math.max(min, readInt(raw, value)));
+            range.value = String(value);
+            if (!fromNum) num.value = String(value);
+            if (!open) { open = true; peek.textContent = "Close the box"; }
+            draw();
+        };
+        range.addEventListener("input", () => apply(range.value, false));
+        num.addEventListener("input", () => apply(num.value, true));
+        num.addEventListener("change", () => { num.value = String(value); });
+        controls.appendChild(wrap);
+        card.appendChild(controls);
+        card.appendChild(makeEl("p", "slices-tip", media.tip
+            || `A variable is just a named box. ${name} holds a number you can change - peek inside to see it.${count > 1 ? ` Every ${name} box is the same box, so they always hold the same number.` : ""}`));
+    }
+    if (media.teachingPoint) card.appendChild(makeEl("p", "teaching-point", media.teachingPoint));
+    container.appendChild(card);
+}
+
+// The Function Machine: a number goes in, a rule (x * m + b) is applied, an
+// output comes out. "Build" mode lets the child set the rule; "guess my rule"
+// mode (hideRule) hides it so they work it out from the in/out table. Pure DOM.
+function renderFunctionMachine(container, media) {
+    const card = makeEl("div", "slices-card fmach-card");
+    addMediaText(card, media);
+    const readInt = (v, f) => { const r = Math.round(Number(v)); return Number.isFinite(r) ? r : f; };
+    let m = readInt(media.multiply, 2);
+    let b = readInt(media.add, 1);
+    let input = readInt(media.input, 3);
+    const hideRule = media.hideRule === true;
+    let revealed = !hideRule;
+    const compute = (x) => m * x + b;
+
+    const stage = makeEl("div", "fmach-stage");
+    const inChip = makeEl("div", "fmach-chip fmach-in", String(input));
+    const machine = makeEl("div", "fmach-box");
+    machine.appendChild(makeEl("span", "fmach-gear", "⚙"));
+    const ruleEl = makeEl("span", "fmach-rule", "");
+    machine.appendChild(ruleEl);
+    const outChip = makeEl("div", "fmach-chip fmach-out", "?");
+    stage.appendChild(inChip);
+    stage.appendChild(makeEl("span", "fmach-arrow", "→"));
+    stage.appendChild(machine);
+    stage.appendChild(makeEl("span", "fmach-arrow", "→"));
+    stage.appendChild(outChip);
+    card.appendChild(stage);
+
+    const table = makeEl("div", "fmach-table");
+    card.appendChild(table);
+    const rows = [];
+    const refreshRule = () => { ruleEl.textContent = revealed ? `× ${m}  ${b >= 0 ? "+" : "−"} ${Math.abs(b)}` : "? ? ?"; };
+    const run = () => {
+        const out = compute(input);
+        inChip.textContent = String(input);
+        outChip.textContent = String(out);
+        machine.classList.remove("fmach-run");
+        void machine.offsetWidth;
+        machine.classList.add("fmach-run");
+        rows.unshift({ inV: input, outV: out });
+        if (rows.length > 5) rows.pop();
+        clearElement(table);
+        const head = makeEl("div", "fmach-trow fmach-thead");
+        head.appendChild(makeEl("span", "fmach-tcell", "in"));
+        head.appendChild(makeEl("span", "fmach-tcell", "out"));
+        table.appendChild(head);
+        rows.forEach((r) => {
+            const tr = makeEl("div", "fmach-trow");
+            tr.appendChild(makeEl("span", "fmach-tcell", String(r.inV)));
+            tr.appendChild(makeEl("span", "fmach-tcell", String(r.outV)));
+            table.appendChild(tr);
+        });
+    };
+    refreshRule();
+
+    const controls = makeEl("div", "slices-controls");
+    const mkNumCtl = (labelText, val, onCh) => {
+        const wrap = makeEl("label", "slices-control");
+        const head = makeEl("span", "slices-control-head");
+        head.appendChild(makeEl("span", "slices-control-name", labelText));
+        const num = document.createElement("input");
+        num.type = "number"; num.value = String(val); num.className = "slices-control-num";
+        head.appendChild(num);
+        wrap.appendChild(head);
+        num.addEventListener("input", () => onCh(readInt(num.value, val)));
+        return wrap;
+    };
+    controls.appendChild(mkNumCtl("Number to put in", input, (v) => { input = v; inChip.textContent = String(v); }));
+    if (!hideRule) {
+        controls.appendChild(mkNumCtl("Multiply by", m, (v) => { m = v; refreshRule(); }));
+        controls.appendChild(mkNumCtl("Then add", b, (v) => { b = v; refreshRule(); }));
+    }
+    card.appendChild(controls);
+
+    const btnRow = makeEl("div", "var-btn-row");
+    const runBtn = makeEl("button", "var-btn", "Run the machine");
+    runBtn.type = "button";
+    runBtn.addEventListener("click", run);
+    btnRow.appendChild(runBtn);
+    if (hideRule) {
+        const rev = makeEl("button", "var-btn secondary", "Reveal the rule");
+        rev.type = "button";
+        rev.addEventListener("click", () => { revealed = !revealed; rev.textContent = revealed ? "Hide the rule" : "Reveal the rule"; refreshRule(); });
+        btnRow.appendChild(rev);
+    }
+    card.appendChild(btnRow);
+    card.appendChild(makeEl("p", "slices-tip", media.tip
+        || (hideRule ? "Feed the machine numbers and watch what comes out. Can you work out the hidden rule?"
+            : "Set the rule, type a number, and press Run. The output is the rule done to your number.")));
+    if (media.teachingPoint) card.appendChild(makeEl("p", "teaching-point", media.teachingPoint));
+    container.appendChild(card);
+}
+
 // An interactive 3D volume playground. A real Three.js box (or cylinder) the
 // child can orbit, with sliders for its dimensions; the shape resizes and the
 // volume updates live. Unlike `threejs`, the geometry is parameterised here -
@@ -1902,6 +2087,8 @@ const MEDIA_RENDERERS = {
     percentLab: renderPercentLab,
     percentPie: renderPercentPie,
     percentCompare: renderPercentCompare,
+    varBox: renderVarBox,
+    functionMachine: renderFunctionMachine,
     volume3d: renderVolume3D,
     threejs: (container, media) => initThreeJS(container, media.payload || {}),
     matterjs: (container, media) => initMatterJS(container, media.payload || {})
