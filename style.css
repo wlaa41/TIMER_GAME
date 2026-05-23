@@ -880,6 +880,14 @@ select.time-select {
     stroke-width: 1.4;
 }
 
+/* Bold "every ten slices" group lines in a contrasting amber. */
+.pie-tens {
+    stroke: #f59e0b;
+    stroke-width: 2.6;
+    stroke-linecap: round;
+    opacity: 0.95;
+}
+
 .playground-grid .playground-card:has(.pie-card) {
     grid-column: 1 / -1;
 }
@@ -1029,16 +1037,16 @@ select.time-select {
 
 .plab-guide {
     stroke: var(--text-muted);
-    stroke-width: 1;
-    stroke-dasharray: 3 3;
-    opacity: 0.3;
+    stroke-width: 1.5;
+    stroke-dasharray: 4 3;
+    opacity: 0.6;
 }
 
 .plab-guide-label {
-    fill: var(--text-muted);
-    font-size: 9px;
+    fill: var(--text);
+    font-size: 10px;
     font-weight: 700;
-    opacity: 0.75;
+    opacity: 0.9;
 }
 
 .plab-handle {

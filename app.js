@@ -1158,6 +1158,11 @@ function renderPercentPie(container, media) {
     });
     svg.appendChild(guideLayer);
 
+    // bold "every ten slices" group lines on top, in a contrasting colour
+    // (rebuilt with the slices) so 100 slices read as ten clear groups of ten
+    const tensLayer = document.createElementNS(SVG_NS, "g");
+    svg.appendChild(tensLayer);
+
     stage.appendChild(svg);
     card.appendChild(stage);
 
@@ -1206,6 +1211,11 @@ function renderPercentPie(container, media) {
             piece.setAttribute("class", `slice-piece ${isFilled ? "slice-filled" : "slice-empty"}`);
             if (isFilled) piece.setAttribute("fill", color);
             layer.appendChild(piece);
+        }
+        clearElement(tensLayer);
+        for (let i = 10; i < parts; i += 10) {
+            const ang = start + (i / parts) * Math.PI * 2;
+            tensLayer.appendChild(mkLine(cx, cy, cx + r * Math.cos(ang), cy + r * Math.sin(ang), "pie-tens"));
         }
         pctEl.textContent = pctText();
         detailEl.textContent = `${fracText()}  =  ${decText()}`;
