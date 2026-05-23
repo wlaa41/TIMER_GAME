@@ -333,7 +333,9 @@ same fraction / simplified / percentage / decimal readout, and the same
 | `parts`    | number | Starting slices (2–`maxParts`). Default 8.                  |
 | `shaded`   | number | Starting shaded slices (0–`parts`). Default 4.              |
 | `amount`   | number | Starting "of a number" amount. Default 40.                  |
-| `maxParts` | number | Max slices the cut slider allows. Default 24.               |
+| `maxParts` | number | Max slices the cut slider allows. Default 100.              |
+| `showGroups` | boolean | Whether the "group every N slices" lines start shown. Default true. |
+| `groupSize`  | number | Starting group size for those lines; the child can edit it live. Default 10. |
 | `color`, `interactive`, `tip` | | Same as `slices`.                          |
 
 > **Interactive media** (`slices`, `grid`, `percentOf`, `percentLab`,

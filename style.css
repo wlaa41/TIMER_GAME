@@ -891,11 +891,11 @@ select.time-select {
 .plab-toggle {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 8px;
     font-size: 0.95rem;
     font-weight: 600;
     color: var(--text);
-    cursor: pointer;
 }
 
 .plab-toggle-input {
@@ -903,6 +903,18 @@ select.time-select {
     height: 18px;
     accent-color: #f59e0b;
     cursor: pointer;
+}
+
+.plab-group-input {
+    width: 50px;
+    padding: 3px 6px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text);
+    background: var(--surface-2);
+    border: 1.5px solid #f59e0b;
+    border-radius: 6px;
 }
 
 .playground-grid .playground-card:has(.pie-card) {

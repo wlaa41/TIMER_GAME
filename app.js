@@ -1089,6 +1089,7 @@ function renderPercentPie(container, media) {
     const color = typeof media.color === "string" ? media.color : "#6366f1";
     const interactive = media.interactive !== false;
     let showTens = media.showGroups !== false;
+    let groupSize = Math.max(1, readInt(media.groupSize, 10));
 
     const simpleFrac = () => {
         if (shaded === 0) return "0";
@@ -1216,8 +1217,8 @@ function renderPercentPie(container, media) {
             layer.appendChild(piece);
         }
         clearElement(tensLayer);
-        if (showTens && parts > 10) {
-            for (let i = 0; i < parts; i += 10) {
+        if (showTens && groupSize >= 1 && parts > groupSize) {
+            for (let i = 0; i < parts; i += groupSize) {
                 const ang = start + (i / parts) * Math.PI * 2;
                 tensLayer.appendChild(mkLine(cx, cy, cx + r * Math.cos(ang), cy + r * Math.sin(ang), "pie-tens"));
             }
@@ -1267,14 +1268,24 @@ function renderPercentPie(container, media) {
         controls.appendChild(partsCtl.wrap);
         controls.appendChild(shadedCtl.wrap);
 
-        const toggleWrap = makeEl("label", "plab-toggle");
+        const toggleWrap = makeEl("div", "plab-toggle");
         const tensToggle = document.createElement("input");
         tensToggle.type = "checkbox";
         tensToggle.checked = showTens;
         tensToggle.className = "plab-toggle-input";
+        tensToggle.setAttribute("aria-label", "Show group lines");
+        const groupInput = document.createElement("input");
+        groupInput.type = "number";
+        groupInput.min = "1";
+        groupInput.value = String(groupSize);
+        groupInput.className = "plab-group-input";
+        groupInput.setAttribute("aria-label", "Slices per group");
         toggleWrap.appendChild(tensToggle);
-        toggleWrap.appendChild(makeEl("span", "plab-toggle-text", "Group every ten slices"));
+        toggleWrap.appendChild(makeEl("span", "plab-toggle-text", "Group every"));
+        toggleWrap.appendChild(groupInput);
+        toggleWrap.appendChild(makeEl("span", "plab-toggle-text", "slices"));
         tensToggle.addEventListener("change", () => { showTens = tensToggle.checked; draw(); });
+        groupInput.addEventListener("input", () => { groupSize = Math.max(1, readInt(groupInput.value, groupSize)); draw(); });
         controls.appendChild(toggleWrap);
 
         card.appendChild(controls);
