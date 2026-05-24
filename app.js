@@ -1797,28 +1797,36 @@ function renderVarBalance(container, media) {
         dish.setAttribute("points", "-42,0 -34,10 34,10 42,0");
         dish.setAttribute("class", "balance-dish");
         tray.appendChild(dish);
-        const total = boxes + weights;
-        const perRow = 4;
-        const rows = Math.max(1, Math.ceil(total / perRow));
-        const step = 16;
-        for (let i = 0; i < total; i++) {
-            const row = Math.floor(i / perRow);
-            const colCount = (row < rows - 1) ? perRow : (total - perRow * (rows - 1));
-            const col = i - row * perRow;
-            const ix = -(colCount * step) / 2 + col * step + step / 2;
-            const iy = -16 - ((rows - 1) - row) * 15;
-            if (i < boxes) {
-                const r = document.createElementNS(SVG_NS, "rect");
-                r.setAttribute("x", ix - 7); r.setAttribute("y", iy);
-                r.setAttribute("width", 14); r.setAttribute("height", 14); r.setAttribute("rx", 3);
-                r.setAttribute("fill", color); r.setAttribute("class", "balance-xbox");
-                tray.appendChild(r);
-            } else {
-                const dot = document.createElementNS(SVG_NS, "circle");
-                dot.setAttribute("cx", ix); dot.setAttribute("cy", iy + 7);
-                dot.setAttribute("r", 6); dot.setAttribute("class", "balance-weight");
-                tray.appendChild(dot);
-            }
+        // small unit weights sit at the bottom of the tray, in rows of four
+        const wPerRow = 4, wStep = 15, wR = 6;
+        const wRows = Math.max(1, Math.ceil(weights / wPerRow));
+        for (let i = 0; i < weights; i++) {
+            const r = Math.floor(i / wPerRow);
+            const colCount = (r < wRows - 1) ? wPerRow : (weights - wPerRow * (wRows - 1));
+            const col = i - r * wPerRow;
+            const wx = -(colCount * wStep) / 2 + col * wStep + wStep / 2;
+            const wy = -8 - r * 14;
+            const dot = document.createElementNS(SVG_NS, "circle");
+            dot.setAttribute("cx", wx.toFixed(1)); dot.setAttribute("cy", wy);
+            dot.setAttribute("r", wR); dot.setAttribute("class", "balance-weight");
+            tray.appendChild(dot);
+        }
+        // the unknown x is a bigger box that sits ON TOP of the weights
+        const boxSize = 28, boxStep = boxSize + 6;
+        const weightsTopY = weights > 0 ? (-8 - (wRows - 1) * 14 - wR) : 0;
+        const boxTopY = weightsTopY - (weights > 0 ? 4 : 2) - boxSize;
+        for (let i = 0; i < boxes; i++) {
+            const bx = -(boxes * boxStep) / 2 + i * boxStep + boxStep / 2;
+            const r = document.createElementNS(SVG_NS, "rect");
+            r.setAttribute("x", (bx - boxSize / 2).toFixed(1)); r.setAttribute("y", boxTopY.toFixed(1));
+            r.setAttribute("width", boxSize); r.setAttribute("height", boxSize); r.setAttribute("rx", 5);
+            r.setAttribute("fill", color); r.setAttribute("class", "balance-xbox");
+            tray.appendChild(r);
+            const t = document.createElementNS(SVG_NS, "text");
+            t.setAttribute("x", bx.toFixed(1)); t.setAttribute("y", (boxTopY + boxSize / 2 + 5).toFixed(1));
+            t.setAttribute("text-anchor", "middle"); t.setAttribute("class", "balance-xlabel");
+            t.textContent = name;
+            tray.appendChild(t);
         }
     };
 

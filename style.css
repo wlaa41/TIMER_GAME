@@ -1248,6 +1248,13 @@ select.time-select {
     stroke-width: 1.5;
 }
 
+.balance-xlabel {
+    fill: #fff;
+    font-size: 16px;
+    font-weight: 800;
+    font-style: italic;
+}
+
 /* Savings jar / changing counter */
 .vcount-head {
     display: flex;
