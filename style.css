@@ -1413,6 +1413,128 @@ select.time-select {
     background: #f59e0b;
 }
 
+/* ===== Smart Path guided journey ========================================= */
+.playground-grid.journey {
+    display: block;
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.journey-stop {
+    position: relative;
+    margin-bottom: 18px;
+    padding: 18px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+}
+
+.journey-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 4px;
+}
+
+.journey-num {
+    flex: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.journey-titles {
+    display: grid;
+    gap: 1px;
+}
+
+.journey-title {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.journey-tagline {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.journey-explain {
+    margin: 8px 0 0;
+    line-height: 1.55;
+    color: var(--text);
+}
+
+.journey-explain.first {
+    font-size: 1.05rem;
+}
+
+.journey-sim {
+    margin-top: 14px;
+}
+
+.journey-smart {
+    margin: 14px 0 0;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--text);
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.journey-smart::before {
+    content: "Smart move: ";
+    font-weight: 800;
+    color: var(--accent);
+}
+
+.journey-q {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--border);
+}
+
+.journey-q-text {
+    margin: 0 0 10px;
+    font-weight: 700;
+}
+
+.journey-q-text::before {
+    content: "Question: ";
+    color: var(--text-muted);
+}
+
+.journey-answer {
+    margin: 12px 0 0;
+    padding: 12px;
+    border-radius: 10px;
+    background: #16a34a;
+    color: #fff;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.journey-outro {
+    max-width: 640px;
+    margin: 4px auto 0;
+    padding: 18px;
+    border-radius: 16px;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    line-height: 1.6;
+    text-align: center;
+}
+
 /* Controls popup: inline on desktop; on phones the controls hide behind an
    "Adjust" button and reveal as an elevated in-card panel (so the small screen
    shows just the visual and its numbers). In-flow, so it is robust against any

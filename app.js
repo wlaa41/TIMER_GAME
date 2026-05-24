@@ -2931,15 +2931,88 @@ const PLAYGROUND_LIBRARY = {
         ]
     },
     variables: {
-        title: "The Variables Playground",
-        intro: "A variable is just a named box that holds a number you can change. Play with these to see what is in the box, how it changes, and a little bit of algebra magic.",
-        sims: [
-            { type: "varBox", title: "The Mystery Box", caption: "x is a box that holds a number. Peek inside, and change what it holds - every x box is the same box.", name: "x", value: 5, boxes: 3, max: 12 },
-            { type: "functionMachine", title: "The Function Machine", caption: "Put a number in, a rule changes it, out comes the answer. Try to predict the output!", multiply: 2, add: 1, input: 3 },
-            { type: "varExpression", title: "Box + Stuff", caption: "2x + 3 means two boxes of x plus 3 loose ones. Slide x and watch the total.", coef: 2, const: 3, value: 4, max: 10 },
-            { type: "varBalance", title: "The Balance Scale", caption: "Slide what is in the box until the scale is level - that solves the equation.", coef: 1, add: 3, equals: 8 },
-            { type: "varCounter", title: "The Savings Jar", caption: "A variable can change over time. Step through the days and watch it grow.", skin: "savings", start: 5, step: 2, unit: "day", steps: 10 },
-            { type: "varTrick", title: "The Mind-Reading Trick", caption: "Think of any number, follow the steps - the answer is always 5. Find out why!", secret: 7 }
+        title: "The Smart Path",
+        intro: "Being smart is not about big numbers - it is about clever shortcuts that make hard things easy. A variable is one of the best shortcuts ever invented. Walk the path, play at every stop, and watch a tiny letter make life simpler.",
+        outro: "You made it to the end! Mystery boxes, machines, seesaws, jars and a magic trick - all the same big idea: a letter can stand for any number, and that makes you powerful. Being smart just means finding the shortcut. Now press Start the questions and show what you know!",
+        stops: [
+            {
+                title: "What is in the box?",
+                tagline: "A variable is a named box.",
+                explain: [
+                    "Imagine a little box, and inside it is a secret number of sweets. You cannot see in, so you do not know how many. Let's just call the box x.",
+                    "Whatever number is hiding inside is the value of x. If we peek and find 6 sweets, then x = 6. The box can hold a different number another day - that is why we use a letter.",
+                    "So a variable is just a named box holding a number that can change. Clever people use a letter so they can talk about the number before they even know it."
+                ],
+                sim: { type: "varBox", title: "Peek in the box", name: "x", value: 5, boxes: 3, max: 12 },
+                smart: "One letter saves you writing the number over and over. Less work, same idea - that is being smart.",
+                question: "If the box x is holding 6, what is x + 4?",
+                answer: "10. Peek inside: x is 6, so x + 4 means 6 + 4 = 10."
+            },
+            {
+                title: "The rule machine",
+                tagline: "A rule turns any number into a new one.",
+                explain: [
+                    "Picture a magic machine. You drop a number in the top, it does a secret trick inside, and a brand-new number drops out the bottom.",
+                    "The trick is always the same rule - maybe 'times 3, then add 1'. Drop in 4 and out comes 13. Drop in 2 and out comes 7.",
+                    "The number you put in is a variable - it can be anything you like. The machine shows how one rule turns any input into its output."
+                ],
+                sim: { type: "functionMachine", title: "Run the machine", multiply: 3, add: 1, input: 4 },
+                smart: "Learn the rule once and you can predict every answer without redoing the work. Spotting the pattern is what smart looks like.",
+                question: "The machine does '3x + 1'. You put in 5. What comes out?",
+                answer: "16. Times 3 then add 1: 5 x 3 = 15, then 15 + 1 = 16."
+            },
+            {
+                title: "Bags and loose ones",
+                tagline: "An expression is boxes of x plus extra.",
+                explain: [
+                    "You have a couple of bags, and every bag has the SAME secret number of marbles inside, x. Then a few loose marbles sit on top.",
+                    "Two bags plus three loose marbles is written 2x + 3. If each bag holds 4, that is 2 x 4 + 3 = 11 marbles in total.",
+                    "That short writing, 2x + 3, is called an expression. Slide x and watch every bag fill up while the total follows the rule."
+                ],
+                sim: { type: "varExpression", title: "Build the expression", coef: 2, const: 3, value: 4, max: 10 },
+                smart: "Writing 2x + 3 is far faster than drawing every marble. A neat shortcut beats a big messy picture.",
+                question: "If x = 5, what is 2x + 3?",
+                answer: "13. Two bags of 5 is 2 x 5 = 10, plus the 3 loose ones = 13."
+            },
+            {
+                title: "Keep it fair",
+                tagline: "An equation is a balance that must stay level.",
+                explain: [
+                    "Think of a seesaw. To stay level, both sides must weigh exactly the same. If one side is heavier, it sinks.",
+                    "The box x is a mystery weight. 'x + 3 = 8' means the box plus 3 little weights balances 8 little weights.",
+                    "The clever move: take 3 weights off BOTH sides at once. The seesaw stays level, and now the box alone balances 5 - so x = 5. Whatever you do to one side, do to the other."
+                ],
+                sim: { type: "varBalance", title: "Balance it", coef: 1, add: 3, equals: 8 },
+                smart: "Instead of guessing numbers one by one, balancing hands you the answer straight away. A method beats luck every time.",
+                question: "Solve x + 3 = 8. What is x?",
+                answer: "x = 5. Take 3 off both sides: x = 8 - 3 = 5."
+            },
+            {
+                title: "It grows by itself",
+                tagline: "A variable can change over time.",
+                explain: [
+                    "You get 2 coins every single day and drop them into a jar. Day by day, the jar fills up.",
+                    "If you start with 5 coins, then after d days you have 5 + 2 x d coins. After 4 days that is 5 + 8 = 13.",
+                    "Here the variable d (the number of days) keeps changing, and one tidy rule tells you the total for ANY day you ask about."
+                ],
+                sim: { type: "varCounter", title: "Fill the jar", skin: "savings", start: 5, step: 2, unit: "day", steps: 10 },
+                smart: "One little rule can tell you day 100 without counting all the days in between. That is the smart way to look ahead.",
+                question: "You start with $5 and save $2 each day. How much after 4 days?",
+                answer: "$13. The rule is 5 + 2 x days: 5 + 2 x 4 = 5 + 8 = 13."
+            },
+            {
+                title: "The magic finish",
+                tagline: "A letter can stand for EVERY number at once.",
+                explain: [
+                    "Think of any number and keep it secret. Double it, add 10, halve the answer, then take away the number you started with.",
+                    "Now let me read your mind... you got 5! Try a different secret number - you still get 5. Spooky!",
+                    "Here is the secret: let your number be x. The steps become 2x, then 2x + 10, then x + 5, then take away x... leaving just 5. The x cancels out, so it works for everybody."
+                ],
+                sim: { type: "varTrick", title: "Read my mind", secret: 7 },
+                smart: "With one letter we proved something true for every number in the world, in four short lines. That is the most powerful shortcut of all.",
+                question: "Why is the answer always 5, whatever you start with?",
+                answer: "Because the x cancels: x then 2x then 2x + 10 then x + 5 then take away x, leaving 5. Whatever x was, you always land on 5."
+            }
         ]
     }
 };
@@ -2959,11 +3032,64 @@ function renderPlaygroundFor(def) {
     clearElement(els.playgroundGrid);
     if (els.playgroundTitle) els.playgroundTitle.textContent = def.title || "The Playground";
     if (els.playgroundSubtitle && def.intro) els.playgroundSubtitle.textContent = def.intro;
+    els.playgroundGrid.classList.toggle("journey", !!def.stops);
+    if (def.stops) {
+        def.stops.forEach((stop, i) => renderJourneyStop(stop, i));
+        if (def.outro) els.playgroundGrid.appendChild(makeEl("div", "journey-outro", def.outro));
+        return;
+    }
     (def.sims || []).forEach((media) => {
         const cell = makeEl("div", "playground-card");
         els.playgroundGrid.appendChild(cell);
         renderMedia(cell, media, "playground");
     });
+}
+
+// One stop on a guided "journey" playground: a numbered card with explanation
+// that builds from very simple to grade level, the interactive sim, a "smart
+// move" note, and a question whose answer reveals when pressed.
+function renderJourneyStop(stop, i) {
+    const card = makeEl("div", "journey-stop");
+    const head = makeEl("div", "journey-head");
+    head.appendChild(makeEl("span", "journey-num", String(i + 1)));
+    const titles = makeEl("div", "journey-titles");
+    titles.appendChild(makeEl("h3", "journey-title", stop.title || `Stop ${i + 1}`));
+    if (stop.tagline) titles.appendChild(makeEl("p", "journey-tagline", stop.tagline));
+    head.appendChild(titles);
+    card.appendChild(head);
+
+    (stop.explain || []).forEach((line, li) => {
+        const p = makeEl("p", "journey-explain", line);
+        if (li === 0) p.classList.add("first");
+        card.appendChild(p);
+    });
+
+    if (stop.sim) {
+        const host = makeEl("div", "journey-sim");
+        card.appendChild(host);
+        renderMedia(host, stop.sim, "playground");
+    }
+
+    if (stop.smart) card.appendChild(makeEl("p", "journey-smart", stop.smart));
+
+    if (stop.question) {
+        const q = makeEl("div", "journey-q");
+        q.appendChild(makeEl("p", "journey-q-text", stop.question));
+        const btn = makeEl("button", "var-btn secondary", "Show answer");
+        btn.type = "button";
+        const ans = makeEl("p", "journey-answer", stop.answer || "");
+        ans.style.display = "none";
+        btn.addEventListener("click", () => {
+            const show = ans.style.display === "none";
+            ans.style.display = show ? "" : "none";
+            btn.textContent = show ? "Hide answer" : "Show answer";
+        });
+        q.appendChild(btn);
+        q.appendChild(ans);
+        card.appendChild(q);
+    }
+
+    els.playgroundGrid.appendChild(card);
 }
 
 // Leave the playground and start the timed multiple-choice questions.
