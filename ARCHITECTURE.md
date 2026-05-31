@@ -90,10 +90,11 @@ The whole UI lives in `index.html` as four `<section>` "screens" toggled by a
    (`#time-input`), press **Start** (`#start-btn`).
 2. **Playground** (`#playground-screen`) — an **optional, per-pack warm-up**
    shown after Start, **before** the questions, with the **timer paused**. The
-   `#playground-grid` is filled by `renderPlaygroundFor()` with the tools that
-   match the loaded pack, resolved from an in-code library (`PLAYGROUND_LIBRARY`
-   + `getPlaygroundForPack()` in `app.js`, keyed by pack title — *not* the pack
-   JSON). A **Start the questions** button (`.playground-begin-btn`) runs
+   `#playground-grid` is filled by `renderPlaygroundFor()` with the tools
+   resolved by `getPlaygroundForPack()` in `app.js`, which **prefers a
+   `playground` object shipped inside the pack JSON** and falls back to an
+   in-code library (`PLAYGROUND_LIBRARY`, keyed by pack title) for legacy packs
+   that don't carry their own. A **Start the questions** button (`.playground-begin-btn`) runs
    `beginQuestions()`, which disposes the playground scenes, starts the timer
    and shows the game. A pack with no matching playground skips this screen.
 3. **Game** (`#game-screen`) — HUD (timer, pace, score, hints, progress) + the
@@ -106,9 +107,11 @@ The whole UI lives in `index.html` as four `<section>` "screens" toggled by a
 Flow: `Setup → (Start) → [Playground → (Start questions)] → Game → (answers/time run out) → Result`
 (the playground step is skipped when the pack has no matching entry).
 
-> **Reusable playgrounds.** `PLAYGROUND_LIBRARY` is deliberately an in-code
-> object (not pack JSON) so the tool-sets can become shared, reusable objects
-> used across packs and screens; a later refactor may formalise this.
+> **Playgrounds travel with the pack.** A pack can ship its own `playground`
+> object in its JSON (preferred — the warm-up belongs to the class; see
+> QUESTION_FORMAT.md section 6). The in-code `PLAYGROUND_LIBRARY` remains as a
+> shared, reusable fallback matched by pack title, for legacy built-in packs
+> that don't carry their own.
 
 ---
 

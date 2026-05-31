@@ -3025,9 +3025,19 @@ const PLAYGROUND_LIBRARY = {
     }
 };
 
-// Resolve which playground (if any) to show for the loaded pack. Matched by the
-// pack title for now, so it also works for uploaded packs.
+// Resolve which playground (if any) to show for the loaded pack. A pack can ship
+// its OWN playground inside its JSON (the preferred way - the warm-up travels
+// with the class). If it does, that wins. Otherwise we fall back to the in-code
+// PLAYGROUND_LIBRARY matched by title, so the legacy built-in packs and uploads
+// without a playground still work. A pack playground uses the same shape as the
+// library entries: { title, intro, outro?, sims:[...] } OR { ..., stops:[...] }.
 function getPlaygroundForPack() {
+    const packPlayground = quizData && quizData.playground;
+    if (packPlayground && typeof packPlayground === "object") {
+        const hasStops = Array.isArray(packPlayground.stops) && packPlayground.stops.length > 0;
+        const hasSims = Array.isArray(packPlayground.sims) && packPlayground.sims.length > 0;
+        if (hasStops || hasSims) return packPlayground;
+    }
     const title = (getQuizTitle() || "").toLowerCase();
     if (title.includes("percent")) return PLAYGROUND_LIBRARY.percentage;
     if (title.includes("variable") || title.includes("algebra")) return PLAYGROUND_LIBRARY.variables;

@@ -10,7 +10,15 @@ A pack with errors will not play correctly in the game.
 import json
 import sys
 
-MEDIA_TYPES = {"illustration", "chart", "image", "photo", "video", "threejs", "matterjs"}
+# Must match the MEDIA_RENDERERS registry in app.js. Includes the parameterised
+# interactive widgets used by lessons and playgrounds (they take parameters only
+# and run no code from JSON).
+MEDIA_TYPES = {
+    "illustration", "chart", "image", "photo", "video",
+    "slices", "grid", "percentOf", "percentLab", "percentPie", "percentCompare",
+    "varBox", "functionMachine", "varExpression", "varBalance", "varCounter", "varTrick",
+    "volume3d", "threejs", "matterjs",
+}
 ILLUSTRATION_THEMES = {"balance", "triangle", "shop", "reading", "study"}
 
 errors = []
@@ -117,6 +125,45 @@ def check_question(q, i):
                 warn(f"{where}: lesson has no 'Fun Fact' section")
 
 
+def check_playground(pg):
+    """The interactive warm-up a class opens with. Two shapes are allowed:
+       flat    -> { title, intro, sims:  [ media, ... ] }
+       journey -> { title, intro, outro?, stops: [ { title, sim, ... } ] }
+    The game prefers 'stops' (the storytelling journey) when both are present."""
+    where = "playground"
+    if not isinstance(pg, dict):
+        err(f"{where}: must be an object")
+        return
+    stops = pg.get("stops")
+    sims = pg.get("sims")
+    has_stops = isinstance(stops, list) and len(stops) > 0
+    has_sims = isinstance(sims, list) and len(sims) > 0
+    if not has_stops and not has_sims:
+        err(f"{where}: needs a non-empty 'stops' or 'sims' array")
+        return
+    if has_stops and has_sims:
+        warn(f"{where}: has both 'stops' and 'sims' - the game shows 'stops' and ignores 'sims'")
+    if not pg.get("title"):
+        warn(f"{where}: has no 'title'")
+    if not pg.get("intro"):
+        warn(f"{where}: has no 'intro' line to set the scene")
+    if has_sims:
+        for k, sim in enumerate(sims):
+            check_media(sim, f"{where} sims[{k + 1}]")
+    if has_stops:
+        for k, stop in enumerate(stops):
+            sp = f"{where} stop {k + 1}"
+            if not isinstance(stop, dict):
+                err(f"{sp}: must be an object")
+                continue
+            if not stop.get("title"):
+                warn(f"{sp}: has no 'title'")
+            if stop.get("sim") is None:
+                warn(f"{sp}: has no interactive 'sim' to play with")
+            else:
+                check_media(stop["sim"], f"{sp} sim")
+
+
 def main():
     if len(sys.argv) != 2:
         print("Usage: python validate_pack.py path/to/pack.json")
@@ -144,6 +191,9 @@ def main():
 
     for i, q in enumerate(questions):
         check_question(q, i)
+
+    if data.get("playground") is not None:
+        check_playground(data["playground"])
 
     for w in warnings:
         print(f"WARNING: {w}")

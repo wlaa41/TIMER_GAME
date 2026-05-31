@@ -23,6 +23,7 @@ AI Edu Quiz Quest. A pack can be uploaded from disk or bundled in `questions/`.
 | `quizTitle`   | string   | yes\*    | Shown in the header. `title` also accepted.        |
 | `description` | string   | no       | Not shown in-game; for your own reference.         |
 | `questions`   | array    | yes      | The list of questions, played in order.            |
+| `playground`  | object   | no       | An interactive **warm-up** shown before the questions (timer paused). See section 6. |
 
 \* If missing, the game falls back to `"Quiz Quest"`.
 
@@ -499,7 +500,94 @@ A plain string is also accepted: `"hint": "Look at the chart first."`
 
 ---
 
-## 6. Minimal example
+## 6. Playground (the warm-up before the questions)
+
+A **playground** is an optional, interactive warm-up shown **after Start but
+before the first question**, with the **timer paused**. It lets a child *play
+with the idea* - drag, cut, build, break it - before any question is asked. If a
+pack has no `playground` (and no matching built-in one), this screen is skipped.
+
+> **Why it matters.** The playground is where curiosity is lit. Make it as
+> hands-on as possible and wrap it in a small story - it sets up everything the
+> questions then test. The full doctrine lives in the quiz-pack-builder skill's
+> `references/class-design.md`.
+
+A playground has a `title`, an `intro` line, and **one of two shapes**:
+
+| Field   | Type     | Notes                                                            |
+|---------|----------|------------------------------------------------------------------|
+| `title` | string   | Heading for the warm-up screen.                                  |
+| `intro` | string   | One or two sentences that set the scene (storytelling).          |
+| `outro` | string   | Optional closing line (shown at the end of a `stops` journey).   |
+| `sims`  | Media[]  | **Flat mode** - a grid of interactive widgets to free-play with. |
+| `stops` | Stop[]   | **Journey mode** - a guided, numbered story of stops (preferred).|
+
+If both are given, `stops` wins. Every entry of `sims` (and every stop's `sim`)
+is an ordinary **Media object** from section 3 - prefer the parameterised
+interactive widgets (`slices`, `grid`, `percentOf`, `percentLab`, `percentPie`,
+`percentCompare`, `volume3d`, `varBox`, `functionMachine`, `varExpression`,
+`varBalance`, `varCounter`, `varTrick`). Set their starting values so the default
+state does **not** give away any question's answer.
+
+### 6.1 Flat mode (`sims`)
+
+```json
+{
+  "playground": {
+    "title": "The Percentage Playground",
+    "intro": "Warm up with these - cut them, shade them, watch the numbers move together.",
+    "sims": [
+      { "type": "percentPie", "title": "Percentage Pizza", "parts": 8, "shaded": 4, "amount": 40 },
+      { "type": "grid", "title": "Hundred Grid", "filled": 30, "showDecimal": true },
+      { "type": "percentOf", "title": "Percent of a Number", "percent": 25, "amount": 40 }
+    ]
+  }
+}
+```
+
+### 6.2 Journey mode (`stops`)
+
+A guided story: each stop is a numbered card that builds from very simple to
+grade level, with one interactive `sim` to play with, a "smart move" note, and a
+self-check `question` whose `answer` reveals on a button press.
+
+```json
+{
+  "playground": {
+    "title": "The Smart Path",
+    "intro": "Being smart is about clever shortcuts. Walk the path and play at every stop.",
+    "outro": "You made it! One little letter made all of that simpler. Now press Start the questions.",
+    "stops": [
+      {
+        "title": "What is in the box?",
+        "tagline": "A variable is a named box.",
+        "explain": [
+          "Imagine a box with a secret number of sweets inside. Call the box x.",
+          "Whatever is hiding inside is the value of x. Peek and you might find 6."
+        ],
+        "sim": { "type": "varBox", "name": "x", "value": 5, "boxes": 3, "max": 12 },
+        "smart": "One letter saves writing the number over and over - less work, same idea.",
+        "question": "If the box x holds 6, what is x + 4?",
+        "answer": "10. Peek inside: x is 6, so x + 4 = 6 + 4 = 10."
+      }
+    ]
+  }
+}
+```
+
+| Stop field | Type     | Notes                                                       |
+|------------|----------|-------------------------------------------------------------|
+| `title`    | string   | The stop's name.                                            |
+| `tagline`  | string   | One-line big idea under the title.                          |
+| `explain`  | string[] | Short paragraphs, building from simple to grade level.      |
+| `sim`      | Media    | The interactive widget the child plays with at this stop.   |
+| `smart`    | string   | A "this is the clever shortcut" note.                       |
+| `question` | string   | A self-check question.                                      |
+| `answer`   | string   | Revealed when the child presses "Show answer".              |
+
+---
+
+## 7. Minimal example
 
 ```json
 {

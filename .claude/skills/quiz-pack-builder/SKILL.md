@@ -19,8 +19,20 @@ files the game loads and plays. Getting the questions right is the easy half.
 The real job is making every **"Let's Learn"** lesson feel like a tiny, thrilling
 science lesson that a curious child genuinely wants to read.
 
-You are writing for **little explorers**. A lesson has done its job when the
-explorer finishes it knowing more, *wondering* more, and itching to try something.
+You are writing for **little explorers** — and for **genius kids** you must never
+talk down to. A lesson has done its job when the explorer finishes it knowing
+more, *wondering* more, and itching to try something.
+
+**Before you build anything, read [`references/class-design.md`](references/class-design.md).**
+It is the doctrine every class must follow, and it is not optional:
+
+1. **Open with an interactive playground** — a story-driven warm-up the child
+   plays with *before* a single question. It must be as interactive as possible.
+2. **Preview first.** Deliver the playground + **3** sample questions, get a
+   thumbs-up, *then* build the rest (~20 total).
+3. **Connect every idea to real life** — bus rides, motors, money, pizza, the
+   child's own body — rather than staying abstract. This is the whole point;
+   abstract-only is a failed lesson.
 
 ## What you produce
 
@@ -38,7 +50,7 @@ imitate in spirit.
 Ask only for what is missing:
 - **Topic / subject** — what the pack teaches.
 - **Age or grade** — tunes vocabulary and examples. Default: ages 9–12.
-- **How many questions** — default 8–10.
+- **How many questions** — aim for ~20 total (you preview 3 first; see steps 2-3). Ask if they have a target.
 - **Photos or files** — a photo, worksheet, textbook page, PDF, or slideshow.
 
 If the user provides a **photo or file**, open it with the Read tool and use it:
@@ -50,18 +62,42 @@ If the user provides a **photo or file**, open it with the Read tool and use it:
 Copy any photo the pack will display into the project's `assets/` folder and
 reference it as `assets/<filename>`.
 
-### 2. Plan the questions
+### 2. Design the playground (the warm-up) FIRST
+Every class OPENS with an interactive playground, shown before any question with
+the timer paused. Design it *before* the questions - it is where curiosity is lit,
+and it sets up everything the questions then test. It ships inside the pack JSON
+as the top-level `playground` field (schema in `QUESTION_FORMAT.md` section 6;
+doctrine in `references/class-design.md`).
+
+- Prefer a **journey** (`stops`): a short, numbered story. Each stop has a vivid
+  real-life hook, ONE interactive widget to play with, a "smart shortcut" note,
+  and a self-check question with a reveal.
+- Make it **as interactive as humanly possible** - the child should drag, cut,
+  build and break the idea, not just read it. Lean on the parameterised widgets
+  (`varBox`, `functionMachine`, `percentPie`, `volume3d`, ...).
+- Tell a story, and tie every stop to **real life** (bus rides, money, motors,
+  pizza). Abstract-only is a fail.
+
+### 3. Preview, then get a thumbs-up BEFORE the full set
+Do NOT write all the questions up front. First deliver only:
+1. the complete **playground**, and
+2. **three** sample questions (each with a full lesson),
+
+then stop and ask the requester whether they like the feel. Only after they
+approve do you write the rest, aiming for **around 20 questions** in total.
+
+### 4. Plan the questions
 Before touching JSON, sketch the set: list each question, the one idea it tests,
 and an easy-to-hard order. Aim for a gentle climb — the pack should feel like a
 journey, not a wall.
 
-### 3. Write each question and its lesson
+### 5. Write each question and its lesson
 This is the heart of the skill — see **The Lesson Craft** below.
 
-### 4. Give most lesson sections a visual
+### 6. Give most lesson sections a visual
 See **Visuals** below and the schema reference.
 
-### 5. Assemble and validate
+### 7. Assemble and validate
 Write the JSON, then run the bundled validator:
 ```
 python scripts/validate_pack.py questions/<your-pack>.json
@@ -69,7 +105,7 @@ python scripts/validate_pack.py questions/<your-pack>.json
 (Run it from this skill's folder, or give the script's full path.) Fix every
 error it reports — a pack that fails the validator will break the game.
 
-### 6. Hand it back
+### 8. Hand it back
 Tell the user they can play it immediately with the game's "Choose File" button,
 and offer to add it to the built-in dropdown in `index.html` (a new `<option>`
 inside `<select id="pack-select">`).

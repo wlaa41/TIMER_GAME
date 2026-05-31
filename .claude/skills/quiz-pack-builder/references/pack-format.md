@@ -10,7 +10,8 @@ has a newer `QUESTION_FORMAT.md`, that file is authoritative.
 3. Lesson hint and sections
 4. Media types (illustration, chart, image, video, threejs, matterjs)
 5. Three.js / Matter.js code templates
-6. A minimal valid pack
+6. Playground (the warm-up)
+7. A minimal valid pack
 
 ---
 
@@ -165,7 +166,50 @@ setup: "Matter.World.add(world, Matter.Bodies.circle(width*0.5, 50, 26, { restit
 Both `setup` and `update` must be **single-line JSON strings** — use single
 quotes inside the code, and no line breaks.
 
-## 6. A minimal valid pack
+## 6. Playground (the warm-up) — open every new class with one
+
+An interactive warm-up shown **before** the questions (timer paused), shipped
+inside the pack as the top-level `playground` field. Prefer **journey mode**
+(`stops`): a short, numbered story where each stop has a real-life hook, ONE
+interactive widget to play with, a "smart shortcut" note, and a self-check
+question. Use **flat mode** (`sims`) for a plain grid of free-play widgets.
+
+Each `sim` is a Media object. For a playground, favour the **interactive
+widgets** — `slices`, `grid`, `percentOf`, `percentLab`, `percentPie`,
+`percentCompare`, `volume3d`, `varBox`, `functionMachine`, `varExpression`,
+`varBalance`, `varCounter`, `varTrick` — each documented in `QUESTION_FORMAT.md`
+section 3. Full playground schema: `QUESTION_FORMAT.md` section 6. Doctrine and
+real-life mandate: `references/class-design.md`.
+
+```json
+{
+  "playground": {
+    "title": "The Smart Path",
+    "intro": "One or two sentences that set the scene, as a story.",
+    "outro": "Optional closing line shown at the end of the journey.",
+    "stops": [
+      {
+        "title": "What is in the box?",
+        "tagline": "A variable is a named box.",
+        "explain": ["Build from very simple...", "...up to grade level."],
+        "sim": { "type": "varBox", "name": "x", "value": 5, "boxes": 3, "max": 12 },
+        "smart": "The clever real-life shortcut, in one line.",
+        "question": "A self-check question.",
+        "answer": "Revealed when the child presses Show answer."
+      }
+    ]
+  }
+}
+```
+
+Flat mode instead of `stops` (a free-play grid):
+
+```json
+{ "playground": { "title": "...", "intro": "...",
+  "sims": [ { "type": "percentPie", "parts": 8, "shaded": 4 }, { "type": "grid", "filled": 30 } ] } }
+```
+
+## 7. A minimal valid pack
 
 ```json
 {
