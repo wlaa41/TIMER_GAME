@@ -2305,6 +2305,102 @@ select.time-select {
     }
 }
 
+/* ===== Arithmetic speed widgets =========================================== */
+/* Speed Sprint — the timed arena */
+.sprint-card { text-align: center; }
+.sprint-board {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    margin: 4px 0 14px;
+}
+.sprint-stat {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 8px 4px;
+}
+.sprint-stat-label {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+}
+.sprint-stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+.sprint-time .sprint-stat-value { color: var(--accent); }
+.sprint-time.low .sprint-stat-value { color: var(--error); }
+.sprint-arena {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 12px;
+    background: var(--accent-soft);
+    border-radius: var(--radius);
+}
+.sprint-prompt {
+    font-size: 2.6rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+}
+.sprint-input {
+    width: 160px;
+    max-width: 80%;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    padding: 8px 10px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    color: var(--text);
+}
+.sprint-input:focus { outline: none; border-color: var(--accent); }
+.sprint-input.shake { animation: sprint-shake 280ms ease; border-color: var(--error); }
+.sprint-msg { min-height: 1.4em; margin: 12px 0 8px; font-weight: 600; }
+.sprint-msg.win { color: var(--success); font-size: 1.1rem; }
+.sprint-card.sprint-flash .sprint-arena { animation: sprint-pop 220ms ease; }
+@keyframes sprint-pop {
+    0% { background: var(--success-soft); }
+    100% { background: var(--accent-soft); }
+}
+@keyframes sprint-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+}
+
+/* Number line — make-ten jumps */
+.numline-svg { width: 100%; height: auto; }
+.numline-axis { stroke: var(--text-muted); stroke-width: 2; }
+.numline-tick { stroke: var(--border); stroke-width: 1.5; }
+.numline-tick-major { stroke: var(--text-muted); stroke-width: 2; }
+.numline-num { fill: var(--text-muted); font-size: 11px; font-weight: 600; }
+.numline-hop { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-dasharray: 4 3; }
+.numline-hop.alt { stroke: #f59e0b; }
+.numline-hop-label { fill: var(--text); font-size: 12px; font-weight: 700; }
+.numline-start { fill: var(--text-muted); }
+.numline-end { fill: var(--accent); }
+
+/* Multiplication / division dot array */
+.array-svg { width: 100%; max-width: 280px; height: auto; }
+.array-dot { transition: fill 140ms ease; }
+
+/* Box-method (criss-cross) 2-digit x 2-digit */
+.cc-svg { width: 100%; max-width: 340px; height: auto; }
+.cc-cell { stroke: var(--surface); stroke-width: 1.5; }
+.cc-cell-text { fill: #ffffff; font-size: 13px; font-weight: 700; }
+.cc-frame { stroke: var(--text-muted); stroke-width: 2; }
+.cc-label { fill: var(--text); font-size: 13px; font-weight: 700; }
+.cc-axis { fill: var(--text-muted); font-size: 12px; font-weight: 600; }
+
 /* ===== Responsive ========================================================= */
 @media (max-width: 980px) {
     .setup-screen {
@@ -2394,5 +2490,13 @@ select.time-select {
     .balance-pan {
         width: 108px;
         font-size: 1.05rem;
+    }
+
+    .sprint-board {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .sprint-prompt {
+        font-size: 2.1rem;
     }
 }

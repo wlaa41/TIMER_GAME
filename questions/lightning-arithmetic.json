@@ -1,0 +1,480 @@
+{
+  "quizTitle": "Lightning Brain: Mental Math Speed Academy",
+  "description": "A full 25-question class that turns strong kids (roughly ages 9-13) into human calculators. Teaches the real techniques speed-mathematicians use: add left-to-right, subtract by counting up, x5/x9 shortcuts, the x11 trick, square two-digit numbers, multiply any two-digit x two-digit with the box method, multiply close-together numbers via a2-b2, and read division backwards. The playground teaches every technique with something to play with and ends in a hard, timed Sprint Arena; the 25 questions climb from quick wins to real challenges.",
+  "playground": {
+    "title": "Lightning Brain Academy: Think Like a Human Calculator",
+    "intro": "You already know your basic facts - this is the next level. These are the actual techniques that let people add 147+138, square 85, or do 47x38 in their head faster than someone can type it into a calculator. Steal all seven, play at every stop, then prove it in the Sprint Arena with real two-digit numbers. Let's go.",
+    "outro": "That's the full arsenal: add left-to-right, subtract by counting up, lean on x5 and x9 shortcuts, x11 in one slide, square two-digit numbers, box-method any two-digit x two-digit, and read division backwards. None of it is memorising - it's all clever structure. The rest is reps: come back to the Champion Sprint and keep smashing your Best. That's how a normal brain becomes a lightning brain.",
+    "stops": [
+      {
+        "title": "Technique 1: Add LEFT to Right",
+        "tagline": "Big parts first. Faster, and you can say the answer as you go.",
+        "explain": [
+          "On paper you add right-to-left, carrying. In your head that's slow and easy to lose. Champions flip it: do the BIG parts first, left to right.",
+          "47 + 38? Tens: 40+30 = 70. Ones: 7+8 = 15. Glue: 70+15 = 85. You had 'seventy-something' locked in before you finished - that's the speed.",
+          "Slide the numbers; the jump shows the tens leap first, then the ones finishing through a ten."
+        ],
+        "sim": { "type": "numberLine", "op": "add", "a": 47, "b": 38, "max": 100, "title": "Tens first, then ones", "tip": "Read it as 40+30, then 7+8. Try 56+27 and 68+25." },
+        "smart": "Real life: two bills of £47 and £38. The slow person reaches for a phone; you say 'eighty-five' before they unlock it, because you started from the big end.",
+        "question": "Add left-to-right: 58 + 35. What do you get?",
+        "answer": "93. Tens 50+30=80, ones 8+5=13, then 80+13=93."
+      },
+      {
+        "title": "Technique 2: Subtract by Counting UP",
+        "tagline": "Never 'borrow'. Measure the gap through tidy tens.",
+        "explain": [
+          "Two-digit take-away with borrowing is where most people crawl. Drop it. Measure the GAP by counting up from the small number, bridging through tens.",
+          "84 - 67? Start at 67. Up to 70 is 3. From 70 up to 84 is 14. Gap = 3+14 = 17. No borrowing, no stress.",
+          "Slide the numbers and watch it hop up to a ten first, then finish."
+        ],
+        "sim": { "type": "numberLine", "op": "sub", "a": 84, "b": 67, "max": 100, "title": "Count up the gap", "tip": "Read 84-67 as 'how far from 67 to 84?'. Try 92-58 and 71-46." },
+        "smart": "Real life: paying £67 with £80 in notes. The change is just the gap counted up - which is exactly why cashiers say 'and 3 makes 70, and 14 makes 84'.",
+        "question": "Count up: 73 - 48. What's the gap?",
+        "answer": "25. From 48 to 50 is 2, then 50 to 73 is 23, and 2+23=25."
+      },
+      {
+        "title": "Technique 3: x5 and x9 Shortcuts",
+        "tagline": "x5 is half of x10. x9 is x10 minus one lot.",
+        "explain": [
+          "Two shortcuts that kill whole columns of the times table. x5: multiply by 10 and halve it. 48x5 = 480 halved = 240.",
+          "x9: multiply by 10 and take one lot away. 27x9 = 270 - 27 = 243. Way faster than the 9 times table.",
+          "Run numbers through the machine to feel x5 and x9, then check with the dot grid's break-apart."
+        ],
+        "sim": { "type": "functionMachine", "multiply": 9, "add": 0, "input": 27, "title": "The x9 machine", "tip": "27x9 = 270 - 27 = 243. Switch your thinking to x5 = half of x10 too." },
+        "smart": "Real life: 48 stickers at 5p each. Don't grind the 5 times table - think 48x10 = 480, half it = 240p. Halving and 'one lot less' are lightning fast.",
+        "question": "Use the shortcut: 36 x 5.",
+        "answer": "180. 36x10 = 360, halve it = 180."
+      },
+      {
+        "title": "Technique 4: The x11 Lightning Trick",
+        "tagline": "Two-digit x 11: split the digits, drop their sum in the middle.",
+        "explain": [
+          "x11 has a trick so clean it feels like cheating. Pull the digits apart and put their SUM in the gap.",
+          "35x11 -> 3_5 with (3+5)=8 in the middle -> 385. 26x11 -> 2_8_6 -> 286.",
+          "If the digit-sum is 10+, carry it: 47x11 -> 4_(11)_7 -> carry the 1 -> 517. Run a few through the machine."
+        ],
+        "sim": { "type": "functionMachine", "multiply": 11, "add": 0, "input": 35, "title": "The x11 machine", "tip": "Put in 35 -> 385. Try 26, 52, then 47 (watch the carry to 517)." },
+        "smart": "Real life: 11 weeks saving £35 -> £385, while everyone else reaches for a calculator. Shortcuts like this are the gap between looking slow and looking brilliant.",
+        "question": "Use the trick: 63 x 11.",
+        "answer": "693. Split 6_3, put 6+3=9 in the middle -> 693."
+      },
+      {
+        "title": "Technique 5: Square Two-Digit Numbers",
+        "tagline": "Squaring a number that ends in 5 is almost cheating.",
+        "explain": [
+          "A square is a number times itself: 25² = 25x25. Scary - unless it ends in 5.",
+          "Trick for any _5 number: take the tens digit, multiply by the NEXT number up, then stick 25 on the end. 25²: 2x3=6 -> 625. 85²: 8x9=72 -> 7225.",
+          "The dot square shows why a square is literally a square: rows = columns."
+        ],
+        "sim": { "type": "mathArray", "rows": 7, "cols": 7, "split": 5, "max": 12, "title": "A square is rows = columns", "tip": "Set rows=columns to see a square (7x7=49). Break-apart still works: 7x7 = 7x5+7x2." },
+        "smart": "Real life: a 25x25 tile patio. No calculator - 2x3 is 6, slap on 25 -> 625 tiles. People think you're a genius; you just know the pattern.",
+        "question": "Square it: 45².",
+        "answer": "2025. 4x5 = 20, then put 25 on the end -> 2025."
+      },
+      {
+        "title": "Technique 6: The Box Method (any 2-digit x 2-digit)",
+        "tagline": "Split both numbers into tens and ones. Four easy corners, then add.",
+        "explain": [
+          "This is the general technique - it cracks ANY two-digit times two-digit, not just the trick ones. Split each number into tens + ones and multiply the four corners.",
+          "23 x 21: (20+3) x (20+1). Corners: 20x20=400, 20x1=20, 3x20=60, 3x1=3. Add: 400+20+60+3 = 483.",
+          "Slide both numbers in the box and watch the four pieces - the area really is the answer."
+        ],
+        "sim": { "type": "crissCross", "a": 23, "b": 21, "min": 11, "max": 99, "title": "Split into four corners", "tip": "23x21 = 400+20+60+3 = 483. Slide a and b and watch the four boxes change." },
+        "smart": "Real life: a car park 23 spaces wide and 21 deep. Break it into a big 20x20 block plus three thin strips - that's how you count a crowd fast, in chunks.",
+        "question": "Box method: 32 x 21. (30+2)x(20+1).",
+        "answer": "672. 600 + 30 + 40 + 2 = 672."
+      },
+      {
+        "title": "Technique 7: Close-Together Multiplying",
+        "tagline": "Numbers either side of an easy middle? Use middle² - distance².",
+        "explain": [
+          "A pro move for two numbers that straddle an easy middle by the same amount: (m-d)(m+d) = m² - d².",
+          "13x7? Straddle 10, each 3 away: 10² - 3² = 100 - 9 = 91. 18x22? Straddle 20, each 2 away: 400 - 4 = 396.",
+          "It also kills almost-squares: 7x9 = 8² - 1 = 63. The dot grid's break-apart shows the everyday version."
+        ],
+        "sim": { "type": "mathArray", "rows": 8, "cols": 8, "split": 7, "max": 12, "title": "8x8, and 7x9 next door", "tip": "8x8=64, so 7x9 is one less: 63. Slide rows/cols to 7 and 9 to check." },
+        "smart": "Real life: a box 13 cans long and 7 wide. Slow way: long multiplication. Fast way: 100 - 9 = 91. One breath.",
+        "question": "Use the trick: 12 x 8 (straddle 10).",
+        "answer": "96. 10² - 2² = 100 - 4 = 96."
+      },
+      {
+        "title": "Two-Digit Sprint",
+        "tagline": "No more single digits. Real numbers, 40 seconds.",
+        "explain": [
+          "Techniques are nothing without reps. Here's a pure two-digit add/subtract sprint - exactly where left-to-right and count-up pay off.",
+          "Type the answer; the instant it's right the next jumps in. Reach for the technique - don't count.",
+          "Your score saves as your Best. Beat yesterday-you."
+        ],
+        "sim": { "type": "speedSprint", "ops": ["add", "sub"], "aMin": 12, "aMax": 89, "bMin": 11, "bMax": 49, "seconds": 40, "title": "40s Two-Digit Sprint", "tip": "Add left-to-right; subtract by counting up. Chase that Best." },
+        "smart": "A streak of 8+ here means the two-digit tricks are becoming automatic - a genuinely strong skill, not a party trick.",
+        "question": "What was your best streak on two-digit facts?",
+        "answer": "Whatever it was - go beat it. These are the numbers that matter in real life."
+      },
+      {
+        "title": "The Champion Sprint",
+        "tagline": "Everything, including trick facts. 45 seconds. Prove it.",
+        "explain": [
+          "The real arena: two-digit add and subtract, multiplication, x11 trick-facts, and squares - all mixed, 45 seconds.",
+          "Grab the right weapon for each: left-to-right, count-up, x5/x9, x11 split, the _5 square, box method, or close-together a²-b².",
+          "Beat your Best, then beat it again. This arena is your dojo - live here."
+        ],
+        "sim": { "type": "speedSprint", "ops": ["add", "sub", "mul", "mul11", "sq"], "aMin": 11, "aMax": 79, "bMin": 6, "bMax": 19, "seconds": 45, "title": "Champion Sprint: 2-digit + trick facts", "tip": "Mixed two-digit +, -, x, x11 and squares. Use the matching technique for each." },
+        "smart": "Champions aren't the kids who never miss - they're the ones who do the most reps. Every red shake is your brain rewiring. Keep racing.",
+        "question": "Which technique is still your slowest?",
+        "answer": "That's your homework. Run a single-skill sprint on just that one until it stops being the slow one."
+      }
+    ]
+  },
+  "questions": [
+    {
+      "id": "q1", "code": "ADD-01",
+      "question": "You score 68 points in round one and 57 in round two. What's your total?",
+      "options": ["115", "124", "125", "135"], "correctAnswer": "125", "estimatedSeconds": 20,
+      "hint": { "format": "lesson", "title": "Add Left-to-Right", "subtitle": "Big parts first - the champion way to add.",
+        "sections": [
+          { "heading": "Why the school method is slow in your head", "body": ["On paper you add right-to-left and carry. In your head, carrying is exactly where people stall.", "Fast adders start at the BIG end, left to right, so the answer is almost known instantly."] },
+          { "heading": "The big idea: tens, then ones", "body": "68 + 57: tens 60+50 = 110, ones 8+7 = 15, glue 110+15 = 125. You were sitting on 'a hundred and ten something' before you finished.", "visual": { "type": "numberLine", "op": "add", "a": 68, "b": 57, "max": 130, "title": "Tens jump, then ones" }, "note": "Add from the left. Lock the big parts first, then adjust with the ones." },
+          { "heading": "See it on other numbers", "body": "Try 46 + 38.", "steps": ["Tens: 40+30 = 70.", "Ones: 6+8 = 14.", "Glue: 70+14 = 84."] },
+          { "heading": "Fun fact: world champions add this way", "body": "At the Mental Calculation World Cup, competitors add ten 10-digit numbers in under a minute - and every one works left-to-right, because starting big lets you say the answer before you finish.", "note": "World-record mental adders all go left-to-right. The school method is built for paper, not speed." },
+          { "heading": "Where it wins in real life", "body": "Left-to-right adding is an everyday superpower.", "points": ["Two prices: £68 + £57 -> '125' before they find a phone.", "Two game scores or two cricket innings.", "Two distances driven."] },
+          { "heading": "Try it yourself", "body": "Out loud, big-end first, no pencil:", "points": ["59 + 24, then 76 + 18, then 145 + 132.", "Say the tens total first, THEN finish with the ones.", "Then open the Two-Digit Sprint and chase a streak of 8."] },
+          { "heading": "Back to your score", "body": "68 + 57, champion style.", "note": "Tens first (60+50), then the ones (8+7=15), then glue. Beat the calculator." }
+        ] } },
+    {
+      "id": "q2", "code": "ADD-02",
+      "question": "A snack stand sells 147 drinks before half-time and 138 after. How many altogether?",
+      "options": ["275", "285", "295", "385"], "correctAnswer": "285", "estimatedSeconds": 30,
+      "hint": { "format": "lesson", "title": "Left-to-Right with Three Digits", "subtitle": "Hundreds, then tens, then ones.",
+        "sections": [
+          { "heading": "Same trick, bigger numbers", "body": "Three digits don't change the method - you just start one column further left." },
+          { "heading": "The big idea", "body": "147 + 138: hundreds 100+100 = 200, tens 40+30 = 70 -> 270, ones 7+8 = 15 -> 285.", "visual": { "type": "numberLine", "op": "add", "a": 47, "b": 38, "max": 100, "title": "The tens-then-ones part (47+38)" }, "note": "Hundreds, then tens, then ones - always left to right." },
+          { "heading": "See it again", "body": "256 + 127:", "steps": ["Hundreds 200+100 = 300.", "Tens 50+20 = 70 -> 370.", "Ones 6+7 = 13 -> 383."] },
+          { "heading": "Fun fact: lightning calculators talk while they add", "body": "Stage performers begin announcing the leftmost digits of a sum while still working out the rest - only possible because they add from the big end.", "note": "Starting from the left means you can speak the answer as you go." },
+          { "heading": "Where it shows up", "body": "Bigger everyday totals.", "points": ["Shopping baskets over £100.", "Steps walked across two days.", "Crowd counts: 147 + 138 fans."] },
+          { "heading": "Try it yourself", "body": "Three-digit, big-end first:", "points": ["163 + 128, 245 + 137, 372 + 219.", "Say the hundreds, then tens, then ones.", "Race a sibling - no pencils."] },
+          { "heading": "Back to the snack stand", "body": "147 + 138.", "note": "200... then 40+30... then 7+8=15. Glue them." }
+        ] } },
+    {
+      "id": "q3", "code": "ADD-03",
+      "question": "A game gives 396 coins in level one and 247 in level two. Total coins?",
+      "options": ["633", "643", "653", "743"], "correctAnswer": "643", "estimatedSeconds": 40,
+      "hint": { "format": "lesson", "title": "Add by Rounding then Adjusting", "subtitle": "A messy number near a round one? Round, add, then give back.",
+        "sections": [
+          { "heading": "Spot the 'almost round' number", "body": ["396 is annoying - but it's only 4 away from 400, which is lovely.", "So add 400 instead, then take the extra 4 back at the end. This is called compensation."] },
+          { "heading": "The big idea", "body": "396 + 247 -> (400 + 247) - 4 = 647 - 4 = 643.", "visual": { "type": "numberLine", "op": "add", "a": 96, "b": 47, "max": 150, "title": "The tens-and-ones part (96+47)" }, "note": "Round up to the easy number, add, then subtract what you borrowed." },
+          { "heading": "See it again", "body": "498 + 325:", "steps": ["498 is 2 from 500.", "500 + 325 = 825.", "Give the 2 back: 823."] },
+          { "heading": "Fun fact: your brain loves round numbers", "body": "Studies of mental arithmetic show people are dramatically faster near 'landmark' numbers like 100 and 1000 - so the trick is to travel via a landmark and adjust.", "note": "Detour through a round number; it's almost always faster." },
+          { "heading": "Where it shows up", "body": "Prices ending in 9 are everywhere on purpose.", "points": ["£3.99 is really £4 minus a penny.", "199 + 199 = 400 - 2 = 398.", "Adding 98, 97, 96 of anything."] },
+          { "heading": "Try it yourself", "body": "Round, add, give back:", "points": ["297 + 158, 495 + 226, 388 + 144.", "Say which round number you jumped to.", "Then try the same idea on the sprint."] },
+          { "heading": "Back to the coins", "body": "396 + 247.", "note": "Jump 396 up to 400, add, then give the 4 back." }
+        ] } },
+    {
+      "id": "q4", "code": "SUB-01",
+      "question": "A bus holds 84 people. 67 get on. How many empty seats are left?",
+      "options": ["13", "17", "23", "27"], "correctAnswer": "17", "estimatedSeconds": 25,
+      "hint": { "format": "lesson", "title": "Subtract by Counting Up", "subtitle": "Don't take away - measure the gap.",
+        "sections": [
+          { "heading": "Why borrowing is slow", "body": ["Crossing out and borrowing is where two-digit subtraction falls apart in your head.", "Flip it: count UP from the small number to the big one. The gap IS the answer."] },
+          { "heading": "The big idea", "body": "84 - 67: from 67 up to 70 is 3, from 70 up to 84 is 14, total gap 3+14 = 17.", "visual": { "type": "numberLine", "op": "sub", "a": 84, "b": 67, "max": 100, "title": "Count up the gap" }, "note": "Bridge to the next ten, then finish. Add the two hops." },
+          { "heading": "See it again", "body": "73 - 48:", "steps": ["48 up to 50 is 2.", "50 up to 73 is 23.", "Gap = 2+23 = 25."] },
+          { "heading": "Fun fact: this is how change works", "body": "Cashiers for centuries gave change by counting UP from the price to the cash given - never by subtracting. It's faster and harder to get wrong.", "note": "Shops count up: 'and 3 makes 70, and 14 makes 84.'" },
+          { "heading": "Where it shows up", "body": "Gaps are everywhere.", "points": ["Change from a note.", "Empty seats: capacity minus people.", "Minutes left until a time."] },
+          { "heading": "Try it yourself", "body": "Count up, bridging through a ten:", "points": ["92 - 58, 71 - 46, 64 - 27.", "Say the bridge ('up to 60...') then the rest.", "Then run the Two-Digit Sprint."] },
+          { "heading": "Back to the bus", "body": "84 - 67 empty seats.", "note": "From 67 up to 70, then up to 84. Add the hops." }
+        ] } },
+    {
+      "id": "q5", "code": "SUB-02",
+      "question": "A phone costs 503 coins. You have 298. How many more do you need?",
+      "options": ["195", "205", "215", "295"], "correctAnswer": "205", "estimatedSeconds": 40,
+      "hint": { "format": "lesson", "title": "Subtract Near a Round Number", "subtitle": "Both numbers near hundreds? Count up the easy way.",
+        "sections": [
+          { "heading": "Look for the round numbers hiding inside", "body": ["298 is almost 300; 503 is just past 500. Use those landmarks.", "Count up from 298: to 300 is 2, to 500 is 200, to 503 is 3."] },
+          { "heading": "The big idea", "body": "503 - 298: 2 (to 300) + 200 (to 500) + 3 (to 503) = 205.", "visual": { "type": "numberLine", "op": "sub", "a": 103, "b": 98, "max": 120, "title": "The bridge part (103-98)" }, "note": "Count up through every landmark: next ten, next hundred, then the rest." },
+          { "heading": "See it again", "body": "402 - 195:", "steps": ["195 up to 200 is 5.", "200 up to 400 is 200.", "400 up to 402 is 2. Total 207."] },
+          { "heading": "Fun fact: shopkeepers beat calculators on change", "body": "Counting up in landmark jumps is so reliable that it was the standard way to give change long before tills did the maths - and it's still faster for a trained brain.", "note": "Landmarks (tens, hundreds) are stepping stones across the gap." },
+          { "heading": "Where it shows up", "body": "Any 'how much more?' question.", "points": ["Coins needed to afford something.", "Days left until an event.", "Points to reach the next level."] },
+          { "heading": "Try it yourself", "body": "Count up via landmarks:", "points": ["601 - 397, 504 - 288, 700 - 235.", "Name each landmark you land on.", "Then test it in the sprint."] },
+          { "heading": "Back to the phone", "body": "503 - 298 coins needed.", "note": "Up to 300, up to 500, then to 503. Add the jumps." }
+        ] } },
+    {
+      "id": "q6", "code": "SUB-03",
+      "question": "A water tank holds 1000 litres. 432 have been used. How many are left?",
+      "options": ["568", "578", "668", "632"], "correctAnswer": "568", "estimatedSeconds": 35,
+      "hint": { "format": "lesson", "title": "Subtracting from 1000", "subtitle": "A tidy trick: take each digit from 9, and the last from 10.",
+        "sections": [
+          { "heading": "Subtracting from 1000 has a shortcut", "body": ["Counting up still works, but there's an even slicker move for 100, 1000, 10000.", "Take every digit from 9, except the LAST one, which you take from 10."] },
+          { "heading": "The big idea", "body": "1000 - 432: 9-4=5, 9-3=6, 10-2=8 -> 568. No borrowing at all.", "visual": { "type": "numberLine", "op": "sub", "a": 100, "b": 32, "max": 110, "title": "The same idea on 100-32" }, "note": "From 1000: 9 minus each digit, but 10 minus the final digit." },
+          { "heading": "See it again", "body": "1000 - 675:", "steps": ["9-6 = 3.", "9-7 = 2.", "10-5 = 5 -> 325."] },
+          { "heading": "Fun fact: this is how old machines subtracted", "body": "Early mechanical calculators subtracted by adding the 'nines complement' - exactly this take-from-9 trick - because adding is easier to build than subtracting. Computers still use a version of it today.", "note": "'Complements' let machines (and you) turn subtraction into something easier." },
+          { "heading": "Where it shows up", "body": "Round-number subtractions.", "points": ["Change from £10.00 or £100.", "Litres or grams left in a full container.", "Time left in a 1000-point game."] },
+          { "heading": "Try it yourself", "body": "Take from 9, last from 10:", "points": ["1000 - 286, 1000 - 514, 1000 - 909.", "Say the digits out loud as you flip them.", "Check yourself by counting up."] },
+          { "heading": "Back to the tank", "body": "1000 - 432 litres left.", "note": "9-4, 9-3, 10-2. Read off the three digits." }
+        ] } },
+    {
+      "id": "q7", "code": "MUL-5",
+      "question": "A pack has 48 stickers. You buy 5 packs. How many stickers?",
+      "options": ["200", "220", "240", "245"], "correctAnswer": "240", "estimatedSeconds": 25,
+      "hint": { "format": "lesson", "title": "x5 = Half of x10", "subtitle": "The easiest multiplication shortcut there is.",
+        "sections": [
+          { "heading": "x10 is free, so make x5 from it", "body": ["Multiplying by 10 is just adding a zero - effortless. And 5 is half of 10.", "So to multiply by 5: multiply by 10, then halve."] },
+          { "heading": "The big idea", "body": "48 x 5: 48 x 10 = 480, halve it = 240.", "visual": { "type": "mathArray", "rows": 5, "cols": 8, "split": 5, "max": 12, "title": "Rows of 5 (and break-apart)" }, "note": "x5 = (x10) then halve. Always." },
+          { "heading": "See it again", "body": "26 x 5:", "steps": ["26 x 10 = 260.", "Halve: 130.", "So 26 x 5 = 130."] },
+          { "heading": "Fun fact: clocks run on fives", "body": "Every number on a clock face is 5 minutes apart, which is why we read time in fives so fast - your brain has been practising x5 since you learned to tell the time.", "note": "Telling time is secret x5 practice you've done for years." },
+          { "heading": "Where it shows up", "body": "Fives are everywhere.", "points": ["5p and 5-minute chunks.", "Hands: 5 fingers per hand.", "Money counted in fives."] },
+          { "heading": "Try it yourself", "body": "x10 then halve:", "points": ["34 x 5, 62 x 5, 88 x 5.", "Say the x10 answer first, then halve.", "Then turn on multiplication in the sprint."] },
+          { "heading": "Back to the stickers", "body": "48 x 5.", "note": "48 x 10 then halve." }
+        ] } },
+    {
+      "id": "q8", "code": "MUL-9",
+      "question": "A bracelet uses 27 beads. You make 9 bracelets. How many beads?",
+      "options": ["233", "243", "247", "253"], "correctAnswer": "243", "estimatedSeconds": 30,
+      "hint": { "format": "lesson", "title": "x9 = x10 Minus One Lot", "subtitle": "Nine is just ten with one taken back.",
+        "sections": [
+          { "heading": "Don't grind the 9 times table", "body": ["9 is one less than 10. So nine lots of something is ten lots minus one lot.", "Multiply by 10, then subtract the number once."] },
+          { "heading": "The big idea", "body": "27 x 9: 27 x 10 = 270, minus 27 = 243.", "visual": { "type": "mathArray", "rows": 9, "cols": 6, "split": 5, "max": 12, "title": "Nine rows (break-apart view)" }, "note": "x9 = (x10) minus one lot of the number." },
+          { "heading": "See it again", "body": "34 x 9:", "steps": ["34 x 10 = 340.", "Minus 34 = 306.", "So 34 x 9 = 306."] },
+          { "heading": "Fun fact: the 9 times table digits add to 9", "body": "Look at 9, 18, 27, 36, 45... each answer's digits add up to 9 (1+8, 2+7, 3+6). It's a built-in self-check that the result is right.", "note": "If a 'x9' answer's digits don't add to 9 (or a multiple), you slipped." },
+          { "heading": "Where it shows up", "body": "Nines hide near tens.", "points": ["99p pricing (just under £1).", "9-packs and 9-hour shifts.", "Any 'one short of ten lots'."] },
+          { "heading": "Try it yourself", "body": "x10 then subtract once:", "points": ["23 x 9, 46 x 9, 58 x 9.", "Check each with the digit-sum trick.", "Then race it in the sprint."] },
+          { "heading": "Back to the beads", "body": "27 x 9.", "note": "270 minus one lot of 27." }
+        ] } },
+    {
+      "id": "q9", "code": "X11-A",
+      "question": "You save 35 coins a day for 11 days. How many coins?",
+      "options": ["355", "375", "385", "395"], "correctAnswer": "385", "estimatedSeconds": 25,
+      "hint": { "format": "lesson", "title": "The x11 Trick (no carry)", "subtitle": "Split the digits, drop their sum in the middle.",
+        "sections": [
+          { "heading": "Eleven is secretly the friendliest multiplier", "body": ["11 = 10 + 1, so n x 11 is n x 10 plus one more n. That powers a clean shortcut.", "For a two-digit number: write the digits apart, sum in the gap."] },
+          { "heading": "The big idea", "body": "35 x 11 -> 3 _ 5, with 3+5=8 in the middle -> 385.", "visual": { "type": "functionMachine", "multiply": 11, "add": 0, "input": 35, "title": "The x11 machine" }, "note": "Two-digit x 11 = first digit, (sum of digits), last digit." },
+          { "heading": "See it again", "body": "26 x 11:", "steps": ["Digits 2 and 6.", "Sum 2+6 = 8 in the middle.", "-> 286."] },
+          { "heading": "Fun fact: it scales up", "body": "The same idea gives x101 and x1001 (the number plus a shifted copy of itself), which is how performers multiply huge numbers on stage in seconds.", "note": "x11, x101, x1001 are all 'a number plus a shifted copy'." },
+          { "heading": "Where it shows up", "body": "Elevens hide in plain sight.", "points": ["11 weeks of pocket money.", "A 'dozen minus one' of anything.", "11-a-side teams times a score."] },
+          { "heading": "Try it yourself", "body": "Split and sum (no carries yet):", "points": ["24 x 11, 52 x 11, 63 x 11.", "Say first digit, middle sum, last digit.", "Then switch on x11 in the Champion Sprint."] },
+          { "heading": "Back to the coins", "body": "35 x 11.", "note": "3, then 3+5, then 5." }
+        ] } },
+    {
+      "id": "q10", "code": "X11-B",
+      "question": "A theatre has 11 rows with 47 seats each. Total seats?",
+      "options": ["417", "507", "517", "4117"], "correctAnswer": "517", "estimatedSeconds": 40,
+      "hint": { "format": "lesson", "title": "The x11 Trick (with carry)", "subtitle": "When the digit-sum hits 10, carry it left.",
+        "sections": [
+          { "heading": "Most x11 problems need the carry", "body": ["The split-and-sum trick is easy until the two digits add to 10 or more.", "Then the middle spills over and carries left, just like normal addition."] },
+          { "heading": "The big idea", "body": "47 x 11: digits 4 and 7 add to 11. Write 4 _(11)_ 7; carry the 1 so the 4 becomes 5 -> 517.", "visual": { "type": "functionMachine", "multiply": 11, "add": 0, "input": 47, "title": "The x11 machine (try 47)" }, "note": "Digit-sum 10+? Put the units in the middle, carry the 1 to the left digit." },
+          { "heading": "See it again", "body": "76 x 11:", "steps": ["Digits 7 and 6 add to 13.", "Middle is 3, carry 1.", "7 becomes 8 -> 836."] },
+          { "heading": "Fun fact: the carry is the only hard part", "body": "Surveys of mental-math learners find the no-carry x11 is mastered almost instantly; the carry is the one step worth drilling - so that's exactly where reps pay off.", "note": "Drill the carrying x11 cases; the rest is already easy." },
+          { "heading": "Where it shows up", "body": "Bigger elevens.", "points": ["11 rows of seats in a hall.", "11 boxes of 47 items.", "11 months of a 76-unit bill."] },
+          { "heading": "Try it yourself", "body": "These all carry:", "points": ["48 x 11, 67 x 11, 89 x 11.", "Say the carry out loud.", "Then chase a streak with x11 on in the sprint."] },
+          { "heading": "Back to the theatre", "body": "47 x 11.", "note": "4 and 7 make 11; carry into the 4." }
+        ] } },
+    {
+      "id": "q11", "code": "MUL-25",
+      "question": "A floor needs 36 boxes of tiles with 25 tiles per box. How many tiles?",
+      "options": ["800", "850", "900", "950"], "correctAnswer": "900", "estimatedSeconds": 40,
+      "hint": { "format": "lesson", "title": "x25 = Quarter of x100", "subtitle": "Twenty-five is a quarter of a hundred.",
+        "sections": [
+          { "heading": "Lean on 100", "body": ["x100 is free (two zeros). And 25 is a quarter of 100.", "So x25 = multiply by 100, then halve twice (a quarter)."] },
+          { "heading": "The big idea", "body": "36 x 25: 36 x 100 = 3600, halve = 1800, halve again = 900.", "visual": { "type": "crissCross", "a": 36, "b": 25, "min": 11, "max": 99, "title": "Or box it: 36 x 25" }, "note": "x25 = (x100) then halve twice. Or box-method it." },
+          { "heading": "See it again", "body": "48 x 25:", "steps": ["48 x 100 = 4800.", "Halve: 2400.", "Halve again: 1200."] },
+          { "heading": "Fun fact: money is built on 25", "body": "Quarters (25 of something) appear in coins, in 'quarter past', and in 25% = one quarter. Your brain already splits things into quarters all the time.", "note": "25 is just 'a quarter', and quarters are everywhere." },
+          { "heading": "Where it shows up", "body": "Quarters and 25s.", "points": ["25p coins, quarter-hours.", "Boxes/packs of 25.", "25% discounts."] },
+          { "heading": "Try it yourself", "body": "x100 then quarter:", "points": ["16 x 25, 28 x 25, 44 x 25.", "Halve twice each time.", "Or check with the box method."] },
+          { "heading": "Back to the tiles", "body": "36 x 25.", "note": "3600, halved, halved again." }
+        ] } },
+    {
+      "id": "q12", "code": "SQ-25",
+      "question": "A square garden is 25 metres on each side. What's its area (25 x 25)?",
+      "options": ["525", "600", "625", "650"], "correctAnswer": "625", "estimatedSeconds": 30,
+      "hint": { "format": "lesson", "title": "Squaring Numbers Ending in 5", "subtitle": "Tens digit times the next number, then 25.",
+        "sections": [
+          { "heading": "Squares ending in 5 are a free win", "body": ["A square is a number times itself. For anything ending in 5 there's a one-line trick.", "Take the tens digit, multiply by the NEXT whole number, then write 25 on the end."] },
+          { "heading": "The big idea", "body": "25²: tens digit 2, next number 3, so 2x3 = 6, then 25 -> 625.", "visual": { "type": "mathArray", "rows": 5, "cols": 5, "split": 0, "max": 12, "title": "5x5 = 25 (a real square)" }, "note": "_5 squared = (tens)x(tens+1) then 25." },
+          { "heading": "See it again", "body": "35²:", "steps": ["Tens digit 3.", "Next number 4. 3x4 = 12.", "Add 25 -> 1225."] },
+          { "heading": "Fun fact: why the trick works", "body": "(10t+5)² = 100t² + 100t + 25 = 100·t(t+1) + 25 - which is exactly 't times t+1' followed by 25. The algebra guarantees it every time.", "note": "It's not luck - the algebra forces the '25 on the end'." },
+          { "heading": "Where it shows up", "body": "Squares of 15, 25, 35...", "points": ["Square tiles and gardens.", "15² = 225, 45² = 2025.", "Quick area estimates."] },
+          { "heading": "Try it yourself", "body": "Tens x next, then 25:", "points": ["15², 55², 95².", "Say the tens-times-next first.", "Then turn squares on in the sprint."] },
+          { "heading": "Back to the garden", "body": "25 x 25.", "note": "2x3 = 6, then 25." }
+        ] } },
+    {
+      "id": "q13", "code": "SQ-85",
+      "question": "What is 85 squared (85 x 85)?",
+      "options": ["6425", "7025", "7225", "7245"], "correctAnswer": "7225", "estimatedSeconds": 45,
+      "hint": { "format": "lesson", "title": "Bigger _5 Squares", "subtitle": "The same trick handles 85 as easily as 25.",
+        "sections": [
+          { "heading": "It scales to any number ending in 5", "body": ["The tens-times-next trick doesn't care how big the tens digit is.", "85: tens digit is 8, the next number is 9."] },
+          { "heading": "The big idea", "body": "85²: 8x9 = 72, then 25 -> 7225.", "visual": { "type": "mathArray", "rows": 9, "cols": 9, "split": 0, "max": 12, "title": "Squares get big fast" }, "note": "8x9 then 25. The '25' on the end never changes." },
+          { "heading": "See it again", "body": "65²:", "steps": ["Tens digit 6.", "Next number 7. 6x7 = 42.", "Add 25 -> 4225."] },
+          { "heading": "Fun fact: human calculators square huge numbers", "body": "Record holders have squared random 5-digit and even 6-digit numbers in their heads - they chain shortcuts like this one together rather than 'calculating' the long way.", "note": "Big mental feats are many small tricks stacked, not brute force." },
+          { "heading": "Where it shows up", "body": "Areas and growth.", "points": ["Square plots of land.", "75² = 5625 for quick estimates.", "Any 'something-5 squared'."] },
+          { "heading": "Try it yourself", "body": "Tens x next, then 25:", "points": ["45², 75², 95².", "Notice the answer always ends in 25.", "Then sprint the squares."] },
+          { "heading": "Back to the question", "body": "85 x 85.", "note": "8x9 = 72, then 25." }
+        ] } },
+    {
+      "id": "q14", "code": "BOX-23",
+      "question": "A car park is 23 spaces wide and 21 deep. How many spaces (23 x 21)?",
+      "options": ["443", "473", "483", "486"], "correctAnswer": "483", "estimatedSeconds": 45,
+      "hint": { "format": "lesson", "title": "The Box Method", "subtitle": "Any 2-digit x 2-digit: four corners, then add.",
+        "sections": [
+          { "heading": "The all-purpose multiplication technique", "body": ["The tricks are great when they fit, but the box method works for ANY two-digit times two-digit.", "Split each number into tens + ones and multiply the four corners."] },
+          { "heading": "The big idea", "body": "23 x 21 = (20+3)(20+1): 20x20=400, 20x1=20, 3x20=60, 3x1=3 -> 400+20+60+3 = 483.", "visual": { "type": "crissCross", "a": 23, "b": 21, "min": 11, "max": 99, "title": "The four corners of 23 x 21" }, "note": "Tens x tens, tens x ones, ones x tens, ones x ones - then add." },
+          { "heading": "See it again", "body": "32 x 14:", "steps": ["30x10 = 300, 30x4 = 120.", "2x10 = 20, 2x4 = 8.", "300+120+20+8 = 448."] },
+          { "heading": "Fun fact: it's the same as the grid you'll meet in algebra", "body": "The box method is exactly how older students multiply brackets like (x+3)(x+1). Learn it now with numbers and algebra will feel familiar later.", "note": "Today's number box is tomorrow's algebra grid." },
+          { "heading": "Where it shows up", "body": "Grids and areas.", "points": ["Car parks, seating blocks, tiled floors.", "Any length x width.", "Rows x columns of anything."] },
+          { "heading": "Try it yourself", "body": "Four corners, then add:", "points": ["21 x 13, 24 x 12, 31 x 23.", "Write the four products before adding.", "Slide the box widget to check."] },
+          { "heading": "Back to the car park", "body": "23 x 21.", "note": "400 + 20 + 60 + 3." }
+        ] } },
+    {
+      "id": "q15", "code": "BOX-47",
+      "question": "A book has 47 lines per page and you read 38 pages. How many lines (47 x 38)?",
+      "options": ["1676", "1786", "1796", "1886"], "correctAnswer": "1786", "estimatedSeconds": 60,
+      "hint": { "format": "lesson", "title": "Box Method with Carries", "subtitle": "Bigger corners - just add carefully.",
+        "sections": [
+          { "heading": "Same method, bigger pieces", "body": ["When both numbers are large, the four corners are bigger but the method is identical.", "Take your time on the addition - that's where slips happen."] },
+          { "heading": "The big idea", "body": "47 x 38 = (40+7)(30+8): 40x30=1200, 40x8=320, 7x30=210, 7x8=56 -> 1200+320+210+56 = 1786.", "visual": { "type": "crissCross", "a": 47, "b": 38, "min": 11, "max": 99, "title": "The four corners of 47 x 38" }, "note": "Biggest corner first (40x30); it anchors the answer's size." },
+          { "heading": "See it again", "body": "53 x 46:", "steps": ["50x40 = 2000, 50x6 = 300.", "3x40 = 120, 3x6 = 18.", "2000+300+120+18 = 2438."] },
+          { "heading": "Fun fact: estimate first to catch mistakes", "body": "Pros glance at 47x38 and think '~50x40 = 2000', so they know the answer must be near 2000. If your four corners sum to 786, you'd instantly know something's wrong.", "note": "Always estimate first: 47x38 is roughly 50x40 = 2000." },
+          { "heading": "Where it shows up", "body": "Bigger real totals.", "points": ["Lines in a book, words on pages.", "Seats in a big arena block.", "Items per box times many boxes."] },
+          { "heading": "Try it yourself", "body": "Four big corners, estimate first:", "points": ["43 x 27, 56 x 34, 62 x 48.", "Say the ~estimate before the exact answer.", "Check with the box widget."] },
+          { "heading": "Back to the book", "body": "47 x 38. Estimate ~2000 first.", "note": "1200 + 320 + 210 + 56." }
+        ] } },
+    {
+      "id": "q16", "code": "BOX-64",
+      "question": "A wall is 64 bricks long and 56 bricks high. How many bricks (64 x 56)?",
+      "options": ["3504", "3564", "3584", "3624"], "correctAnswer": "3584", "estimatedSeconds": 60,
+      "hint": { "format": "lesson", "title": "Box Method: the Tough Ones", "subtitle": "Two big numbers, no special trick - and that's fine.",
+        "sections": [
+          { "heading": "When no shortcut fits, the box always works", "body": ["64 and 56 don't end in 5, aren't near each other - no special trick. The box method just powers through.", "This is the safety net behind all the flashy tricks."] },
+          { "heading": "The big idea", "body": "64 x 56 = (60+4)(50+6): 60x50=3000, 60x6=360, 4x50=200, 4x6=24 -> 3000+360+200+24 = 3584.", "visual": { "type": "crissCross", "a": 64, "b": 56, "min": 11, "max": 99, "title": "The four corners of 64 x 56" }, "note": "Even the 'hard' ones are just four easy products added up." },
+          { "heading": "A shortcut peek", "body": "64 and 56 straddle 60, each 4 away - so a²-b² also works:", "steps": ["Middle 60, distance 4.", "60² = 3600, 4² = 16.", "3600 - 16 = 3584. Same answer!"] },
+          { "heading": "Fun fact: more than one road to the answer", "body": "Strong mental mathematicians often see two or three routes to the same product and pick the easiest in the moment - here, both the box and a²-b² land on 3584.", "note": "If two different methods agree, you can trust the answer." },
+          { "heading": "Where it shows up", "body": "Big rectangles.", "points": ["Brick walls, tiled walls.", "Pixels: width x height.", "Big seating grids."] },
+          { "heading": "Try it yourself", "body": "Box method (and try a²-b² if they straddle):", "points": ["63 x 57, 48 x 52, 71 x 69.", "Notice which ones straddle a round middle.", "Check with the box widget."] },
+          { "heading": "Back to the wall", "body": "64 x 56.", "note": "3000 + 360 + 200 + 24 - or 60² - 4²." }
+        ] } },
+    {
+      "id": "q17", "code": "DOS-13",
+      "question": "A tray holds 13 rows of 7 muffins. How many muffins (13 x 7)?",
+      "options": ["84", "91", "97", "98"], "correctAnswer": "91", "estimatedSeconds": 35,
+      "hint": { "format": "lesson", "title": "Close-Together Multiplying", "subtitle": "Straddle an easy middle, then middle squared minus distance squared.",
+        "sections": [
+          { "heading": "Some 'hard' products are secretly easy", "body": ["13 x 7 isn't a friendly table fact - but 13 and 7 sit either side of 10, each 3 away.", "When numbers straddle an easy middle by the same amount, squaring beats multiplying."] },
+          { "heading": "The big idea", "body": "(m-d)(m+d) = m² - d². 13 x 7: middle 10, distance 3 -> 100 - 9 = 91.", "visual": { "type": "mathArray", "rows": 7, "cols": 13, "split": 10, "max": 13, "title": "7 x 13 = 7x10 + 7x3" }, "note": "Same distance either side of a middle: answer = middle² - distance²." },
+          { "heading": "See it again", "body": "18 x 22:", "steps": ["Middle 20, distance 2.", "20² = 400, 2² = 4.", "400 - 4 = 396."] },
+          { "heading": "Fun fact: this identity guards your secrets", "body": "a²-b² = (a-b)(a+b) is over a thousand years old and still vital: the difficulty of factoring big numbers (the reverse of this) is part of how online encryption protects your messages.", "note": "One little identity runs from mental tricks to internet security." },
+          { "heading": "Where it shows up", "body": "Factors near a round number.", "points": ["Stacks 13 by 7, 18 by 22.", "9 x 11 = 100 - 1 = 99.", "19 x 21 = 400 - 1 = 399."] },
+          { "heading": "Try it yourself", "body": "Find the middle and distance:", "points": ["12 x 8, 16 x 24, 6 x 8.", "Say middle and distance before answering.", "Then sprint the multiplications."] },
+          { "heading": "Back to the muffins", "body": "13 x 7.", "note": "Middle 10, distance 3: 100 - 9." }
+        ] } },
+    {
+      "id": "q18", "code": "DOS-18",
+      "question": "A box is 18 cans wide and 22 cans long. How many cans (18 x 22)?",
+      "options": ["386", "396", "400", "416"], "correctAnswer": "396", "estimatedSeconds": 40,
+      "hint": { "format": "lesson", "title": "Straddling a Bigger Middle", "subtitle": "The a2-b2 trick works around any round number.",
+        "sections": [
+          { "heading": "The middle doesn't have to be 10", "body": ["18 and 22 straddle 20, each 2 away. So the easy middle is 20.", "The bigger the round middle, the more impressive the shortcut looks."] },
+          { "heading": "The big idea", "body": "18 x 22: middle 20, distance 2 -> 20² - 2² = 400 - 4 = 396.", "visual": { "type": "crissCross", "a": 18, "b": 22, "min": 11, "max": 99, "title": "Or box it: 18 x 22" }, "note": "Spot the round number they straddle; that's your middle." },
+          { "heading": "See it again", "body": "47 x 53:", "steps": ["Middle 50, distance 3.", "50² = 2500, 3² = 9.", "2500 - 9 = 2491."] },
+          { "heading": "Fun fact: it makes huge products look effortless", "body": "97 x 103 looks terrifying, but it straddles 100: 10000 - 9 = 9991. A four-digit answer in one second - that's the power of choosing the right middle.", "note": "Near 100? The shortcut gives four-digit answers instantly." },
+          { "heading": "Where it shows up", "body": "Pairs around 20, 50, 100.", "points": ["18x22, 48x52, 97x103.", "Pricing just under/over a round number.", "Symmetric grids."] },
+          { "heading": "Try it yourself", "body": "Pick the middle, then square-and-subtract:", "points": ["19 x 21, 46 x 54, 98 x 102.", "Name the middle out loud.", "Then check on the box widget."] },
+          { "heading": "Back to the cans", "body": "18 x 22.", "note": "Middle 20, distance 2: 400 - 4." }
+        ] } },
+    {
+      "id": "q19", "code": "DOS-47",
+      "question": "A hall has 47 rows of 53 chairs. How many chairs (47 x 53)?",
+      "options": ["2391", "2481", "2491", "2500"], "correctAnswer": "2491", "estimatedSeconds": 55,
+      "hint": { "format": "lesson", "title": "a2-b2 with Big Numbers", "subtitle": "47 x 53 becomes 2500 minus 9.",
+        "sections": [
+          { "heading": "This is where the trick shines brightest", "body": ["47 x 53 by long multiplication is real work. But they straddle 50, each 3 away.", "Suddenly it's just '50 squared minus 3 squared'."] },
+          { "heading": "The big idea", "body": "47 x 53: middle 50, distance 3 -> 2500 - 9 = 2491.", "visual": { "type": "crissCross", "a": 47, "b": 53, "min": 11, "max": 99, "title": "Box check: 47 x 53" }, "note": "50² is easy (2500); subtract the small square." },
+          { "heading": "See it again", "body": "62 x 58:", "steps": ["Middle 60, distance 2.", "60² = 3600, 2² = 4.", "3600 - 4 = 3596."] },
+          { "heading": "Fun fact: knowing your squares unlocks this", "body": "Because the trick needs middle², people who memorise squares of 10, 20, ... 100 can multiply a huge range of pairs instantly. Squares are a small investment with a giant payoff.", "note": "Learn the round-number squares; they unlock hundreds of products." },
+          { "heading": "Where it shows up", "body": "Big symmetric pairs.", "points": ["Hall seating 47x53.", "Fields and plots near a round size.", "Estimating big areas."] },
+          { "heading": "Try it yourself", "body": "Straddle a round middle:", "points": ["44 x 56, 38 x 42, 93 x 107.", "Say middle² before subtracting.", "Confirm with the box widget."] },
+          { "heading": "Back to the hall", "body": "47 x 53.", "note": "Middle 50: 2500 - 9." }
+        ] } },
+    {
+      "id": "q20", "code": "BA-48",
+      "question": "A garden has 7 rows of 48 carrots. How many carrots (7 x 48)?",
+      "options": ["326", "336", "344", "356"], "correctAnswer": "336", "estimatedSeconds": 35,
+      "hint": { "format": "lesson", "title": "Break Apart the Big Number", "subtitle": "Split a 2-digit number into friendly chunks, then add.",
+        "sections": [
+          { "heading": "One-digit times two-digit? Split the big one", "body": ["7 x 48 looks awkward, but 48 = 40 + 8, and both are easy to multiply by 7.", "Do each piece, then add - this is the distributive law in action."] },
+          { "heading": "The big idea", "body": "7 x 48 = 7x40 + 7x8 = 280 + 56 = 336.", "visual": { "type": "mathArray", "rows": 7, "cols": 8, "split": 5, "max": 12, "title": "Break-apart in miniature (7x8)" }, "note": "Split the two-digit number into tens and ones, multiply each, add." },
+          { "heading": "See it again", "body": "6 x 73:", "steps": ["6 x 70 = 420.", "6 x 3 = 18.", "420 + 18 = 438."] },
+          { "heading": "Fun fact: this is multiplication's backbone", "body": "Every multiplication method - the box, long multiplication, even how computers multiply - is really 'break into parts, multiply, add'. Master this and you understand them all.", "note": "Split-multiply-add is the engine inside every multiplication method." },
+          { "heading": "Where it shows up", "body": "Groups of a two-digit number.", "points": ["7 rows of 48 plants.", "6 friends paying 73p each.", "8 boxes of 24."] },
+          { "heading": "Try it yourself", "body": "Split into tens and ones:", "points": ["8 x 46, 6 x 84, 7 x 59.", "Multiply the tens part first.", "Then sprint the multiplications."] },
+          { "heading": "Back to the carrots", "body": "7 x 48.", "note": "7x40 + 7x8 = 280 + 56." }
+        ] } },
+    {
+      "id": "q21", "code": "BA-84",
+      "question": "A cinema has 6 screens with 84 seats each. How many seats (6 x 84)?",
+      "options": ["484", "494", "504", "524"], "correctAnswer": "504", "estimatedSeconds": 35,
+      "hint": { "format": "lesson", "title": "Break Apart, or Round and Adjust", "subtitle": "Two routes to 6 x 84 - pick your favourite.",
+        "sections": [
+          { "heading": "Two good ways here", "body": ["You can split 84 into 80 + 4, or you can round 84 up to a friendlier number and adjust.", "Strong mental maths is about choosing the easier road."] },
+          { "heading": "The big idea", "body": "Break apart: 6x80 + 6x4 = 480 + 24 = 504. Or round: 6x85 = 510, minus 6 = 504.", "visual": { "type": "mathArray", "rows": 6, "cols": 8, "split": 5, "max": 12, "title": "Break-apart in miniature (6x8)" }, "note": "Split into tens+ones, OR round to a friendly number and give back." },
+          { "heading": "See it again", "body": "4 x 97:", "steps": ["Round: 4 x 100 = 400.", "Take back 4 x 3 = 12.", "400 - 12 = 388."] },
+          { "heading": "Fun fact: experts keep several routes ready", "body": "Research on 'flexible' calculators shows the fastest people don't use one fixed method - they pick the strategy that fits the numbers in front of them. Flexibility, not a single trick, is the real skill.", "note": "The best mental mathematicians are flexible, not robotic." },
+          { "heading": "Where it shows up", "body": "Groups near a round number.", "points": ["6 screens of 84 seats.", "Anything x 97, 98, 99.", "4 x 250-ish amounts."] },
+          { "heading": "Try it yourself", "body": "Try both routes and compare:", "points": ["6 x 83, 4 x 98, 7 x 96.", "Decide which route was easier.", "Then race the sprint."] },
+          { "heading": "Back to the cinema", "body": "6 x 84.", "note": "6x80 + 6x4 = 480 + 24, or 6x85 - 6." }
+        ] } },
+    {
+      "id": "q22", "code": "DIV-91",
+      "question": "91 stickers are shared equally among 7 friends. How many each (91 ÷ 7)?",
+      "options": ["11", "12", "13", "14"], "correctAnswer": "13", "estimatedSeconds": 35,
+      "hint": { "format": "lesson", "title": "Division is Multiplication Backwards", "subtitle": "Don't divide - ask a times-table question.",
+        "sections": [
+          { "heading": "Division isn't a new monster", "body": ["91 ÷ 7 is secretly asking '7 times WHAT makes 91?'.", "Every division is a multiplication fact read from the other end."] },
+          { "heading": "The big idea", "body": "From the close-together trick you may know 7 x 13 = 91 (13x7 = 100-9). So 91 ÷ 7 = 13.", "visual": { "type": "mathArray", "rows": 7, "cols": 13, "split": 0, "max": 13, "title": "7 rows of 13 = 91, read backwards" }, "note": "Turn 'a ÷ b' into 'b times what makes a?'." },
+          { "heading": "See it again", "body": "56 ÷ 8:", "steps": ["Ask '8 times what is 56?'.", "8 x 7 = 56.", "So 56 ÷ 8 = 7."] },
+          { "heading": "Fun fact: strong tables = strong division", "body": "There's no separate 'division table' to learn. Kids with fast times tables are automatically fast at division, because it's the very same facts in reverse.", "note": "Master multiplication and you get division for free." },
+          { "heading": "Where it shows up", "body": "Fair sharing.", "points": ["Sharing stickers or sweets.", "Splitting a bill evenly.", "Dealing cards to players."] },
+          { "heading": "Try it yourself", "body": "Say each as a times question:", "points": ["72 ÷ 8, 63 ÷ 9, 84 ÷ 7.", "'8 times what is 72?' and so on.", "Then turn on division in the sprint."] },
+          { "heading": "Back to the stickers", "body": "91 ÷ 7.", "note": "'7 times what is 91?'" }
+        ] } },
+    {
+      "id": "q23", "code": "DIV-96",
+      "question": "96 cookies go equally into 8 boxes. How many per box (96 ÷ 8)?",
+      "options": ["8", "11", "12", "16"], "correctAnswer": "12", "estimatedSeconds": 40,
+      "hint": { "format": "lesson", "title": "Divide by Halving", "subtitle": "÷8 is just halve, halve, halve.",
+        "sections": [
+          { "heading": "A second division superpower", "body": ["Dividing by 2 is just halving - your brain does it instantly.", "8 = 2x2x2, so dividing by 8 is halving three times in a row."] },
+          { "heading": "The big idea", "body": "96 ÷ 8: halve 96 -> 48, halve -> 24, halve -> 12.", "visual": { "type": "mathArray", "rows": 8, "cols": 12, "split": 0, "max": 12, "title": "8 rows of 12 = 96" }, "note": "÷4 = halve twice. ÷8 = halve three times." },
+          { "heading": "See it again", "body": "80 ÷ 8:", "steps": ["Halve 80 -> 40.", "Halve -> 20.", "Halve -> 10."] },
+          { "heading": "Fun fact: computers ONLY halve and double", "body": "Deep inside every chip, division is done by repeated halving in binary (0s and 1s). The halving trick you just used is, at heart, how machines divide too.", "note": "Halving and doubling are powerful enough to run every computer on Earth." },
+          { "heading": "Where it shows up", "body": "Dividing by 2, 4, 8.", "points": ["Sharing into 8 boxes.", "Cutting a recipe in half (or quarters).", "Splitting a bill among 4 or 8."] },
+          { "heading": "Try it yourself", "body": "Halve repeatedly:", "points": ["÷4: 100 ÷ 4, 84 ÷ 4. ÷8: 64 ÷ 8, 112 ÷ 8.", "Count how many halvings you used.", "Then sprint some divisions."] },
+          { "heading": "Back to the cookies", "body": "96 ÷ 8.", "note": "Halve 96 three times." }
+        ] } },
+    {
+      "id": "q24", "code": "DIV-84",
+      "question": "84 players form teams of 6. How many teams (84 ÷ 6)?",
+      "options": ["12", "13", "14", "16"], "correctAnswer": "14", "estimatedSeconds": 45,
+      "hint": { "format": "lesson", "title": "Divide by Chunking", "subtitle": "Take away easy lots until you've used it all up.",
+        "sections": [
+          { "heading": "When the fact isn't instant, chunk it", "body": ["84 ÷ 6 isn't a memorised fact, so build it from easy lots of 6.", "Ten 6s is 60 - a friendly chunk to start with."] },
+          { "heading": "The big idea", "body": "84 ÷ 6: ten 6s = 60 (10 teams), leaving 24. Four 6s = 24 (4 teams). Total 10 + 4 = 14.", "visual": { "type": "mathArray", "rows": 6, "cols": 14, "split": 10, "max": 14, "title": "6 x 14 = 6x10 + 6x4" }, "note": "Pull off a big easy chunk (like 10 lots), then finish the rest." },
+          { "heading": "See it again", "body": "96 ÷ 6:", "steps": ["Ten 6s = 60, leaves 36.", "Six 6s = 36.", "10 + 6 = 16."] },
+          { "heading": "Fun fact: chunking is real long division", "body": "The 'chunking' method is exactly what long division does, just written differently - you repeatedly subtract multiples of the divisor. It also handles leftovers as remainders.", "note": "Chunking is long division in friendly clothing." },
+          { "heading": "Where it shows up", "body": "Making equal groups.", "points": ["Players into teams.", "Items into boxes of 6.", "Hours into work shifts."] },
+          { "heading": "Try it yourself", "body": "Start with ten lots:", "points": ["78 ÷ 6, 91 ÷ 7, 102 ÷ 6.", "Pull off the 10-lot chunk first.", "Then sprint the divisions."] },
+          { "heading": "Back to the teams", "body": "84 ÷ 6.", "note": "Ten 6s (60), then four more 6s (24)." }
+        ] } },
+    {
+      "id": "q25", "code": "DIV-738",
+      "question": "738 books are shared equally onto 9 shelves. How many per shelf (738 ÷ 9)?",
+      "options": ["78", "82", "87", "92"], "correctAnswer": "82", "estimatedSeconds": 55,
+      "hint": { "format": "lesson", "title": "Big Division, Two Smart Ways", "subtitle": "Chunk it - or use the digit-sum check for 9.",
+        "sections": [
+          { "heading": "Bigger numbers, same toolkit", "body": ["738 ÷ 9 looks scary, but chunking handles it, and 9 has a special helper.", "First, a sanity check: a number divides exactly by 9 only if its digits add to a multiple of 9. 7+3+8 = 18 -> yes, it divides cleanly."] },
+          { "heading": "The big idea (chunking)", "body": "738 ÷ 9: eighty 9s = 720 (80 shelves' worth), leaving 18. Two 9s = 18. Total 80 + 2 = 82.", "visual": { "type": "crissCross", "a": 82, "b": 9, "min": 1, "max": 99, "title": "Check backwards: 82 x 9 = 738" }, "note": "Pull off a big chunk (eighty 9s = 720), then finish the small rest." },
+          { "heading": "Check it backwards", "body": "Division and multiplication are inverses, so verify:", "steps": ["82 x 9 = 82 x 10 - 82.", "820 - 82 = 738.", "It matches - so 82 is right."] },
+          { "heading": "Fun fact: the digit-sum test is ancient", "body": "'Casting out nines' - checking answers using digit sums - was used by mathematicians over a thousand years ago to catch arithmetic mistakes, long before calculators. 7+3+8 = 18, and 8+2 = 10... the nine-ness lines up.", "note": "Add the digits: if they sum to a multiple of 9, the number divides by 9." },
+          { "heading": "Where it shows up", "body": "Big fair shares.", "points": ["Books across shelves.", "Money split many ways.", "Large batches into equal groups."] },
+          { "heading": "Try it yourself", "body": "Digit-check, then chunk:", "points": ["639 ÷ 9, 756 ÷ 9, 882 ÷ 9.", "Add the digits first to confirm it's clean.", "Then verify by multiplying back."] },
+          { "heading": "Back to the books", "body": "738 ÷ 9.", "note": "Eighty 9s = 720, then two more 9s = 18. Check: 82 x 9 = 738." }
+        ] } }
+  ]
+}

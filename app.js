@@ -2464,6 +2464,469 @@ function initMatterJS(container, payload) {
     };
 }
 
+/* ----- Arithmetic speed widgets (the Lightning Arithmetic class) -------------
+   Three pure-DOM/SVG widgets that TEACH and DRILL fast mental arithmetic. They
+   take parameters only (no code from JSON). `speedSprint` owns a 1s interval, so
+   it returns a handle whose cleanup clears it; the other two are static. */
+
+// THE ARENA: a timed mental-maths drill. A fact flashes; the moment the typed
+// answer is right, the next pops up. Live countdown, running score, a streak,
+// and a personal best saved in localStorage. This is "practice to be fastest".
+function renderSpeedSprint(container, media) {
+    const card = makeEl("div", "slices-card sprint-card");
+    addMediaText(card, media);
+    const readInt = (v, f) => { const r = Math.round(Number(v)); return Number.isFinite(r) ? r : f; };
+    // Supported operations. add/sub/mul/div use the operand ranges below; the
+    // trick ops mul11 (×11) and sq (square it) make the sprint genuinely hard.
+    const OP = { add: 1, sub: 1, mul: 1, div: 1, mul11: 1, sq: 1 };
+    let ops = Array.isArray(media.ops) ? media.ops.filter((o) => OP[o]) : null;
+    if (!ops || !ops.length) ops = ["add"];
+    const min = Math.max(0, readInt(media.min, 1));
+    const max = Math.max(min + 1, readInt(media.max, 10));
+    // Per-operand ranges let one sprint mix (e.g.) 2-digit numbers with small
+    // multipliers. They default to min/max so old packs keep working.
+    const aMin = Math.max(0, readInt(media.aMin, min));
+    const aMax = Math.max(aMin + 1, readInt(media.aMax, max));
+    const bMin = Math.max(0, readInt(media.bMin, min));
+    const bMax = Math.max(bMin + 1, readInt(media.bMax, max));
+    const duration = Math.max(10, readInt(media.seconds, 30));
+    const key = "aiedu-sprint-" + ops.join("") + "-" + aMin + "_" + aMax + "_" + bMin + "_" + bMax + "-" + duration;
+    const readBest = () => { try { return readInt(localStorage.getItem(key), 0); } catch (e) { return 0; } };
+    const writeBest = (v) => { try { localStorage.setItem(key, String(v)); } catch (e) { /* no storage */ } };
+
+    const board = makeEl("div", "sprint-board");
+    const mkStat = (label, value, cls) => {
+        const box = makeEl("div", "sprint-stat" + (cls ? " " + cls : ""));
+        box.appendChild(makeEl("span", "sprint-stat-label", label));
+        const val = makeEl("span", "sprint-stat-value", value);
+        box.appendChild(val);
+        return { box, val };
+    };
+    const timeStat = mkStat("Time", String(duration), "sprint-time");
+    const scoreStat = mkStat("Right", "0");
+    const streakStat = mkStat("Streak", "0");
+    const bestStat = mkStat("Best", String(readBest()));
+    board.appendChild(timeStat.box); board.appendChild(scoreStat.box);
+    board.appendChild(streakStat.box); board.appendChild(bestStat.box);
+    card.appendChild(board);
+
+    const arena = makeEl("div", "sprint-arena");
+    const promptEl = makeEl("div", "sprint-prompt", "Ready?");
+    const input = document.createElement("input");
+    input.type = "text"; input.inputMode = "numeric"; input.className = "sprint-input";
+    input.setAttribute("aria-label", "Your answer"); input.autocomplete = "off"; input.disabled = true;
+    arena.appendChild(promptEl); arena.appendChild(input);
+    card.appendChild(arena);
+
+    const msg = makeEl("div", "sprint-msg");
+    card.appendChild(msg);
+    const startBtn = makeEl("button", "var-btn sprint-start", "Start the sprint ⚡");
+    startBtn.type = "button";
+    card.appendChild(startBtn);
+
+    let timeLeft = duration, score = 0, streak = 0, current = null, running = false, intervalId = null;
+    const rnd = (lo, hi) => lo + Math.floor(Math.random() * (hi - lo + 1));
+    const nextFact = () => {
+        const op = ops[Math.floor(Math.random() * ops.length)];
+        let a, b, answer, text;
+        if (op === "add") { a = rnd(aMin, aMax); b = rnd(bMin, bMax); answer = a + b; text = `${a} + ${b}`; }
+        else if (op === "sub") { a = rnd(aMin, aMax); b = rnd(bMin, bMax); if (b > a) { const t = a; a = b; b = t; } answer = a - b; text = `${a} − ${b}`; }
+        else if (op === "mul") { a = rnd(aMin, aMax); b = rnd(bMin, bMax); answer = a * b; text = `${a} × ${b}`; }
+        else if (op === "mul11") { a = rnd(Math.max(10, aMin), Math.max(99, aMax)); answer = a * 11; text = `${a} × 11`; }
+        else if (op === "sq") { a = rnd(Math.max(2, aMin), aMax); answer = a * a; text = `${a}²`; }
+        else { b = rnd(Math.max(1, bMin), bMax); answer = rnd(Math.max(1, aMin), aMax); a = b * answer; text = `${a} ÷ ${b}`; }
+        current = { answer };
+        promptEl.textContent = text;
+        input.value = "";
+    };
+    const endSprint = () => {
+        running = false;
+        if (intervalId) { clearInterval(intervalId); intervalId = null; }
+        input.disabled = true;
+        promptEl.textContent = "Time!";
+        const best = readBest();
+        if (score > best) {
+            writeBest(score); bestStat.val.textContent = String(score);
+            msg.textContent = `⚡ ${score} right — NEW PERSONAL BEST!`; msg.className = "sprint-msg win";
+        } else {
+            msg.textContent = `You got ${score} right. Your best is ${best}. Race again!`; msg.className = "sprint-msg";
+        }
+        startBtn.textContent = "Race again ⚡"; startBtn.style.display = "";
+    };
+    const tick = () => {
+        if (isPaused || !running) return;
+        timeLeft--;
+        timeStat.val.textContent = String(Math.max(0, timeLeft));
+        timeStat.box.classList.toggle("low", timeLeft <= 5);
+        if (timeLeft <= 0) endSprint();
+    };
+    const start = () => {
+        score = 0; streak = 0; timeLeft = duration; running = true;
+        scoreStat.val.textContent = "0"; streakStat.val.textContent = "0";
+        timeStat.val.textContent = String(duration); timeStat.box.classList.remove("low");
+        msg.textContent = ""; msg.className = "sprint-msg";
+        startBtn.style.display = "none";
+        input.disabled = false; input.focus();
+        nextFact();
+        if (intervalId) clearInterval(intervalId);
+        intervalId = setInterval(tick, 1000);
+    };
+    const onInput = () => {
+        if (!running || !current) return;
+        const v = input.value.trim();
+        if (v === "" || v === "-") return;
+        if (Number(v) === current.answer) {
+            score++; streak++;
+            scoreStat.val.textContent = String(score);
+            streakStat.val.textContent = String(streak) + (streak >= 3 ? " 🔥" : "");
+            card.classList.remove("sprint-flash"); void card.offsetWidth; card.classList.add("sprint-flash");
+            nextFact();
+        } else if (v.replace("-", "").length >= String(current.answer).length) {
+            streak = 0; streakStat.val.textContent = "0";
+            input.classList.remove("shake"); void input.offsetWidth; input.classList.add("shake");
+            input.value = "";
+        }
+    };
+    input.addEventListener("input", onInput);
+    startBtn.addEventListener("click", start);
+
+    if (media.tip !== null) card.appendChild(makeEl("p", "slices-tip", media.tip
+        || "Type the answer — the instant it is right, the next one jumps in. How many can you smash before the clock hits zero?"));
+    if (media.teachingPoint) card.appendChild(makeEl("p", "teaching-point", media.teachingPoint));
+    container.appendChild(card);
+
+    return {
+        pause: null, resume: null,
+        cleanup: () => { running = false; if (intervalId) { clearInterval(intervalId); intervalId = null; } }
+    };
+}
+
+// A jump number line for + / − that SHOWS the make-ten bridge: the first hop
+// lands on a tidy ten, the second hop does the rest. Sliders move both numbers.
+function renderNumberLine(container, media) {
+    const SVG_NS = "http://www.w3.org/2000/svg";
+    const card = makeEl("div", "slices-card numline-card");
+    addMediaText(card, media);
+    const readInt = (v, f) => { const r = Math.round(Number(v)); return Number.isFinite(r) ? r : f; };
+    const op = media.op === "sub" ? "sub" : "add";
+    const max = Math.max(10, readInt(media.max, 20));
+    const clamp = (n) => Math.min(max, Math.max(0, n));
+    let a = clamp(readInt(media.a, 8));
+    let b = clamp(readInt(media.b, 7));
+    const color = typeof media.color === "string" ? media.color : "#6366f1";
+    const interactive = media.interactive !== false;
+
+    const W = 360, H = 124, padX = 22, lineY = 86;
+    const span = W - padX * 2;
+    const xAt = (n) => padX + (Math.min(max, Math.max(0, n)) / max) * span;
+
+    const stage = makeEl("div", "slices-stage");
+    const svg = document.createElementNS(SVG_NS, "svg");
+    svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+    svg.setAttribute("class", "numline-svg");
+    svg.setAttribute("role", "img");
+    stage.appendChild(svg);
+    card.appendChild(stage);
+
+    const readout = makeEl("div", "slices-readout");
+    const pctEl = makeEl("span", "slices-pct");
+    const detailEl = makeEl("span", "slices-detail");
+    readout.appendChild(pctEl); readout.appendChild(detailEl);
+    card.appendChild(readout);
+
+    const mkLine = (x1, y1, x2, y2, cls) => { const l = document.createElementNS(SVG_NS, "line"); l.setAttribute("x1", x1.toFixed(1)); l.setAttribute("y1", y1.toFixed(1)); l.setAttribute("x2", x2.toFixed(1)); l.setAttribute("y2", y2.toFixed(1)); l.setAttribute("class", cls); return l; };
+    const mkText = (x, y, cls, t) => { const e = document.createElementNS(SVG_NS, "text"); e.setAttribute("x", x.toFixed(1)); e.setAttribute("y", y.toFixed(1)); e.setAttribute("class", cls); e.setAttribute("text-anchor", "middle"); e.textContent = t; return e; };
+    const arc = (x1, x2, cls, label) => {
+        const g = document.createElementNS(SVG_NS, "g");
+        const midX = (x1 + x2) / 2;
+        const h = Math.min(48, 18 + Math.abs(x2 - x1) * 0.35);
+        const p = document.createElementNS(SVG_NS, "path");
+        p.setAttribute("d", `M ${x1.toFixed(1)} ${lineY} Q ${midX.toFixed(1)} ${(lineY - h).toFixed(1)} ${x2.toFixed(1)} ${lineY}`);
+        p.setAttribute("class", cls);
+        g.appendChild(p);
+        g.appendChild(mkText(midX, lineY - h - 3, "numline-hop-label", label));
+        return g;
+    };
+
+    const draw = () => {
+        clearElement(svg);
+        svg.appendChild(mkLine(padX, lineY, W - padX, lineY, "numline-axis"));
+        const step = max <= 30 ? 1 : 5;
+        for (let n = 0; n <= max; n += step) {
+            const x = xAt(n);
+            const major = n % 10 === 0;
+            svg.appendChild(mkLine(x, lineY - (major ? 8 : 4), x, lineY + (major ? 8 : 4), major ? "numline-tick-major" : "numline-tick"));
+            if (major) svg.appendChild(mkText(x, lineY + 22, "numline-num", String(n)));
+        }
+        const legs = [];
+        if (op === "add") {
+            const realB = Math.min(max, a + b) - a;
+            const nextTen = (Math.floor(a / 10) + 1) * 10;
+            if (a < nextTen && nextTen < a + realB && b > 0) {
+                legs.push([a, nextTen, nextTen - a]);
+                legs.push([nextTen, a + realB, (a + realB) - nextTen]);
+            } else { legs.push([a, a + realB, realB]); }
+            pctEl.textContent = `${a} + ${b} = ${a + b}`;
+        } else {
+            const realB = a - Math.max(0, a - b);
+            const prevTen = (Math.ceil(a / 10) - 1) * 10;
+            if (a > prevTen && prevTen > a - realB && b > 0) {
+                legs.push([a, prevTen, a - prevTen]);
+                legs.push([prevTen, a - realB, prevTen - (a - realB)]);
+            } else { legs.push([a, a - realB, realB]); }
+            pctEl.textContent = `${a} − ${b} = ${a - b}`;
+        }
+        legs.forEach(([from, to, amt], i) => {
+            if (amt === 0) return;
+            svg.appendChild(arc(xAt(from), xAt(to), i === 0 ? "numline-hop" : "numline-hop alt", (op === "add" ? "+" : "−") + amt));
+        });
+        [a, (op === "add" ? a + b : a - b)].forEach((n, idx) => {
+            const dot = document.createElementNS(SVG_NS, "circle");
+            dot.setAttribute("cx", xAt(n).toFixed(1)); dot.setAttribute("cy", lineY);
+            dot.setAttribute("r", "5"); dot.setAttribute("class", idx === 0 ? "numline-start" : "numline-end");
+            if (idx === 1) dot.setAttribute("fill", color);
+            svg.appendChild(dot);
+        });
+        if (legs.length === 2) {
+            const sym = op === "add" ? "+" : "−";
+            detailEl.textContent = `${a} ${sym} ${b}: first ${sym}${legs[0][2]} to land on ${legs[0][1]}, then ${sym}${legs[1][2]} → ${op === "add" ? a + b : a - b}`;
+        } else {
+            detailEl.textContent = `One clean hop of ${legs[0] ? legs[0][2] : 0}.`;
+        }
+    };
+    draw();
+
+    if (interactive) {
+        const controls = makeEl("div", "slices-controls");
+        const mk = (labelText, val, onCh) => {
+            const wrap = makeEl("label", "slices-control");
+            const head = makeEl("span", "slices-control-head");
+            head.appendChild(makeEl("span", "slices-control-name", labelText));
+            const valueEl = makeEl("span", "slices-control-value", String(val));
+            head.appendChild(valueEl);
+            const range = document.createElement("input");
+            range.type = "range"; range.min = "0"; range.max = String(max); range.value = String(val); range.className = "slices-range";
+            range.addEventListener("input", () => { valueEl.textContent = range.value; onCh(readInt(range.value, val)); });
+            wrap.appendChild(head); wrap.appendChild(range);
+            return wrap;
+        };
+        controls.appendChild(mk("Start at", a, (v) => { a = clamp(v); draw(); }));
+        controls.appendChild(mk(op === "add" ? "Add" : "Subtract", b, (v) => { b = clamp(v); draw(); }));
+        card.appendChild(controls);
+        card.appendChild(makeEl("p", "slices-tip", media.tip
+            || (op === "add"
+                ? "Slide the numbers. Watch the first hop jump up to a tidy ten, then the small rest — that is the make-ten trick that makes you fast."
+                : "Slide the numbers. Watch the first hop drop down to a tidy ten, then the small rest.")));
+    }
+    if (media.teachingPoint) card.appendChild(makeEl("p", "teaching-point", media.teachingPoint));
+    container.appendChild(card);
+}
+
+// A dot array for × and ÷. Shows rows × cols, the break-apart trick (split the
+// columns into two easy chunks), commutativity, and the division reading.
+function renderMathArray(container, media) {
+    const SVG_NS = "http://www.w3.org/2000/svg";
+    const card = makeEl("div", "slices-card array-card");
+    addMediaText(card, media);
+    const readInt = (v, f) => { const r = Math.round(Number(v)); return Number.isFinite(r) ? r : f; };
+    const maxN = Math.max(2, readInt(media.max, 12));
+    let rows = Math.min(maxN, Math.max(1, readInt(media.rows, 7)));
+    let cols = Math.min(maxN, Math.max(1, readInt(media.cols, 6)));
+    let split = Math.min(cols, Math.max(0, readInt(media.split, Math.min(5, cols))));
+    const color = typeof media.color === "string" ? media.color : "#6366f1";
+    const color2 = typeof media.color2 === "string" ? media.color2 : "#f59e0b";
+    const interactive = media.interactive !== false;
+
+    const stage = makeEl("div", "slices-stage");
+    const svg = document.createElementNS(SVG_NS, "svg");
+    svg.setAttribute("class", "array-svg");
+    svg.setAttribute("role", "img");
+    stage.appendChild(svg);
+    card.appendChild(stage);
+
+    const readout = makeEl("div", "slices-readout");
+    const pctEl = makeEl("span", "slices-pct");
+    const detailEl = makeEl("span", "slices-detail");
+    readout.appendChild(pctEl); readout.appendChild(detailEl);
+    card.appendChild(readout);
+
+    const SIZE = 240, pad = 14;
+    const draw = () => {
+        clearElement(svg);
+        const cell = (SIZE - pad * 2) / Math.max(rows, cols, 1);
+        const r = Math.min(cell * 0.32, 11);
+        const gridW = cols * cell, gridH = rows * cell;
+        svg.setAttribute("viewBox", `0 0 ${SIZE} ${SIZE}`);
+        const ox = (SIZE - gridW) / 2 + cell / 2;
+        const oy = (SIZE - gridH) / 2 + cell / 2;
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < cols; j++) {
+                const dot = document.createElementNS(SVG_NS, "circle");
+                dot.setAttribute("cx", (ox + j * cell).toFixed(1));
+                dot.setAttribute("cy", (oy + i * cell).toFixed(1));
+                dot.setAttribute("r", r.toFixed(1));
+                dot.setAttribute("fill", j < split ? color : color2);
+                dot.setAttribute("class", "array-dot");
+                svg.appendChild(dot);
+            }
+        }
+        const total = rows * cols;
+        pctEl.textContent = `${rows} × ${cols} = ${total}`;
+        if (split > 0 && split < cols) {
+            const left = rows * split, right = rows * (cols - split);
+            detailEl.textContent = `${rows}×${cols} = ${rows}×${split} + ${rows}×${cols - split} = ${left} + ${right} = ${total}`;
+        } else {
+            detailEl.textContent = `${cols} × ${rows} = ${total} too (same dots, turned sideways).  And ${total} ÷ ${rows} = ${cols}.`;
+        }
+    };
+    draw();
+
+    if (interactive) {
+        const controls = makeEl("div", "slices-controls");
+        const mk = (labelText, val, mn, mx, onCh) => {
+            const wrap = makeEl("label", "slices-control");
+            const head = makeEl("span", "slices-control-head");
+            head.appendChild(makeEl("span", "slices-control-name", labelText));
+            const valueEl = makeEl("span", "slices-control-value", String(val));
+            head.appendChild(valueEl);
+            const range = document.createElement("input");
+            range.type = "range"; range.min = String(mn); range.max = String(mx); range.value = String(val); range.className = "slices-range";
+            range.addEventListener("input", () => { const x = readInt(range.value, val); valueEl.textContent = String(x); onCh(x); });
+            wrap.appendChild(head); wrap.appendChild(range);
+            return { wrap, range, valueEl };
+        };
+        const splitCtl = mk("Break apart at", split, 0, cols, (v) => { split = v; draw(); });
+        const rowsCtl = mk("Rows", rows, 1, maxN, (v) => { rows = v; draw(); });
+        const colsCtl = mk("Columns", cols, 1, maxN, (v) => {
+            cols = v; if (split > cols) split = cols;
+            splitCtl.range.max = String(cols); splitCtl.range.value = String(split); splitCtl.valueEl.textContent = String(split);
+            draw();
+        });
+        controls.appendChild(rowsCtl.wrap); controls.appendChild(colsCtl.wrap); controls.appendChild(splitCtl.wrap);
+        card.appendChild(controls);
+        card.appendChild(makeEl("p", "slices-tip", media.tip
+            || "A scary times-fact gets easy when you break it: 7×6 is just 5×6 + 2×6 = 30 + 12 = 42. Slide “Break apart” and watch."));
+    }
+    if (media.teachingPoint) card.appendChild(makeEl("p", "teaching-point", media.teachingPoint));
+    container.appendChild(card);
+}
+
+// THE BOX METHOD: 2-digit x 2-digit multiplication made visible. Splits each
+// number into tens + ones and draws the four partial products as an area grid,
+// then sums them. This is the general technique for any 2-digit x 2-digit, not a
+// special-case trick. Sliders change both numbers. Pure SVG/DOM, no handle.
+function renderCrissCross(container, media) {
+    const SVG_NS = "http://www.w3.org/2000/svg";
+    const card = makeEl("div", "slices-card cc-card");
+    addMediaText(card, media);
+    const readInt = (v, f) => { const r = Math.round(Number(v)); return Number.isFinite(r) ? r : f; };
+    const min = Math.max(1, readInt(media.min, 11));
+    const max = Math.max(min + 1, readInt(media.max, 99));
+    const clamp = (n) => Math.min(max, Math.max(min, n));
+    let a = clamp(readInt(media.a, 23));
+    let b = clamp(readInt(media.b, 21));
+    const color = typeof media.color === "string" ? media.color : "#6366f1";
+    const interactive = media.interactive !== false;
+
+    const stage = makeEl("div", "slices-stage");
+    const svg = document.createElementNS(SVG_NS, "svg");
+    svg.setAttribute("viewBox", "0 0 320 250");
+    svg.setAttribute("class", "cc-svg");
+    svg.setAttribute("role", "img");
+    stage.appendChild(svg);
+    card.appendChild(stage);
+
+    const readout = makeEl("div", "slices-readout");
+    const pctEl = makeEl("span", "slices-pct");
+    const detailEl = makeEl("span", "slices-detail");
+    readout.appendChild(pctEl); readout.appendChild(detailEl);
+    card.appendChild(readout);
+
+    const partsOf = (n) => {
+        const tens = Math.floor(n / 10) * 10, ones = n % 10;
+        const out = [];
+        if (tens > 0) out.push(tens);
+        if (ones > 0 || out.length === 0) out.push(ones);
+        return out;
+    };
+    const mkRect = (x, y, w, h, fill, op) => {
+        const r = document.createElementNS(SVG_NS, "rect");
+        r.setAttribute("x", x.toFixed(1)); r.setAttribute("y", y.toFixed(1));
+        r.setAttribute("width", w.toFixed(1)); r.setAttribute("height", h.toFixed(1));
+        r.setAttribute("fill", fill); r.setAttribute("fill-opacity", String(op));
+        r.setAttribute("class", "cc-cell"); return r;
+    };
+    const mkText = (x, y, cls, t) => {
+        const e = document.createElementNS(SVG_NS, "text");
+        e.setAttribute("x", x.toFixed(1)); e.setAttribute("y", y.toFixed(1));
+        e.setAttribute("class", cls); e.setAttribute("text-anchor", "middle");
+        e.textContent = t; return e;
+    };
+
+    const gx0 = 64, gy0 = 40, gw = 240, gh = 176;
+    const draw = () => {
+        clearElement(svg);
+        const aP = partsOf(a), bP = partsOf(b);
+        const aSum = aP.reduce((s, v) => s + v, 0) || 1;
+        const bSum = bP.reduce((s, v) => s + v, 0) || 1;
+        // column widths proportional to a-parts; row heights to b-parts (area model)
+        let cx = gx0;
+        const colX = aP.map((v) => { const w = (v / aSum) * gw; const x = cx; cx += w; return { v, x, w }; });
+        let cy = gy0;
+        const rowY = bP.map((v) => { const h = (v / bSum) * gh; const y = cy; cy += h; return { v, y, h }; });
+        const partials = [];
+        rowY.forEach((r, ri) => {
+            colX.forEach((c, ci) => {
+                const op = 0.85 - (ri + ci) * 0.22;
+                svg.appendChild(mkRect(c.x, r.y, c.w, r.h, color, Math.max(0.18, op)));
+                const prod = c.v * r.v;
+                partials.push(prod);
+                if (c.w > 26 && r.h > 18) svg.appendChild(mkText(c.x + c.w / 2, r.y + r.h / 2 + 4, "cc-cell-text", String(prod)));
+            });
+        });
+        // grid outline
+        const frame = document.createElementNS(SVG_NS, "rect");
+        frame.setAttribute("x", gx0); frame.setAttribute("y", gy0);
+        frame.setAttribute("width", gw); frame.setAttribute("height", gh);
+        frame.setAttribute("class", "cc-frame"); frame.setAttribute("fill", "none");
+        svg.appendChild(frame);
+        // column labels (top) and row labels (left)
+        colX.forEach((c) => svg.appendChild(mkText(c.x + c.w / 2, gy0 - 10, "cc-label", String(c.v))));
+        rowY.forEach((r) => { const t = mkText(gx0 - 12, r.y + r.h / 2 + 4, "cc-label", String(r.v)); t.setAttribute("text-anchor", "end"); svg.appendChild(t); });
+        svg.appendChild(mkText(gx0 + gw / 2, 18, "cc-axis", `${a}  (a)`));
+        const bt = mkText(20, gy0 + gh / 2, "cc-axis", `${b} (b)`);
+        bt.setAttribute("transform", `rotate(-90 20 ${gy0 + gh / 2})`); svg.appendChild(bt);
+
+        const total = a * b;
+        pctEl.textContent = `${a} × ${b} = ${total}`;
+        detailEl.textContent = partials.join(" + ") + " = " + total;
+    };
+    draw();
+
+    if (interactive) {
+        const controls = makeEl("div", "slices-controls");
+        const mk = (labelText, val, onCh) => {
+            const wrap = makeEl("label", "slices-control");
+            const head = makeEl("span", "slices-control-head");
+            head.appendChild(makeEl("span", "slices-control-name", labelText));
+            const valueEl = makeEl("span", "slices-control-value", String(val));
+            head.appendChild(valueEl);
+            const range = document.createElement("input");
+            range.type = "range"; range.min = String(min); range.max = String(max); range.value = String(val); range.className = "slices-range";
+            range.addEventListener("input", () => { const x = clamp(readInt(range.value, val)); valueEl.textContent = String(x); onCh(x); });
+            wrap.appendChild(head); wrap.appendChild(range);
+            return wrap;
+        };
+        controls.appendChild(mk("First number (a)", a, (v) => { a = v; draw(); }));
+        controls.appendChild(mk("Second number (b)", b, (v) => { b = v; draw(); }));
+        card.appendChild(controls);
+        card.appendChild(makeEl("p", "slices-tip", media.tip
+            || "Split each number into tens and ones, multiply the four corners, and add. 23×21 = 400+20+60+3 = 483. Slide and watch the four pieces."));
+    }
+    if (media.teachingPoint) card.appendChild(makeEl("p", "teaching-point", media.teachingPoint));
+    container.appendChild(card);
+}
+
 // The single source of truth for media types. Add a type by adding one entry.
 const MEDIA_RENDERERS = {
     illustration: renderIllustration,
@@ -2483,6 +2946,10 @@ const MEDIA_RENDERERS = {
     varCounter: renderVarCounter,
     varTrick: renderVarTrick,
     varExpression: renderVarExpression,
+    speedSprint: renderSpeedSprint,
+    numberLine: renderNumberLine,
+    mathArray: renderMathArray,
+    crissCross: renderCrissCross,
     volume3d: renderVolume3D,
     threejs: (container, media) => initThreeJS(container, media.payload || {}),
     matterjs: (container, media) => initMatterJS(container, media.payload || {})

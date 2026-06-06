@@ -17,6 +17,7 @@ MEDIA_TYPES = {
     "illustration", "chart", "image", "photo", "video",
     "slices", "grid", "percentOf", "percentLab", "percentPie", "percentCompare",
     "varBox", "functionMachine", "varExpression", "varBalance", "varCounter", "varTrick",
+    "speedSprint", "numberLine", "mathArray", "crissCross",
     "volume3d", "threejs", "matterjs",
 }
 ILLUSTRATION_THEMES = {"balance", "triangle", "shop", "reading", "study"}
