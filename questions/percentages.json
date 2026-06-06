@@ -1756,6 +1756,342 @@
           }
         ]
       }
-    }
+    },
+    {
+      "id": "q17", "code": "PCT-13",
+      "question": "A class has 64 pupils. 50% of them walk to school. How many pupils is that?",
+      "options": ["16", "32", "48", "50"], "correctAnswer": "32", "estimatedSeconds": 45,
+      "hint": { "format": "lesson", "title": "50% is Just Half", "subtitle": "The friendliest percentage of all.",
+        "sections": [
+          { "heading": "You already use 50% every day", "body": ["When you share a chocolate bar fairly with one friend, you each get 50%. When a glass is 'half full', it is 50% full.", "50% is the easiest percentage there is, because it means exactly one half. To find it, you just halve the number."] },
+          { "heading": "The big idea: halving", "body": "50% of something is that thing cut into two equal pieces, and you take one piece. 50% of 20 is 10. 50% of 8 is 4. You are just dividing by 2.", "visual": { "type": "percentOf", "mode": "of", "percent": 50, "amount": 20, "title": "Slide it to 50%", "tip": "Set the percentage to 50 and the amount to 20: the answer is 10, exactly half." }, "note": "50% means halve it. Divide by 2 and you are done." },
+          { "heading": "See it on a different number", "body": "Let's find 50% of 18.", "steps": ["50% means one half.", "Halve 18: split it into 9 and 9.", "So 50% of 18 is 9."] },
+          { "heading": "Fun fact: 'half' is humanity's oldest fraction", "body": "Long before people wrote percentages or even most fractions, they understood 'half'. Ancient market traders split goods in half to share or trade them fairly. Halving is so natural that babies grasp 'fair shares' before they can count to ten.", "note": "Half is the very first fraction humans ever used - thousands of years before the % sign existed." },
+          { "heading": "Where 50% shows up", "body": "Half is everywhere once you look.", "points": ["Sharing anything fairly between two people.", "A '50% off' sale means the price is cut in half.", "Half time in a football match is 50% of the way through."] },
+          { "heading": "Try it yourself", "body": "Halve these in your head:", "points": ["50% of 30, 50% of 46, 50% of 100.", "For an odd number like 25, half is 12.5 - exactly between 12 and 13.", "Then race a sibling to halve numbers fastest."] },
+          { "heading": "Now back to your question", "body": "64 pupils, and 50% walk to school.", "note": "50% means half. What is half of 64?" }
+        ] } },
+    {
+      "id": "q18", "code": "PCT-14",
+      "question": "A jar holds 80 marbles. 5% of them are red. How many red marbles is that?",
+      "options": ["4", "8", "16", "40"], "correctAnswer": "4", "estimatedSeconds": 60,
+      "hint": { "format": "lesson", "title": "Finding 5%: Half of 10%", "subtitle": "Once you can find 10%, 5% is one easy step away.",
+        "sections": [
+          { "heading": "Build small percentages from 10%", "body": ["You already know the 10% trick: divide by 10. 5% is simply half of 10%.", "So the plan is two quick steps: find 10% first, then halve it to get 5%."] },
+          { "heading": "The big idea", "body": "10% of 60 is 6 (divide by 10). Half of that is 3, so 5% of 60 is 3.", "visual": { "type": "percentOf", "mode": "of", "percent": 5, "amount": 60, "title": "Slide it to 5%", "tip": "Set 10% of 60 = 6, then 5% = 3. Half of the 10% answer every time." }, "note": "5% = find 10%, then halve it." },
+          { "heading": "See it on a different number", "body": "Find 5% of 40.", "steps": ["10% of 40 = 4 (divide by 10).", "5% is half of 10%.", "Half of 4 is 2, so 5% of 40 = 2."] },
+          { "heading": "Fun fact: tips and service charges love 5% and 10%", "body": "In many countries a restaurant tip is worked out as 10% of the bill, and people add or remove an extra 5% depending on the service. Waiters become lightning-fast at this exact two-step trick.", "note": "10% then halve is the real trick people use to work out tips in their heads." },
+          { "heading": "Where it shows up", "body": "Small percentages matter for money.", "points": ["Bank interest is often a few percent.", "Sales tax can be 5% in some places.", "A 5% discount on a big price still saves real money."] },
+          { "heading": "Try it yourself", "body": "Find 10% then halve:", "points": ["5% of 20, 5% of 100, 5% of 240.", "Say the 10% answer out loud first.", "Then try the slider widget to check."] },
+          { "heading": "Now back to your question", "body": "80 marbles, 5% are red.", "note": "First find 10% of 80, then halve it to get 5%." }
+        ] } },
+    {
+      "id": "q19", "code": "PCT-15",
+      "question": "A bike costs GBP 60. You pay a 15% deposit. How much money is the deposit?",
+      "options": ["GBP 6", "GBP 9", "GBP 12", "GBP 15"], "correctAnswer": "GBP 9", "estimatedSeconds": 75,
+      "hint": { "format": "lesson", "title": "Building 15% from 10% and 5%", "subtitle": "Add easy pieces together to make any percentage.",
+        "sections": [
+          { "heading": "Percentages are made of building blocks", "body": ["You can build almost any percentage from two easy pieces: 10% (divide by 10) and 5% (half of 10%).", "15% is just 10% + 5% stuck together."] },
+          { "heading": "The big idea", "body": "For 15% of 80: 10% is 8, 5% is 4 (half of 8), so 15% = 8 + 4 = 12.", "visual": { "type": "percentOf", "mode": "of", "percent": 15, "amount": 80, "title": "Slide it to 15%", "tip": "10% of 80 = 8, 5% = 4, together 15% = 12." }, "note": "15% = 10% + 5%. Find each piece, then add." },
+          { "heading": "See it on a different number", "body": "Find 15% of 40.", "steps": ["10% of 40 = 4.", "5% is half of that = 2.", "15% = 4 + 2 = 6."] },
+          { "heading": "Fun fact: this is how mental-maths champions work", "body": "Fast calculators almost never find an awkward percentage in one go. They break it into friendly chunks - 10s, 5s and 1s - and add. The trick is not memorising; it is smart splitting.", "note": "Break any percentage into 10%, 5% and 1% pieces, then add them up." },
+          { "heading": "Where it shows up", "body": "15% is a very common amount.", "points": ["A common restaurant tip is 15%.", "Some sales offer 15% off.", "Deposits on bookings are often 10-20%."] },
+          { "heading": "Try it yourself", "body": "Build each from 10% + 5%:", "points": ["15% of 20, 15% of 100, 15% of 200.", "Say the 10% and 5% pieces before adding.", "Check with the slider widget."] },
+          { "heading": "Now back to your question", "body": "The bike is GBP 60 and the deposit is 15%.", "note": "Find 10% of 60, then 5% (half of that), and add the two pieces." }
+        ] } },
+    {
+      "id": "q20", "code": "PCT-16",
+      "question": "A team played 45 games and lost 20% of them. How many games did they lose?",
+      "options": ["4", "9", "11", "20"], "correctAnswer": "9", "estimatedSeconds": 60,
+      "hint": { "format": "lesson", "title": "Finding 20%: Double the 10%", "subtitle": "20% is just two lots of 10%.",
+        "sections": [
+          { "heading": "20% is 10% twice", "body": ["10% is your home base - divide by 10. 20% is simply two of those.", "So find 10%, then double it."] },
+          { "heading": "The big idea", "body": "20% of 50: 10% is 5, double it to get 10. So 20% of 50 = 10.", "visual": { "type": "percentOf", "mode": "of", "percent": 20, "amount": 50, "title": "Slide it to 20%", "tip": "10% of 50 = 5, double it for 20% = 10." }, "note": "20% = find 10%, then double it." },
+          { "heading": "See it on a different number", "body": "Find 20% of 35.", "steps": ["10% of 35 = 3.5.", "Double it: 7.", "So 20% of 35 = 7."] },
+          { "heading": "Fun fact: 20% is the same as one fifth", "body": "20% = 20/100, which tidies up to 1/5. So finding 20% is exactly the same as splitting something into 5 equal parts and taking one. Two different-looking ideas, one amount.", "note": "20% and 1/5 are the same thing - divide by 5, or find 10% and double." },
+          { "heading": "Where it shows up", "body": "One fifth is a handy chunk.", "points": ["A 20% discount in a sale.", "Saving 20% of your pocket money.", "20% off is the same as paying 80%."] },
+          { "heading": "Try it yourself", "body": "10% then double - or divide by 5:", "points": ["20% of 30, 20% of 60, 20% of 200.", "Check both ways give the same answer.", "Try the slider to confirm."] },
+          { "heading": "Now back to your question", "body": "45 games, 20% were lost.", "note": "Find 10% of 45, then double it. (Or split 45 into 5 equal parts.)" }
+        ] } },
+    {
+      "id": "q21", "code": "PCT-17",
+      "question": "In a test you scored 3 out of 4. What is that as a percentage?",
+      "options": ["34%", "43%", "75%", "80%"], "correctAnswer": "75%", "estimatedSeconds": 60,
+      "hint": { "format": "lesson", "title": "Turning Fractions into Percentages", "subtitle": "Make the bottom number 100, or just divide.",
+        "sections": [
+          { "heading": "A fraction and a percentage are the same idea", "body": ["A percentage is really just a fraction with 100 on the bottom. So to turn a fraction into a percentage, you make it 'out of 100'.", "3/4 means 3 parts out of 4. How many is that out of 100?"] },
+          { "heading": "The big idea", "body": "Scale the fraction up so the bottom is 100. 4 x 25 = 100, so multiply top and bottom by 25: 3/4 = 75/100 = 75%.", "visual": { "type": "percentPie", "parts": 4, "shaded": 3, "amount": 40, "title": "3 out of 4 slices", "tip": "Shade 3 of 4 slices: it reads as 3/4 = 75% = 0.75." }, "note": "Make the denominator 100, and the top number is your percentage." },
+          { "heading": "See it on a different fraction", "body": "Turn 1/5 into a percentage.", "steps": ["The bottom is 5. 5 x 20 = 100.", "Multiply top and bottom by 20: 1/5 = 20/100.", "So 1/5 = 20%."] },
+          { "heading": "Fun fact: some fractions can't be made exactly out of 100", "body": "1/3 is a famous troublemaker: it becomes 33.333...% with threes that never stop. That is why a recipe might say '33% off' when it really means a third - it has been rounded.", "note": "1/3 = 33.33...% - the digits run forever, so it gets rounded in real life." },
+          { "heading": "Where it shows up", "body": "Test scores are the big one.", "points": ["Marks like 18/20 are turned into percentages.", "Loading bars show a fraction of the job as a percent.", "Recipes scaled up or down use fractions and percents."] },
+          { "heading": "Try it yourself", "body": "Make the bottom 100:", "points": ["1/4, 2/5, 9/10 as percentages.", "Ask 'what times the bottom makes 100?' first.", "Check with the pizza widget."] },
+          { "heading": "Now back to your question", "body": "You scored 3 out of 4, written 3/4.", "note": "What do you multiply 4 by to get 100? Do the same to the 3." }
+        ] } },
+    {
+      "id": "q22", "code": "PCT-18",
+      "question": "A long-jump record is shown on a screen as 0.35 of the way to the world best. What percentage is 0.35?",
+      "options": ["3.5%", "35%", "53%", "350%"], "correctAnswer": "35%", "estimatedSeconds": 45,
+      "hint": { "format": "lesson", "title": "Turning Decimals into Percentages", "subtitle": "Slide the dot two places, and you're done.",
+        "sections": [
+          { "heading": "Decimals and percentages are close cousins", "body": ["A decimal and a percentage both describe a part of a whole. Swapping between them is one of the quickest tricks in maths.", "To turn a decimal into a percentage, multiply by 100 - which just moves the dot two places to the right."] },
+          { "heading": "The big idea", "body": "0.35 x 100 = 35, so 0.35 = 35%. The dot hops two places right: 0.35 becomes 35.", "visual": { "type": "grid", "filled": 35, "showDecimal": true, "title": "0.35 of the grid", "tip": "Colour 35 squares: that is 35/100 = 0.35 = 35%." }, "note": "Decimal to percent: move the dot two places right (x100)." },
+          { "heading": "See it on a different decimal", "body": "Turn 0.6 into a percentage.", "steps": ["Move the dot two places: 0.6 -> 0.60 -> 60.", "So 0.6 = 60%.", "Going back, 60% = 0.60 = 0.6."] },
+          { "heading": "Fun fact: sports scores hide decimals everywhere", "body": "Batting averages, race times and gymnastics scores are full of decimals, and TV graphics often flip them into percentages so viewers grasp them instantly. The dot-hop trick is happening behind the scenes.", "note": "TV sports graphics constantly turn decimals into percentages with this exact x100 hop." },
+          { "heading": "Where it shows up", "body": "Decimals are everywhere money and measuring live.", "points": ["Prices like 0.5 of a kilo.", "Probabilities: 0.25 chance = 25%.", "Progress bars stored as decimals."] },
+          { "heading": "Try it yourself", "body": "Hop the dot two places:", "points": ["0.4, 0.07, 0.9 as percentages.", "Careful with 0.07 - it becomes 7%, not 70%.", "Check with the grid widget."] },
+          { "heading": "Now back to your question", "body": "The screen shows 0.35.", "note": "Move the decimal dot two places to the right. What number do you land on?" }
+        ] } },
+    {
+      "id": "q23", "code": "PCT-19",
+      "question": "A survey asked 25 people, and 12 of them liked the new flavour. What percentage liked it?",
+      "options": ["12%", "24%", "48%", "52%"], "correctAnswer": "48%", "estimatedSeconds": 90,
+      "hint": { "format": "lesson", "title": "Fractions with Friendly Denominators", "subtitle": "When the bottom divides into 100, scaling is easy.",
+        "sections": [
+          { "heading": "Look for a bottom that fits into 100", "body": ["Some denominators are friendly: 2, 4, 5, 10, 20, 25, 50 all divide neatly into 100.", "25 is one of the friendliest: 25 x 4 = 100."] },
+          { "heading": "The big idea", "body": "12/25: since 25 x 4 = 100, multiply top and bottom by 4. 12 x 4 = 48, so 12/25 = 48/100 = 48%.", "visual": { "type": "percentLab", "parts": 25, "shaded": 12, "amount": 50, "title": "12 out of 25", "tip": "Shade 12 of 25 parts: it reads as 48%." }, "note": "Find what multiplies the bottom to 100, then do the same to the top." },
+          { "heading": "See it on a different fraction", "body": "Turn 9/20 into a percentage.", "steps": ["20 x 5 = 100.", "Multiply top and bottom by 5: 9 x 5 = 45.", "So 9/20 = 45/100 = 45%."] },
+          { "heading": "Fun fact: pollsters do this all day", "body": "When you hear 'a survey of 2,000 people found 48% agree', someone turned a fraction like 960/2000 into a percentage so the result is easy to compare. Percentages let us compare surveys of totally different sizes fairly.", "note": "Percentages let us compare a survey of 25 people with one of 25 million - fairly." },
+          { "heading": "Where it shows up", "body": "Data is reported in percentages.", "points": ["Opinion polls and surveys.", "Test results out of 20 or 25.", "Quality checks: faulty items per batch."] },
+          { "heading": "Try it yourself", "body": "Scale the bottom to 100:", "points": ["7/25, 3/20, 13/50 as percentages.", "Say the multiplier first ('25 times 4...').", "Check with the desk widget."] },
+          { "heading": "Now back to your question", "body": "12 out of 25 people liked the flavour.", "note": "What do you multiply 25 by to reach 100? Do the same to the 12." }
+        ] } },
+    {
+      "id": "q24", "code": "PCT-20",
+      "question": "A phone battery is at 7/20 of full charge. What percentage is that?",
+      "options": ["7%", "20%", "27%", "35%"], "correctAnswer": "35%", "estimatedSeconds": 75,
+      "hint": { "format": "lesson", "title": "More Fraction-to-Percent Practice", "subtitle": "Twentieths scale up to 100 in one easy step.",
+        "sections": [
+          { "heading": "Twenty is a friendly denominator", "body": ["20 fits into 100 exactly 5 times, because 20 x 5 = 100.", "So any fraction out of 20 becomes a percentage just by multiplying by 5."] },
+          { "heading": "The big idea", "body": "7/20: multiply top and bottom by 5. 7 x 5 = 35, so 7/20 = 35/100 = 35%.", "visual": { "type": "percentPie", "parts": 20, "shaded": 7, "amount": 40, "title": "7 out of 20 slices", "tip": "Shade 7 of 20 slices: it reads as 35%." }, "note": "Out of 20? Multiply by 5 to get the percentage." },
+          { "heading": "See it on a different fraction", "body": "Turn 13/20 into a percentage.", "steps": ["20 x 5 = 100.", "13 x 5 = 65.", "So 13/20 = 65%."] },
+          { "heading": "Fun fact: your eyes read battery icons as fractions", "body": "A battery icon is really a little fraction-meter. When it looks about a third full, your brain is estimating a fraction and silently turning it into a percentage - exactly the skill you are practising.", "note": "Reading a battery icon is your brain converting a fraction into a percentage on the fly." },
+          { "heading": "Where it shows up", "body": "Twentieths appear a lot.", "points": ["Test scores out of 20.", "Money: pence are 1/100, but 5p is 1/20 of a pound.", "Recipes divided into 20 portions."] },
+          { "heading": "Try it yourself", "body": "Multiply out of 20 by 5:", "points": ["1/20, 11/20, 19/20 as percentages.", "Notice 19/20 is 95% - almost full.", "Check with the pizza widget."] },
+          { "heading": "Now back to your question", "body": "The battery is at 7/20.", "note": "Multiply both numbers by 5 so the bottom becomes 100." }
+        ] } },
+    {
+      "id": "q25", "code": "PCT-21",
+      "question": "Which is the bigger amount of a pizza: 0.6 of it, or 55% of it?",
+      "options": ["0.6", "55%", "They are equal", "Cannot tell"], "correctAnswer": "0.6", "estimatedSeconds": 75,
+      "hint": { "format": "lesson", "title": "Comparing Fractions, Decimals and Percents", "subtitle": "Put them in the same language first.",
+        "sections": [
+          { "heading": "You can't compare different languages directly", "body": ["A decimal and a percentage look different, so comparing them straight away is unfair - like comparing a word in English with one in French.", "The trick: turn both into the SAME form first. Percentages are usually easiest."] },
+          { "heading": "The big idea", "body": "Turn 0.6 into a percentage: 0.6 = 60%. Now compare 60% with 55%. 60% is bigger.", "visual": { "type": "chart", "title": "Same language, easy to compare", "values": [ { "label": "0.6 = 60%", "value": 60, "suffix": "%", "color": "#6366f1" }, { "label": "55%", "value": 55, "suffix": "%", "color": "#c8ccd6" } ], "teachingPoint": "Once both are percentages, the taller bar wins." }, "note": "Convert everything to the same form (percent), THEN compare." },
+          { "heading": "See it on a different pair", "body": "Which is bigger, 1/4 or 30%?", "steps": ["Turn 1/4 into a percent: 25%.", "Compare 25% with 30%.", "30% is bigger."] },
+          { "heading": "Fun fact: shops use this to look generous", "body": "A sign might say '1/3 off' next to another saying '30% off'. They look similar, but 1/3 is about 33%, so it is the better deal. Knowing how to convert protects you from being fooled.", "note": "1/3 off beats 30% off - converting reveals which deal is really bigger." },
+          { "heading": "Where it shows up", "body": "Comparing is a real-life superpower.", "points": ["Choosing the better discount.", "Comparing two test scores fairly.", "Deciding which battery is more charged."] },
+          { "heading": "Try it yourself", "body": "Convert, then compare:", "points": ["0.7 vs 65%, 3/5 vs 55%, 0.45 vs 1/2.", "Turn each into a percentage first.", "Say which wins and by how much."] },
+          { "heading": "Now back to your question", "body": "You are comparing 0.6 with 55%.", "note": "Turn 0.6 into a percentage by moving the dot two places. Then compare the two percentages." }
+        ] } },
+    {
+      "id": "q26", "code": "PCT-22",
+      "question": "A book has 90 pages. You have read 30% of it. How many pages have you read?",
+      "options": ["18", "27", "30", "33"], "correctAnswer": "27", "estimatedSeconds": 60,
+      "hint": { "format": "lesson", "title": "30% = Three Lots of 10%", "subtitle": "Stack up 10%s to reach any tens percentage.",
+        "sections": [
+          { "heading": "Tens percentages are easy to stack", "body": ["10% is divide-by-10. Any 'tens' percentage - 20%, 30%, 40% - is just that many lots of 10%.", "30% means three lots of 10%."] },
+          { "heading": "The big idea", "body": "30% of 70: 10% is 7, three lots is 7 x 3 = 21. So 30% of 70 = 21.", "visual": { "type": "percentOf", "mode": "of", "percent": 30, "amount": 70, "title": "Slide it to 30%", "tip": "10% of 70 = 7, times 3 = 21 for 30%." }, "note": "30% = 10% x 3. Find 10%, then multiply by 3." },
+          { "heading": "See it on a different number", "body": "Find 30% of 50.", "steps": ["10% of 50 = 5.", "Three lots: 5 x 3 = 15.", "So 30% of 50 = 15."] },
+          { "heading": "Fun fact: reading progress is measured this way", "body": "E-readers show exactly what percentage of a book you have finished. Behind the scenes they count pages read and divide by total pages - turning your reading into a live percentage.", "note": "Your e-reader is doing 'pages read ÷ total pages' to show your percentage." },
+          { "heading": "Where it shows up", "body": "Progress and parts.", "points": ["Download or loading bars.", "Reading progress in an app.", "30% off in a sale."] },
+          { "heading": "Try it yourself", "body": "10% then multiply:", "points": ["30% of 20, 40% of 60, 70% of 30.", "Find 10% first, then multiply by the tens digit.", "Check with the slider widget."] },
+          { "heading": "Now back to your question", "body": "90 pages, 30% read.", "note": "Find 10% of 90, then take three lots of it." }
+        ] } },
+    {
+      "id": "q27", "code": "PCT-23",
+      "question": "A stadium holds 150 people and is 60% full. How many people are inside?",
+      "options": ["60", "75", "90", "120"], "correctAnswer": "90", "estimatedSeconds": 75,
+      "hint": { "format": "lesson", "title": "Bigger Percentages of Bigger Numbers", "subtitle": "The 10% trick scales up beautifully.",
+        "sections": [
+          { "heading": "Don't be scared of bigger numbers", "body": ["Finding 60% of 150 sounds hard, but the same 10% trick works no matter how big the number is.", "Find 10%, then take as many lots as you need."] },
+          { "heading": "The big idea", "body": "60% of 150: 10% of 150 = 15, then six lots: 15 x 6 = 90. So 60% of 150 = 90.", "visual": { "type": "percentOf", "mode": "of", "percent": 60, "amount": 150, "maxAmount": 200, "title": "Slide it to 60% of 150", "tip": "10% of 150 = 15, times 6 = 90." }, "note": "Big number? Still just 10% (divide by 10), then multiply." },
+          { "heading": "See it on a different number", "body": "Find 60% of 200.", "steps": ["10% of 200 = 20.", "Six lots: 20 x 6 = 120.", "So 60% of 200 = 120."] },
+          { "heading": "Fun fact: stadiums report 'percentage capacity'", "body": "News reports often say a stadium was '90% full' rather than giving the exact number, because a percentage instantly tells you how busy it was without you needing to know the total seats.", "note": "'90% full' tells you more, faster, than a raw seat count." },
+          { "heading": "Where it shows up", "body": "Big numbers, real percentages.", "points": ["Crowd and venue capacities.", "Population statistics.", "Big sales: 60% off a large price."] },
+          { "heading": "Try it yourself", "body": "10% then multiply, big numbers:", "points": ["60% of 300, 40% of 250, 70% of 400.", "Find 10% first, then the right number of lots.", "Check with the slider widget."] },
+          { "heading": "Now back to your question", "body": "150 seats, 60% full.", "note": "Find 10% of 150, then take six lots." }
+        ] } },
+    {
+      "id": "q28", "code": "PCT-24",
+      "question": "A skateboard costs GBP 80. In a sale it has 25% off. What is the sale price?",
+      "options": ["GBP 20", "GBP 55", "GBP 60", "GBP 65"], "correctAnswer": "GBP 60", "estimatedSeconds": 90,
+      "hint": { "format": "lesson", "title": "Discounts: Two Ways to Save", "subtitle": "Take the discount off, or pay what's left.",
+        "sections": [
+          { "heading": "A discount is a part you don't pay", "body": ["'25% off' means a quarter of the price disappears. You can find the saving and subtract it - or, even faster, work out the part you DO pay.", "If 25% comes off, you pay the other 75%."] },
+          { "heading": "The big idea", "body": "GBP 80 with 25% off. Method 1: 25% of 80 = 20, so pay 80 - 20 = 60. Method 2: pay 75%, and 75% of 80 = 60.", "visual": { "type": "percentOf", "mode": "discount", "percent": 25, "amount": 80, "title": "Discount mode: 25% off 80", "tip": "Set discount mode to 25% off 80: the bar shows you pay GBP 60." }, "note": "Discount off, or pay (100% - discount). Both give the same answer." },
+          { "heading": "See it on a different price", "body": "GBP 40 with 25% off.", "steps": ["25% of 40 = 10 (a quarter).", "Subtract: 40 - 10 = 30.", "Or pay 75% of 40 = 30. Same answer."] },
+          { "heading": "Fun fact: shops put '.99' on prices on purpose", "body": "A skateboard at GBP 79.99 feels much cheaper than GBP 80, even though it is a single penny less. Shops use this trick because our brains read the first digit hardest. Knowing percentages helps you see past it.", "note": "GBP 79.99 is basically GBP 80 - don't let the '.99' fool your brain." },
+          { "heading": "Where it shows up", "body": "Sales are everywhere.", "points": ["Shop discounts: 25%, 50%, 70% off.", "'Pay 75%' is the same as '25% off'.", "Comparing two sale offers."] },
+          { "heading": "Try it yourself", "body": "Find the sale price both ways:", "points": ["25% off 60, 25% off 100, 25% off 32.", "Try 'pay 75%' as the shortcut.", "Use the discount-mode widget."] },
+          { "heading": "Now back to your question", "body": "GBP 80 skateboard, 25% off.", "note": "Either take 25% of 80 away, or just find 75% of 80 - both land on the sale price." }
+        ] } },
+    {
+      "id": "q29", "code": "PCT-25",
+      "question": "A saver has GBP 200 in the bank. It grows by 10% in a year. How much is there now?",
+      "options": ["GBP 202", "GBP 210", "GBP 220", "GBP 300"], "correctAnswer": "GBP 220", "estimatedSeconds": 75,
+      "hint": { "format": "lesson", "title": "Increases: Adding a Percentage On", "subtitle": "Find the extra, then add it to the start.",
+        "sections": [
+          { "heading": "An increase grows the original", "body": ["A 10% increase means you keep all of the original (100%) and add an extra 10% on top.", "So the new amount is 110% of what you started with."] },
+          { "heading": "The big idea", "body": "GBP 200 grows by 10%. The extra is 10% of 200 = 20. New total = 200 + 20 = 220. (Or 110% of 200 = 220.)", "visual": { "type": "percentOf", "mode": "increase", "percent": 10, "amount": 200, "maxAmount": 300, "title": "Increase mode: 10% up on 200", "tip": "Increase mode shows 200 growing to 220." }, "note": "Increase = original + the extra percent. Or find (100% + rise)." },
+          { "heading": "See it on a different number", "body": "Increase GBP 50 by 10%.", "steps": ["10% of 50 = 5.", "Add it on: 50 + 5 = 55.", "So GBP 50 grown by 10% is GBP 55."] },
+          { "heading": "Fun fact: this is how savings snowball", "body": "Money in a savings account earns interest - a percentage added each year. The clever part is that next year's interest is worked out on the bigger amount, so savings grow faster and faster. This is called compound interest.", "note": "Interest is a percentage the bank adds to your money each year - and it builds on itself." },
+          { "heading": "Where it shows up", "body": "Things grow by percentages.", "points": ["Savings earning interest.", "Prices rising over time (inflation).", "A recipe scaled up by 10%."] },
+          { "heading": "Try it yourself", "body": "Find the extra, then add:", "points": ["Increase 80 by 10%, 40 by 25%, 60 by 50%.", "Try the '100% + rise' shortcut too.", "Use the increase-mode widget."] },
+          { "heading": "Now back to your question", "body": "GBP 200 grows by 10%.", "note": "Find 10% of 200, then add it to the original 200." }
+        ] } },
+    {
+      "id": "q30", "code": "PCT-26",
+      "question": "A restaurant bill is GBP 40. You leave a 15% tip. How much is the tip?",
+      "options": ["GBP 4", "GBP 6", "GBP 8", "GBP 15"], "correctAnswer": "GBP 6", "estimatedSeconds": 75,
+      "hint": { "format": "lesson", "title": "Tips: Percentages at the Table", "subtitle": "The real-world reason people learn 10% and 5%.",
+        "sections": [
+          { "heading": "A tip is a percentage of the bill", "body": ["A tip thanks someone for good service, and it is usually worked out as a percentage of the bill.", "15% is a very common tip, and you build it the easy way: 10% + 5%."] },
+          { "heading": "The big idea", "body": "15% tip on GBP 40: 10% is 4, 5% is 2 (half of 4), so the tip is 4 + 2 = 6.", "visual": { "type": "percentOf", "mode": "of", "percent": 15, "amount": 40, "title": "15% of the bill", "tip": "10% of 40 = 4, 5% = 2, tip = 6." }, "note": "Tip = 10% + 5%. Find 10%, halve it, add them." },
+          { "heading": "See it on a different bill", "body": "15% tip on GBP 20.", "steps": ["10% of 20 = 2.", "5% is half: 1.", "Tip = 2 + 1 = 3."] },
+          { "heading": "Fun fact: tipping customs differ wildly", "body": "In some countries a 15-20% tip is expected; in others tipping is unusual or even considered rude. But wherever tips happen, the maths is identical - a percentage of the bill - which is why this skill travels the world with you.", "note": "Tipping customs change from country to country, but the percentage maths never does." },
+          { "heading": "Where it shows up", "body": "Money moments.", "points": ["Tips at restaurants and cafes.", "Service charges added to a bill.", "Working out 'how much extra' on anything."] },
+          { "heading": "Try it yourself", "body": "Build 15% as 10% + 5%:", "points": ["15% of 60, 15% of 80, 15% of 100.", "Say the 10% and 5% pieces aloud.", "Check with the slider widget."] },
+          { "heading": "Now back to your question", "body": "A GBP 40 bill, 15% tip.", "note": "Find 10% of 40, then 5% (half of that), and add them together." }
+        ] } },
+    {
+      "id": "q31", "code": "PCT-27",
+      "question": "A charity needs GBP 250. So far it has raised 40%. How much money is that?",
+      "options": ["GBP 40", "GBP 80", "GBP 100", "GBP 125"], "correctAnswer": "GBP 100", "estimatedSeconds": 75,
+      "hint": { "format": "lesson", "title": "40% of a Big Amount", "subtitle": "Four lots of 10%, even when the number is large.",
+        "sections": [
+          { "heading": "The 10% trick never gets tired", "body": ["No matter the size, 10% is divide-by-10, and 40% is four lots of it.", "GBP 250 looks big, but 10% of it is friendly."] },
+          { "heading": "The big idea", "body": "40% of 250: 10% of 250 = 25, four lots = 25 x 4 = 100. So 40% of 250 = 100.", "visual": { "type": "percentOf", "mode": "of", "percent": 40, "amount": 250, "maxAmount": 300, "title": "40% of 250", "tip": "10% of 250 = 25, times 4 = 100." }, "note": "40% = 10% x 4. Divide by 10, then multiply by 4." },
+          { "heading": "See it on a different number", "body": "Find 40% of 90.", "steps": ["10% of 90 = 9.", "Four lots: 9 x 4 = 36.", "So 40% of 90 = 36."] },
+          { "heading": "Fun fact: fundraising thermometers are percentage bars", "body": "Those big 'thermometer' posters charities use, filling up as donations arrive, are really percentage bars in disguise. When the red reaches the top, they have hit 100% of their goal.", "note": "A charity 'thermometer' is just a percentage bar climbing to 100%." },
+          { "heading": "Where it shows up", "body": "Goals and targets.", "points": ["Fundraising progress.", "Project completion bars.", "Sales targets at a shop."] },
+          { "heading": "Try it yourself", "body": "10% then four lots:", "points": ["40% of 150, 40% of 300, 40% of 80.", "Find 10% first every time.", "Use the slider widget to check."] },
+          { "heading": "Now back to your question", "body": "Goal GBP 250, raised 40%.", "note": "Find 10% of 250, then take four lots of it." }
+        ] } },
+    {
+      "id": "q32", "code": "PCT-28",
+      "question": "A toy costs GBP 35 before tax. A 20% sales tax is added. How much is the tax?",
+      "options": ["GBP 5", "GBP 7", "GBP 9", "GBP 20"], "correctAnswer": "GBP 7", "estimatedSeconds": 75,
+      "hint": { "format": "lesson", "title": "Tax: A Percentage Added On", "subtitle": "Find the percentage, then it gets added to the price.",
+        "sections": [
+          { "heading": "Tax is a percentage of the price", "body": ["Many things you buy have a tax added - a percentage that goes to the government to pay for schools, roads and hospitals.", "Here the tax is 20%, so we find 20% of the price."] },
+          { "heading": "The big idea", "body": "20% tax on GBP 35: 10% of 35 = 3.5, double it for 20% = 7. So the tax is GBP 7.", "visual": { "type": "percentOf", "mode": "of", "percent": 20, "amount": 35, "title": "20% of 35", "tip": "10% of 35 = 3.5, double for 20% = 7." }, "note": "20% = 10% doubled. Works even when 10% has a decimal." },
+          { "heading": "See it on a different price", "body": "20% tax on GBP 45.", "steps": ["10% of 45 = 4.5.", "Double it: 9.", "So the tax is GBP 9."] },
+          { "heading": "Fun fact: the UK's main sales tax is 20%", "body": "It is called VAT (Value Added Tax), and at 20% it is hidden inside most prices you see in shops. The price tag usually already includes it - so the shop has done this exact calculation for you.", "note": "UK shop prices usually already include 20% VAT - the maths is baked in." },
+          { "heading": "Where it shows up", "body": "Tax touches most purchases.", "points": ["Sales tax or VAT on goods.", "Service charges on bills.", "Import duties on shipped items."] },
+          { "heading": "Try it yourself", "body": "10% then double (watch decimals):", "points": ["20% of 15, 20% of 25, 20% of 55.", "10% of 15 is 1.5 - keep the decimal.", "Use the slider widget to check."] },
+          { "heading": "Now back to your question", "body": "GBP 35 toy, 20% tax.", "note": "Find 10% of 35 (it has a decimal), then double it for 20%." }
+        ] } },
+    {
+      "id": "q33", "code": "PCT-29",
+      "question": "In a class of 40, exactly 8 pupils cycle to school. What percentage cycle?",
+      "options": ["8%", "16%", "20%", "32%"], "correctAnswer": "20%", "estimatedSeconds": 90,
+      "hint": { "format": "lesson", "title": "Finding 'What Percentage?'", "subtitle": "When you know the part and the whole, find the percent.",
+        "sections": [
+          { "heading": "A different kind of question", "body": ["So far you have found a percentage OF a number. This flips it: you know the part (8) and the whole (40), and you want the percentage.", "The trick: make a fraction (part over whole), then turn it into a percentage."] },
+          { "heading": "The big idea", "body": "8 out of 40 = 8/40. Tidy it: 8/40 = 1/5. And 1/5 = 20%. So 8 is 20% of 40.", "visual": { "type": "percentLab", "parts": 40, "shaded": 8, "amount": 40, "title": "8 out of 40", "tip": "Shade 8 of 40 parts: it simplifies to 1/5 = 20%." }, "note": "Part over whole, simplify, then turn into a percentage." },
+          { "heading": "See it on different numbers", "body": "What percentage is 6 out of 30?", "steps": ["Make the fraction: 6/30.", "Simplify: 6/30 = 1/5.", "1/5 = 20%, so 6 is 20% of 30."] },
+          { "heading": "Fun fact: this is how marks become grades", "body": "When a teacher turns '8 out of 40' into a percentage, they are doing exactly this. It lets them compare a test out of 40 with one out of 60 fairly - the percentage puts everything on the same 0-100 scale.", "note": "Turning marks into percentages lets tests of different sizes be compared fairly." },
+          { "heading": "Where it shows up", "body": "Part-of-a-whole questions.", "points": ["Test scores into percentages.", "What percent of a team are goalkeepers.", "Faulty items as a percent of a batch."] },
+          { "heading": "Try it yourself", "body": "Fraction, simplify, convert:", "points": ["5 out of 20, 9 out of 30, 14 out of 56.", "Always simplify the fraction first.", "Check with the desk widget."] },
+          { "heading": "Now back to your question", "body": "8 cycle out of 40 pupils.", "note": "Write it as the fraction 8/40, simplify it, then turn that into a percentage." }
+        ] } },
+    {
+      "id": "q34", "code": "PCT-30",
+      "question": "A goalkeeper faced 60 shots and saved 15 of them. What percentage did she save?",
+      "options": ["15%", "25%", "30%", "45%"], "correctAnswer": "25%", "estimatedSeconds": 90,
+      "hint": { "format": "lesson", "title": "What Percentage? (Part Two)", "subtitle": "Simplify the fraction to spot the percentage fast.",
+        "sections": [
+          { "heading": "Big numbers, same method", "body": ["You know the part (15 saves) and the whole (60 shots). Make the fraction and convert.", "When the numbers are big, simplifying first makes the percentage jump out."] },
+          { "heading": "The big idea", "body": "15 out of 60 = 15/60. Simplify: divide both by 15 to get 1/4. And 1/4 = 25%. So she saved 25%.", "visual": { "type": "percentPie", "parts": 4, "shaded": 1, "amount": 60, "title": "15/60 simplifies to 1/4", "tip": "Shade 1 of 4 slices: 1/4 = 25%, the same as 15/60." }, "note": "Simplify the fraction to a friendly one, then read off the percentage." },
+          { "heading": "See it on different numbers", "body": "What percentage is 20 out of 80?", "steps": ["Fraction: 20/80.", "Simplify (divide by 20): 1/4.", "1/4 = 25%."] },
+          { "heading": "Fun fact: sport is obsessed with percentages", "body": "Save percentage, shooting percentage, win percentage - top teams employ analysts whose whole job is turning raw counts into percentages, because they make players easy to compare no matter how many games they played.", "note": "Pro sports teams hire analysts just to turn counts into percentages." },
+          { "heading": "Where it shows up", "body": "Performance stats.", "points": ["Save and shooting percentages.", "Attendance percentages at school.", "Pass rates in exams."] },
+          { "heading": "Try it yourself", "body": "Simplify, then convert:", "points": ["10 out of 40, 18 out of 60, 30 out of 120.", "Find the biggest number that divides both.", "Check with the pizza widget."] },
+          { "heading": "Now back to your question", "body": "15 saves out of 60 shots.", "note": "Write 15/60, simplify it to a simple fraction, then turn that into a percentage." }
+        ] } },
+    {
+      "id": "q35", "code": "PCT-31",
+      "question": "A farm has 500 apple trees. 70% of them are ready to pick. How many trees is that?",
+      "options": ["250", "300", "350", "420"], "correctAnswer": "350", "estimatedSeconds": 75,
+      "hint": { "format": "lesson", "title": "70% of a Large Number", "subtitle": "Seven lots of 10% - or pay attention to what's left.",
+        "sections": [
+          { "heading": "Seven lots of 10%", "body": ["70% is seven lots of 10%. With big numbers, 10% (divide by 10) keeps things friendly.", "There is also a clever check: 70% means 30% are NOT ready."] },
+          { "heading": "The big idea", "body": "70% of 500: 10% of 500 = 50, seven lots = 50 x 7 = 350. So 70% of 500 = 350.", "visual": { "type": "percentOf", "mode": "of", "percent": 70, "amount": 500, "maxAmount": 500, "title": "70% of 500", "tip": "10% of 500 = 50, times 7 = 350." }, "note": "70% = 10% x 7. The leftover 30% should make up the rest." },
+          { "heading": "See it on a different number", "body": "Find 70% of 200.", "steps": ["10% of 200 = 20.", "Seven lots: 20 x 7 = 140.", "Check: 30% would be 60, and 140 + 60 = 200. Correct!"] },
+          { "heading": "Fun fact: percentages always have a 'partner'", "body": "Every percentage has a partner that adds up to 100%. 70% ready means 30% not ready. Checking that your two parts add to 100% is a brilliant way to catch mistakes.", "note": "The part and the rest always add to 100% - a perfect self-check." },
+          { "heading": "Where it shows up", "body": "Big-scale parts.", "points": ["Crops and harvests.", "Survey results across many people.", "Stock levels in a warehouse."] },
+          { "heading": "Try it yourself", "body": "10% then seven lots, and check:", "points": ["70% of 300, 70% of 90, 70% of 1000.", "Check the leftover 30% adds back to the whole.", "Use the slider widget."] },
+          { "heading": "Now back to your question", "body": "500 trees, 70% ready.", "note": "Find 10% of 500, then take seven lots. Check that the other 30% completes the 500." }
+        ] } },
+    {
+      "id": "q36", "code": "PCT-32",
+      "question": "Sam spent 30% of his savings and that came to exactly GBP 60. How much did he have to start with?",
+      "options": ["GBP 90", "GBP 180", "GBP 200", "GBP 600"], "correctAnswer": "GBP 200", "estimatedSeconds": 120,
+      "hint": { "format": "lesson", "title": "Working Backwards from a Percentage", "subtitle": "Know the part and its percent? Climb to the whole.",
+        "sections": [
+          { "heading": "The puzzle in reverse", "body": ["Normally you find a percentage OF a known total. Here it is flipped: you know that 30% is GBP 60, and you want the original whole (100%).", "The staircase trick: get down to 10% first, because from 10% you can build any percentage - including the full 100%."] },
+          { "heading": "The big idea", "body": "30% is GBP 60. So 10% is a third of that: 60 ÷ 3 = 20. Then 100% is ten lots of 10%: 20 x 10 = 200.", "visual": { "type": "percentOf", "mode": "of", "percent": 30, "amount": 200, "maxAmount": 300, "title": "Check it: 30% of 200", "tip": "Set 30% of 200 and confirm it lands on 60 - that proves 200 is the whole." }, "note": "Step DOWN to 10%, then UP to 100%. 10% is the master key." },
+          { "heading": "See it on different numbers", "body": "If 20% is GBP 30, what is the whole?", "steps": ["20% is GBP 30, so 10% is half: 15.", "100% is ten lots of 10%.", "15 x 10 = 150. The whole is GBP 150."] },
+          { "heading": "Fun fact: detectives and scientists work backwards too", "body": "Reversing a calculation - knowing the result and finding the start - is one of the most powerful moves in all of maths and science. It is how astronomers weigh planets they can never visit: they measure an effect and work backwards to the cause.", "note": "Working backwards from a clue to the cause is a core trick of real scientists." },
+          { "heading": "Where it shows up", "body": "Reverse-percent puzzles are real.", "points": ["Finding an original price before a discount.", "Working out a total from a deposit.", "Finding a starting amount from interest earned."] },
+          { "heading": "Try it yourself", "body": "Down to 10%, then up to 100%:", "points": ["If 30% is 90, find the whole. If 40% is 80, find the whole.", "Always get to 10% first.", "Check by taking your percentage of the answer."] },
+          { "heading": "Now back to your question", "body": "30% of Sam's savings is GBP 60.", "note": "From 30% being GBP 60, work down to what 10% is, then up to the full 100%." }
+        ] } },
+    {
+      "id": "q37", "code": "PCT-33",
+      "question": "A shop gave 5% of its sales to charity, which came to GBP 15. What were the total sales?",
+      "options": ["GBP 75", "GBP 150", "GBP 300", "GBP 750"], "correctAnswer": "GBP 300", "estimatedSeconds": 120,
+      "hint": { "format": "lesson", "title": "Reverse Percent from a Small Slice", "subtitle": "When you start from 5%, scale up to 100%.",
+        "sections": [
+          { "heading": "Starting from a tiny piece", "body": ["This time the clue is 5% = GBP 15. 5% is a small slice, so the whole will be much bigger.", "From 5%, the quickest route is to find 10% first (just double 5%), then climb to 100%."] },
+          { "heading": "The big idea", "body": "5% is GBP 15, so 10% is double: GBP 30. Then 100% is ten lots: 30 x 10 = 300.", "visual": { "type": "percentOf", "mode": "of", "percent": 5, "amount": 300, "maxAmount": 400, "title": "Check it: 5% of 300", "tip": "Set 5% of 300 and confirm it lands on 15 - proving 300 is the whole." }, "note": "From 5%: double to reach 10%, then ten lots to reach 100%." },
+          { "heading": "See it on different numbers", "body": "If 5% is GBP 4, what is the whole?", "steps": ["5% is 4, so 10% is 8 (double).", "100% is ten lots of 10%.", "8 x 10 = 80. The whole is GBP 80."] },
+          { "heading": "Fun fact: small percentages, huge totals", "body": "A tiny percentage of an enormous number can still be a fortune. 1% of a million is 10,000! That is why even small percentages matter hugely in business, charity and tax.", "note": "Even 1% of a very big number can be an enormous amount." },
+          { "heading": "Where it shows up", "body": "Reverse puzzles with small slices.", "points": ["Charity donations as a small percent of sales.", "Commission a seller earns.", "Small interest revealing a big balance."] },
+          { "heading": "Try it yourself", "body": "Double to 10%, then up to 100%:", "points": ["If 5% is 6, find the whole. If 5% is 25, find the whole.", "Double first, then ten lots.", "Check by taking 5% of your answer."] },
+          { "heading": "Now back to your question", "body": "5% of sales is GBP 15.", "note": "Double GBP 15 to find 10%, then take ten lots of that for 100%." }
+        ] } },
+    {
+      "id": "q38", "code": "PCT-34",
+      "question": "A pizza is cut into 64 tiny squares. You eat 12.5% of it. How many squares is that?",
+      "options": ["6 squares", "8 squares", "12 squares", "16 squares"], "correctAnswer": "8 squares", "estimatedSeconds": 90,
+      "hint": { "format": "lesson", "title": "12.5%: The Tricky One That's Really One Eighth", "subtitle": "Some 'decimal' percentages are friendly fractions in disguise.",
+        "sections": [
+          { "heading": "Don't panic at the decimal", "body": ["12.5% looks scary because of the .5, but it is secretly a very friendly fraction.", "12.5% = 12.5/100 = 1/8. So finding 12.5% just means splitting into 8 equal parts."] },
+          { "heading": "The big idea", "body": "12.5% of 64 = one eighth of 64 = 64 ÷ 8 = 8. (Or halve, halve, halve: 64 -> 32 -> 16 -> 8.)", "visual": { "type": "percentPie", "parts": 8, "shaded": 1, "amount": 64, "title": "One eighth of the pizza", "tip": "Shade 1 of 8 slices: 1/8 = 12.5%." }, "note": "12.5% = 1/8. Divide by 8 (or halve three times)." },
+          { "heading": "See it on a different number", "body": "Find 12.5% of 40.", "steps": ["12.5% = 1/8.", "40 ÷ 8 = 5.", "So 12.5% of 40 = 5."] },
+          { "heading": "Fun fact: eighths are everywhere in computers and music", "body": "Computers group bits into 8s (a 'byte' is 8 bits), and music is full of eighth notes. The number 8 - and so 12.5% - shows up far more than you'd expect once you look.", "note": "A byte is 8 bits, so 'one eighth' (12.5%) is built into every computer." },
+          { "heading": "Where it shows up", "body": "Eighths in disguise.", "points": ["12.5% off in a sale.", "Sharing among 8 people.", "Slicing pizzas and cakes into 8."] },
+          { "heading": "Try it yourself", "body": "Divide by 8 (or halve three times):", "points": ["12.5% of 80, 12.5% of 32, 12.5% of 200.", "Try the halve-halve-halve route.", "Check with the pizza widget set to 8 slices."] },
+          { "heading": "Now back to your question", "body": "64 squares, eat 12.5%.", "note": "12.5% is one eighth. Divide 64 by 8 (or halve it three times)." }
+        ] } },
+    {
+      "id": "q39", "code": "PCT-35",
+      "question": "A plant grew from 40 cm to 50 cm. By what percentage did its height increase?",
+      "options": ["10%", "20%", "25%", "50%"], "correctAnswer": "25%", "estimatedSeconds": 120,
+      "hint": { "format": "lesson", "title": "Percentage Change: How Much It Grew", "subtitle": "Compare the change to where you STARTED.",
+        "sections": [
+          { "heading": "Percentage change is always 'out of the start'", "body": ["When something grows or shrinks, we measure the change as a percentage of the ORIGINAL amount - not the new one.", "First find how much it changed, then ask 'what percentage of the start is that?'"] },
+          { "heading": "The big idea", "body": "40 cm to 50 cm: the change is 50 - 40 = 10 cm. As a fraction of the start: 10/40 = 1/4 = 25%. So it grew by 25%.", "visual": { "type": "percentLab", "parts": 40, "shaded": 10, "amount": 40, "title": "The change over the start", "tip": "10 out of 40 is the growth: 10/40 = 1/4 = 25%." }, "note": "Percentage change = (change ÷ original) turned into a percent." },
+          { "heading": "See it on different numbers", "body": "A price rises from 20 to 25.", "steps": ["Change: 25 - 20 = 5.", "Over the start: 5/20 = 1/4.", "1/4 = 25%, so a 25% rise."] },
+          { "heading": "Fun fact: a 50% fall does NOT undo a 50% rise", "body": "If GBP 100 rises 50% to 150, then falls 50%, you get 75 - not back to 100! Because the fall is taken from the bigger number. Percentage change always depends on what you start from.", "note": "Percentage rises and falls don't cancel, because each is measured from a different starting amount." },
+          { "heading": "Where it shows up", "body": "Change is reported as a percent.", "points": ["Price rises and falls.", "Population growth.", "Getting faster: improving a race time."] },
+          { "heading": "Try it yourself", "body": "Change over the start:", "points": ["10 to 12, 50 to 60, 80 to 100.", "Always divide by the ORIGINAL number.", "Check with the desk widget."] },
+          { "heading": "Now back to your question", "body": "The plant went from 40 cm to 50 cm.", "note": "Find the change (50 - 40), then ask what percentage that is OF the starting 40." }
+        ] } },
+    {
+      "id": "q40", "code": "PCT-36",
+      "question": "A GBP 100 jacket goes UP 20% in winter, then is cut DOWN 20% in the sale. What is the final price?",
+      "options": ["GBP 96", "GBP 100", "GBP 104", "GBP 120"], "correctAnswer": "GBP 96", "estimatedSeconds": 150,
+      "hint": { "format": "lesson", "title": "The Up-Then-Down Trap", "subtitle": "Two equal percentages do NOT cancel out. Here's why.",
+        "sections": [
+          { "heading": "It feels like it should return to 100", "body": ["Up 20%, then down 20% - surely that lands back at the start? It's the great percentage trap, and the answer is no.", "The reason: each percentage is taken from a DIFFERENT amount. The rise is on 100, but the fall is on the bigger number."] },
+          { "heading": "The big idea", "body": "Start GBP 100. Up 20%: 100 + 20 = 120. Now down 20%, but 20% of 120 = 24, so 120 - 24 = 96. You end at GBP 96, not 100.", "visual": { "type": "chart", "title": "Up then down, step by step", "values": [ { "label": "Start", "value": 100, "prefix": "GBP ", "color": "#6366f1" }, { "label": "After +20%", "value": 120, "prefix": "GBP ", "color": "#16b8a6" }, { "label": "After -20%", "value": 96, "prefix": "GBP ", "color": "#ef4444" } ], "teachingPoint": "The fall is bigger than the rise because it comes off a bigger number." }, "note": "Do it in two steps. The second percentage acts on the NEW amount, not the original." },
+          { "heading": "See it on different numbers", "body": "GBP 50, up 10% then down 10%.", "steps": ["Up 10%: 50 + 5 = 55.", "Down 10% of 55 = 5.5, so 55 - 5.5 = 49.5.", "You end at GBP 49.50 - just under the start."] },
+          { "heading": "Fun fact: this trap fools grown-ups all the time", "body": "Shops sometimes raise a price then advertise the same percentage 'off', and shoppers assume it's the original price - but it's actually a little lower OR the maths hides a smaller saving. Knowing this protects your money for life.", "note": "An equal rise then fall always lands BELOW the start - a fact many adults get wrong." },
+          { "heading": "Where it shows up", "body": "Two-step percentage changes.", "points": ["Prices up then discounted.", "Investments that gain then lose.", "Populations rising then falling."] },
+          { "heading": "Try it yourself", "body": "Always do it in two separate steps:", "points": ["GBP 200 up 10% then down 10%.", "GBP 80 up 25% then down 25%.", "Notice you always end below where you started."] },
+          { "heading": "Now back to your question", "body": "GBP 100, up 20%, then down 20%.", "note": "Do it in two steps. First add 20% to get the winter price, THEN take 20% off THAT new price - not off the original 100." }
+        ] } }
   ]
 }
